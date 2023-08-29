@@ -25,9 +25,15 @@ def docs(
         '--open',
         help='If true, open the index.html of the generated pages on completion',
     ),
+    _md: bool = Option(
+        False,
+        '-m',
+        '--markdown',
+        help='If true, generate markdown files instead of html',
+    ),
 ):
     os.makedirs(TMP_DIR, exist_ok=True)
     run_cmd(('sphinx-apidoc', '-f', '-o', str(SOURCE_ROOT), str(CODE_ROOT)))
-    run_cmd(('sphinx-build', '-a', str(DOCS_ROOT), '.'))
+    run_cmd(('sphinx-build', '-a', '-b', 'html' if not _md else 'markdown', str(DOCS_ROOT), '.'))
     if _open:
-        run_cmd(('open', 'index.html'))
+        run_cmd(('open', 'index.html' if not _md else 'index.md'))
