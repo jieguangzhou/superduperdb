@@ -80,6 +80,7 @@ docs = [
     "sphinx_copybutton",
     "sphinxcontrib-mermaid",
     "nbsphinx-link",
+    "sphinx-markdown-builder",
 ]
 typing = [
     "mypy>=1.3.0",
