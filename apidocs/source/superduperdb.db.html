@@ -1,0 +1,1047 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="superduperdb.db.base package" href="superduperdb.db.base.html" /><link rel="prev" title="superduperdb.data.tree package" href="superduperdb.data.tree.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
+        <title>superduperdb.db package - Python documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/SuperDuperDB_logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Python  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">superduperdb</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of superduperdb</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="superduperdb.html">superduperdb package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of superduperdb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.base.html">superduperdb.base package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.cli.html">superduperdb.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.container.html">superduperdb.container package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.data.html">superduperdb.data package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of superduperdb.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.cache.html">superduperdb.data.cache package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.tree.html">superduperdb.data.tree package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current has-children current-page"><a class="current reference internal" href="#">superduperdb.db package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of superduperdb.db package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html">superduperdb.db.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.filesystem.html">superduperdb.db.filesystem package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html">superduperdb.db.ibis package</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="superduperdb.db.mongodb.html">superduperdb.db.mongodb package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of superduperdb.db.mongodb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html">superduperdb.db.mongodb.cdc package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.ext.html">superduperdb.ext package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of superduperdb.ext package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.anthropic.html">superduperdb.ext.anthropic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.cohere.html">superduperdb.ext.cohere package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.numpy.html">superduperdb.ext.numpy package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.openai.html">superduperdb.ext.openai package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.pillow.html">superduperdb.ext.pillow package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sentence_transformer.html">superduperdb.ext.sentence_transformer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sklearn.html">superduperdb.ext.sklearn package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.torch.html">superduperdb.ext.torch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.transformers.html">superduperdb.ext.transformers package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.vector.html">superduperdb.ext.vector package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.misc.html">superduperdb.misc package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of superduperdb.misc package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html">superduperdb.misc.runnable package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.server.html">superduperdb.server package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.vector_search.html">superduperdb.vector_search package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="superduperdb-db-package">
+<h1>superduperdb.db package<a class="headerlink" href="#superduperdb-db-package" title="Permalink to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="superduperdb.db.base.html">superduperdb.db.base package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.artifact">superduperdb.db.base.artifact module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.artifact.ArtifactStore"><code class="docutils literal notranslate"><span class="pre">ArtifactStore</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.artifact.ArtifactStore.create_artifact"><code class="docutils literal notranslate"><span class="pre">ArtifactStore.create_artifact()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.artifact.ArtifactStore.delete_artifact"><code class="docutils literal notranslate"><span class="pre">ArtifactStore.delete_artifact()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.artifact.ArtifactStore.drop"><code class="docutils literal notranslate"><span class="pre">ArtifactStore.drop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.artifact.ArtifactStore.load_artifact"><code class="docutils literal notranslate"><span class="pre">ArtifactStore.load_artifact()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.backends">superduperdb.db.base.backends module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.build">superduperdb.db.base.build module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.build.build_datalayer"><code class="docutils literal notranslate"><span class="pre">build_datalayer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.build.build_vector_database"><code class="docutils literal notranslate"><span class="pre">build_vector_database()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.cdc">superduperdb.db.base.cdc module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cdc.DatabaseListener"><code class="docutils literal notranslate"><span class="pre">DatabaseListener()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cdc.DatabaseListenerFactory"><code class="docutils literal notranslate"><span class="pre">DatabaseListenerFactory</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cdc.DatabaseListenerFactory.SUPPORTED_LISTENERS"><code class="docutils literal notranslate"><span class="pre">DatabaseListenerFactory.SUPPORTED_LISTENERS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cdc.DatabaseListenerFactory.create"><code class="docutils literal notranslate"><span class="pre">DatabaseListenerFactory.create()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.cursor">superduperdb.db.base.cursor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.add_features"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.add_features()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.cursor_next"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.cursor_next()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.encoders"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.encoders</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.features"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.id_field"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.id_field</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.limit"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.next"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.next()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.raw_cursor"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.raw_cursor</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.scores"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.scores</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.cursor.SuperDuperCursor.wrap_document"><code class="docutils literal notranslate"><span class="pre">SuperDuperCursor.wrap_document()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.data_backend">superduperdb.db.base.data_backend module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.data_backend.BaseDataBackend"><code class="docutils literal notranslate"><span class="pre">BaseDataBackend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.data_backend.BaseDataBackend.build_artifact_store"><code class="docutils literal notranslate"><span class="pre">BaseDataBackend.build_artifact_store()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.data_backend.BaseDataBackend.build_metadata"><code class="docutils literal notranslate"><span class="pre">BaseDataBackend.build_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.data_backend.BaseDataBackend.db"><code class="docutils literal notranslate"><span class="pre">BaseDataBackend.db</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.data_backend.BaseDataBackend.drop"><code class="docutils literal notranslate"><span class="pre">BaseDataBackend.drop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.data_backend.BaseDataBackend.id_field"><code class="docutils literal notranslate"><span class="pre">BaseDataBackend.id_field</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.db">superduperdb.db.base.db module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB"><code class="docutils literal notranslate"><span class="pre">DB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.__init__"><code class="docutils literal notranslate"><span class="pre">DB.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.add"><code class="docutils literal notranslate"><span class="pre">DB.add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.apredict"><code class="docutils literal notranslate"><span class="pre">DB.apredict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.create_output_table"><code class="docutils literal notranslate"><span class="pre">DB.create_output_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.db"><code class="docutils literal notranslate"><span class="pre">DB.db</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.delete"><code class="docutils literal notranslate"><span class="pre">DB.delete()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.distributed_client"><code class="docutils literal notranslate"><span class="pre">DB.distributed_client</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.drop"><code class="docutils literal notranslate"><span class="pre">DB.drop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.execute"><code class="docutils literal notranslate"><span class="pre">DB.execute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.insert"><code class="docutils literal notranslate"><span class="pre">DB.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.like"><code class="docutils literal notranslate"><span class="pre">DB.like()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.load"><code class="docutils literal notranslate"><span class="pre">DB.load()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.predict"><code class="docutils literal notranslate"><span class="pre">DB.predict()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.refresh_after_update_or_insert"><code class="docutils literal notranslate"><span class="pre">DB.refresh_after_update_or_insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.remove"><code class="docutils literal notranslate"><span class="pre">DB.remove()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.replace"><code class="docutils literal notranslate"><span class="pre">DB.replace()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.run"><code class="docutils literal notranslate"><span class="pre">DB.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.select"><code class="docutils literal notranslate"><span class="pre">DB.select()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.select_one"><code class="docutils literal notranslate"><span class="pre">DB.select_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.show"><code class="docutils literal notranslate"><span class="pre">DB.show()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.type_id_to_cache_mapping"><code class="docutils literal notranslate"><span class="pre">DB.type_id_to_cache_mapping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.update"><code class="docutils literal notranslate"><span class="pre">DB.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.DB.validate"><code class="docutils literal notranslate"><span class="pre">DB.validate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.LoadDict"><code class="docutils literal notranslate"><span class="pre">LoadDict</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.LoadDict.database"><code class="docutils literal notranslate"><span class="pre">LoadDict.database</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.db.LoadDict.field"><code class="docutils literal notranslate"><span class="pre">LoadDict.field</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.download">superduperdb.db.base.download module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.BaseDownloader"><code class="docutils literal notranslate"><span class="pre">BaseDownloader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.BaseDownloader.go"><code class="docutils literal notranslate"><span class="pre">BaseDownloader.go()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.Downloader"><code class="docutils literal notranslate"><span class="pre">Downloader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.Downloader.results"><code class="docutils literal notranslate"><span class="pre">Downloader.results</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.Fetcher"><code class="docutils literal notranslate"><span class="pre">Fetcher</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.Fetcher.__call__"><code class="docutils literal notranslate"><span class="pre">Fetcher.__call__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.SaveFile"><code class="docutils literal notranslate"><span class="pre">SaveFile</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.TimeoutException"><code class="docutils literal notranslate"><span class="pre">TimeoutException</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download._gather_uris_for_document"><code class="docutils literal notranslate"><span class="pre">_gather_uris_for_document()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.gather_uris"><code class="docutils literal notranslate"><span class="pre">gather_uris()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.timeout"><code class="docutils literal notranslate"><span class="pre">timeout()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download.timeout_handler"><code class="docutils literal notranslate"><span class="pre">timeout_handler()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.download_content">superduperdb.db.base.download_content module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.download_content.download_content"><code class="docutils literal notranslate"><span class="pre">download_content()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.exceptions">superduperdb.db.base.exceptions module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.exceptions.ComponentInUseError"><code class="docutils literal notranslate"><span class="pre">ComponentInUseError</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.exceptions.ComponentInUseWarning"><code class="docutils literal notranslate"><span class="pre">ComponentInUseWarning</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.metadata">superduperdb.db.base.metadata module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore"><code class="docutils literal notranslate"><span class="pre">MetaDataStore</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.component_version_has_parents"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.component_version_has_parents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.create_component"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.create_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.create_job"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.create_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.create_parent_child"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.create_parent_child()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.delete_component_version"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.delete_component_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.drop"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.drop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.get_component"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.get_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.get_component_version_parents"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.get_component_version_parents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.get_job"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.get_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.get_latest_version"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.get_latest_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.get_metadata"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.get_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.hide_component_version"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.hide_component_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.replace_object"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.replace_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.show_component_versions"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.show_component_versions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.show_components"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.show_components()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.show_jobs"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.show_jobs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.update_job"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.update_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.update_metadata"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.update_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.update_object"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.update_object()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.watch_job"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.watch_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.metadata.MetaDataStore.write_output_to_job"><code class="docutils literal notranslate"><span class="pre">MetaDataStore.write_output_to_job()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base.query">superduperdb.db.base.query module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Delete"><code class="docutils literal notranslate"><span class="pre">Delete</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Delete.__call__"><code class="docutils literal notranslate"><span class="pre">Delete.__call__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Insert"><code class="docutils literal notranslate"><span class="pre">Insert</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Insert.__call__"><code class="docutils literal notranslate"><span class="pre">Insert.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Insert.documents"><code class="docutils literal notranslate"><span class="pre">Insert.documents</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Insert.select_table"><code class="docutils literal notranslate"><span class="pre">Insert.select_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Insert.table"><code class="docutils literal notranslate"><span class="pre">Insert.table</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Like"><code class="docutils literal notranslate"><span class="pre">Like</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select"><code class="docutils literal notranslate"><span class="pre">Select</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select.__call__"><code class="docutils literal notranslate"><span class="pre">Select.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select.add_fold"><code class="docutils literal notranslate"><span class="pre">Select.add_fold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select.is_trivial"><code class="docutils literal notranslate"><span class="pre">Select.is_trivial()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select.model_update"><code class="docutils literal notranslate"><span class="pre">Select.model_update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select.select_ids"><code class="docutils literal notranslate"><span class="pre">Select.select_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select.select_ids_of_missing_outputs"><code class="docutils literal notranslate"><span class="pre">Select.select_ids_of_missing_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select.select_table"><code class="docutils literal notranslate"><span class="pre">Select.select_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select.select_using_ids"><code class="docutils literal notranslate"><span class="pre">Select.select_using_ids()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.SelectOne"><code class="docutils literal notranslate"><span class="pre">SelectOne</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Update"><code class="docutils literal notranslate"><span class="pre">Update</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Update.__call__"><code class="docutils literal notranslate"><span class="pre">Update.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Update.select"><code class="docutils literal notranslate"><span class="pre">Update.select</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Update.select_ids"><code class="docutils literal notranslate"><span class="pre">Update.select_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Update.select_table"><code class="docutils literal notranslate"><span class="pre">Update.select_table</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.base.html#module-superduperdb.db.base">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="superduperdb.db.filesystem.html">superduperdb.db.filesystem package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.filesystem.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.filesystem.html#module-superduperdb.db.filesystem.artifacts">superduperdb.db.filesystem.artifacts module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.filesystem.html#superduperdb.db.filesystem.artifacts.FileSystemArtifactStore"><code class="docutils literal notranslate"><span class="pre">FileSystemArtifactStore</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.filesystem.html#superduperdb.db.filesystem.artifacts.FileSystemArtifactStore.delete_artifact"><code class="docutils literal notranslate"><span class="pre">FileSystemArtifactStore.delete_artifact()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.filesystem.html#superduperdb.db.filesystem.artifacts.FileSystemArtifactStore.drop"><code class="docutils literal notranslate"><span class="pre">FileSystemArtifactStore.drop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.filesystem.html#module-superduperdb.db.filesystem">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="superduperdb.db.ibis.html">superduperdb.db.ibis package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.ibis.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.ibis.html#module-superduperdb.db.ibis.cursor">superduperdb.db.ibis.cursor module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.cursor.SuperDuperIbisCursor"><code class="docutils literal notranslate"><span class="pre">SuperDuperIbisCursor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.cursor.SuperDuperIbisCursor.cursor_next"><code class="docutils literal notranslate"><span class="pre">SuperDuperIbisCursor.cursor_next()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.cursor.SuperDuperIbisCursor.db"><code class="docutils literal notranslate"><span class="pre">SuperDuperIbisCursor.db</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.cursor.SuperDuperIbisCursor.execute"><code class="docutils literal notranslate"><span class="pre">SuperDuperIbisCursor.execute()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.ibis.html#module-superduperdb.db.ibis.data_backend">superduperdb.db.ibis.data_backend module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.data_backend.IbisDataBackend"><code class="docutils literal notranslate"><span class="pre">IbisDataBackend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.data_backend.IbisDataBackend.backend"><code class="docutils literal notranslate"><span class="pre">IbisDataBackend.backend</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.data_backend.IbisDataBackend.build_artifact_store"><code class="docutils literal notranslate"><span class="pre">IbisDataBackend.build_artifact_store()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.data_backend.IbisDataBackend.build_metadata"><code class="docutils literal notranslate"><span class="pre">IbisDataBackend.build_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.data_backend.IbisDataBackend.create_table_and_schema"><code class="docutils literal notranslate"><span class="pre">IbisDataBackend.create_table_and_schema()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.data_backend.IbisDataBackend.db"><code class="docutils literal notranslate"><span class="pre">IbisDataBackend.db</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.data_backend.IbisDataBackend.drop"><code class="docutils literal notranslate"><span class="pre">IbisDataBackend.drop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.ibis.html#module-superduperdb.db.ibis.db">superduperdb.db.ibis.db module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.db.IbisDB"><code class="docutils literal notranslate"><span class="pre">IbisDB</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.db.IbisDB.backend"><code class="docutils literal notranslate"><span class="pre">IbisDB.backend</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.db.IbisDB.create_output_table"><code class="docutils literal notranslate"><span class="pre">IbisDB.create_output_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.db.IbisDB.execute"><code class="docutils literal notranslate"><span class="pre">IbisDB.execute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.db.IbisDB.table"><code class="docutils literal notranslate"><span class="pre">IbisDB.table</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.ibis.html#module-superduperdb.db.ibis.field_types">superduperdb.db.ibis.field_types module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.field_types.FieldType"><code class="docutils literal notranslate"><span class="pre">FieldType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.field_types.FieldType.type"><code class="docutils literal notranslate"><span class="pre">FieldType.type</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.field_types.dtype"><code class="docutils literal notranslate"><span class="pre">dtype()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.ibis.html#module-superduperdb.db.ibis.query">superduperdb.db.ibis.query module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.InMemoryTable"><code class="docutils literal notranslate"><span class="pre">InMemoryTable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.InMemoryTable.__getattr__"><code class="docutils literal notranslate"><span class="pre">InMemoryTable.__getattr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.InMemoryTable.identifier"><code class="docutils literal notranslate"><span class="pre">InMemoryTable.identifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.InMemoryTable.mutate_args"><code class="docutils literal notranslate"><span class="pre">InMemoryTable.mutate_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.InMemoryTable.primary_id"><code class="docutils literal notranslate"><span class="pre">InMemoryTable.primary_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.InMemoryTable.table"><code class="docutils literal notranslate"><span class="pre">InMemoryTable.table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.InMemoryTable.type_id"><code class="docutils literal notranslate"><span class="pre">InMemoryTable.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert"><code class="docutils literal notranslate"><span class="pre">Insert</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.documents"><code class="docutils literal notranslate"><span class="pre">Insert.documents</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.encoders"><code class="docutils literal notranslate"><span class="pre">Insert.encoders</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.kwargs"><code class="docutils literal notranslate"><span class="pre">Insert.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.name"><code class="docutils literal notranslate"><span class="pre">Insert.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.namespace"><code class="docutils literal notranslate"><span class="pre">Insert.namespace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.post"><code class="docutils literal notranslate"><span class="pre">Insert.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.pre"><code class="docutils literal notranslate"><span class="pre">Insert.pre()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.refresh"><code class="docutils literal notranslate"><span class="pre">Insert.refresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.type_id"><code class="docutils literal notranslate"><span class="pre">Insert.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Insert.verbose"><code class="docutils literal notranslate"><span class="pre">Insert.verbose</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.OutputTable"><code class="docutils literal notranslate"><span class="pre">OutputTable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.OutputTable.create"><code class="docutils literal notranslate"><span class="pre">OutputTable.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.OutputTable.model"><code class="docutils literal notranslate"><span class="pre">OutputTable.model</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.OutputTable.output_type"><code class="docutils literal notranslate"><span class="pre">OutputTable.output_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.OutputTable.primary_id"><code class="docutils literal notranslate"><span class="pre">OutputTable.primary_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.OutputTable.schema"><code class="docutils literal notranslate"><span class="pre">OutputTable.schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.OutputTable.table"><code class="docutils literal notranslate"><span class="pre">OutputTable.table</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PlaceHolderQuery"><code class="docutils literal notranslate"><span class="pre">PlaceHolderQuery</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PlaceHolderQuery.post"><code class="docutils literal notranslate"><span class="pre">PlaceHolderQuery.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PlaceHolderQuery.pre"><code class="docutils literal notranslate"><span class="pre">PlaceHolderQuery.pre()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PlaceHolderQuery.type_id"><code class="docutils literal notranslate"><span class="pre">PlaceHolderQuery.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PostLike"><code class="docutils literal notranslate"><span class="pre">PostLike</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PostLike.name"><code class="docutils literal notranslate"><span class="pre">PostLike.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PostLike.namespace"><code class="docutils literal notranslate"><span class="pre">PostLike.namespace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PostLike.post"><code class="docutils literal notranslate"><span class="pre">PostLike.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PostLike.pre"><code class="docutils literal notranslate"><span class="pre">PostLike.pre()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PostLike.type_id"><code class="docutils literal notranslate"><span class="pre">PostLike.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike"><code class="docutils literal notranslate"><span class="pre">PreLike</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.collection"><code class="docutils literal notranslate"><span class="pre">PreLike.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.n"><code class="docutils literal notranslate"><span class="pre">PreLike.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.name"><code class="docutils literal notranslate"><span class="pre">PreLike.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.namespace"><code class="docutils literal notranslate"><span class="pre">PreLike.namespace</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.post"><code class="docutils literal notranslate"><span class="pre">PreLike.post()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.pre"><code class="docutils literal notranslate"><span class="pre">PreLike.pre()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.primary_id"><code class="docutils literal notranslate"><span class="pre">PreLike.primary_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.r"><code class="docutils literal notranslate"><span class="pre">PreLike.r</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.type_id"><code class="docutils literal notranslate"><span class="pre">PreLike.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.PreLike.vector_index"><code class="docutils literal notranslate"><span class="pre">PreLike.vector_index</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Query"><code class="docutils literal notranslate"><span class="pre">Query</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Query.execute"><code class="docutils literal notranslate"><span class="pre">Query.execute()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryChain"><code class="docutils literal notranslate"><span class="pre">QueryChain</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryChain.append"><code class="docutils literal notranslate"><span class="pre">QueryChain.append()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryChain.append_query"><code class="docutils literal notranslate"><span class="pre">QueryChain.append_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryChain.get"><code class="docutils literal notranslate"><span class="pre">QueryChain.get()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryChain.update_last_query"><code class="docutils literal notranslate"><span class="pre">QueryChain.update_last_query()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker"><code class="docutils literal notranslate"><span class="pre">QueryLinker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.__call__"><code class="docutils literal notranslate"><span class="pre">QueryLinker.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.args"><code class="docutils literal notranslate"><span class="pre">QueryLinker.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.build"><code class="docutils literal notranslate"><span class="pre">QueryLinker.build()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.collection"><code class="docutils literal notranslate"><span class="pre">QueryLinker.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.execute"><code class="docutils literal notranslate"><span class="pre">QueryLinker.execute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.get_latest_query"><code class="docutils literal notranslate"><span class="pre">QueryLinker.get_latest_query()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.kwargs"><code class="docutils literal notranslate"><span class="pre">QueryLinker.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.members"><code class="docutils literal notranslate"><span class="pre">QueryLinker.members</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.model_update"><code class="docutils literal notranslate"><span class="pre">QueryLinker.model_update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.outputs"><code class="docutils literal notranslate"><span class="pre">QueryLinker.outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.query_type"><code class="docutils literal notranslate"><span class="pre">QueryLinker.query_type</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.select_ids"><code class="docutils literal notranslate"><span class="pre">QueryLinker.select_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryLinker.select_using_ids"><code class="docutils literal notranslate"><span class="pre">QueryLinker.select_using_ids()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryType"><code class="docutils literal notranslate"><span class="pre">QueryType</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryType.ATTR"><code class="docutils literal notranslate"><span class="pre">QueryType.ATTR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryType.QUERY"><code class="docutils literal notranslate"><span class="pre">QueryType.QUERY</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.QueryType._generate_next_value_"><code class="docutils literal notranslate"><span class="pre">QueryType._generate_next_value_()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table"><code class="docutils literal notranslate"><span class="pre">Table</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.__getattr__"><code class="docutils literal notranslate"><span class="pre">Table.__getattr__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.create"><code class="docutils literal notranslate"><span class="pre">Table.create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.get_table"><code class="docutils literal notranslate"><span class="pre">Table.get_table()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.identifier"><code class="docutils literal notranslate"><span class="pre">Table.identifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.insert"><code class="docutils literal notranslate"><span class="pre">Table.insert()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.like"><code class="docutils literal notranslate"><span class="pre">Table.like()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.mutate_args"><code class="docutils literal notranslate"><span class="pre">Table.mutate_args()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.name"><code class="docutils literal notranslate"><span class="pre">Table.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.on_create"><code class="docutils literal notranslate"><span class="pre">Table.on_create()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.primary_id"><code class="docutils literal notranslate"><span class="pre">Table.primary_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.schema"><code class="docutils literal notranslate"><span class="pre">Table.schema</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.table"><code class="docutils literal notranslate"><span class="pre">Table.table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.type_id"><code class="docutils literal notranslate"><span class="pre">Table.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.query.Table.version"><code class="docutils literal notranslate"><span class="pre">Table.version</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.ibis.html#module-superduperdb.db.ibis.schema">superduperdb.db.ibis.schema module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.schema.IbisSchema"><code class="docutils literal notranslate"><span class="pre">IbisSchema</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.schema.IbisSchema.map"><code class="docutils literal notranslate"><span class="pre">IbisSchema.map()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html#superduperdb.db.ibis.schema.IbisSchema.mutate_column"><code class="docutils literal notranslate"><span class="pre">IbisSchema.mutate_column()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.ibis.html#module-superduperdb.db.ibis">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="superduperdb.db.mongodb.html">superduperdb.db.mongodb package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.mongodb.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html">superduperdb.db.mongodb.cdc package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html#module-superduperdb.db.mongodb.cdc.base">superduperdb.db.mongodb.cdc.base module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html#module-superduperdb.db.mongodb.cdc.db_listener">superduperdb.db.mongodb.cdc.db_listener module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html#module-superduperdb.db.mongodb.cdc.handler">superduperdb.db.mongodb.cdc.handler module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html#module-superduperdb.db.mongodb.cdc.vector_task_factory">superduperdb.db.mongodb.cdc.vector_task_factory module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html#module-superduperdb.db.mongodb.cdc">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.mongodb.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.mongodb.html#module-superduperdb.db.mongodb.artifacts">superduperdb.db.mongodb.artifacts module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.artifacts.MongoArtifactStore"><code class="docutils literal notranslate"><span class="pre">MongoArtifactStore</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.artifacts.MongoArtifactStore.delete_artifact"><code class="docutils literal notranslate"><span class="pre">MongoArtifactStore.delete_artifact()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.artifacts.MongoArtifactStore.drop"><code class="docutils literal notranslate"><span class="pre">MongoArtifactStore.drop()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.mongodb.html#module-superduperdb.db.mongodb.data_backend">superduperdb.db.mongodb.data_backend module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.build_artifact_store"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.build_artifact_store()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.build_metadata"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.build_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.create_vector_index"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.create_vector_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.db"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.db</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.delete_vector_index"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.delete_vector_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.drop"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.drop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.id_field"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.id_field</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.list_vector_indexes"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.list_vector_indexes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.set_content_bytes"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.set_content_bytes()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.data_backend.MongoDataBackend.unset_outputs"><code class="docutils literal notranslate"><span class="pre">MongoDataBackend.unset_outputs()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.mongodb.html#module-superduperdb.db.mongodb.metadata">superduperdb.db.mongodb.metadata module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.component_has_parents"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.component_has_parents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.component_version_has_parents"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.component_version_has_parents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.create_component"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.create_component()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.create_job"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.create_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.create_metadata"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.create_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.create_parent_child"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.create_parent_child()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.delete_component_version"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.delete_component_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.drop"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.drop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.get_component_version_children"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.get_component_version_children()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.get_component_version_parents"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.get_component_version_parents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.get_job"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.get_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.get_latest_version"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.get_latest_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.get_metadata"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.get_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.get_parent_child_relations"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.get_parent_child_relations()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.hide_component_version"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.hide_component_version()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.list_components_in_scope"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.list_components_in_scope()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.show_component_versions"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.show_component_versions()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.show_components"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.show_components()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.show_job"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.show_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.show_jobs"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.show_jobs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.update_job"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.update_job()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.update_metadata"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.update_metadata()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.metadata.MongoMetaDataStore.write_output_to_job"><code class="docutils literal notranslate"><span class="pre">MongoMetaDataStore.write_output_to_job()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.mongodb.html#module-superduperdb.db.mongodb.query">superduperdb.db.mongodb.query module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Aggregate"><code class="docutils literal notranslate"><span class="pre">Aggregate</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Aggregate.__call__"><code class="docutils literal notranslate"><span class="pre">Aggregate.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Aggregate.args"><code class="docutils literal notranslate"><span class="pre">Aggregate.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Aggregate.collection"><code class="docutils literal notranslate"><span class="pre">Aggregate.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Aggregate.create_pipeline"><code class="docutils literal notranslate"><span class="pre">Aggregate.create_pipeline()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Aggregate.kwargs"><code class="docutils literal notranslate"><span class="pre">Aggregate.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Aggregate.type_id"><code class="docutils literal notranslate"><span class="pre">Aggregate.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Aggregate.vector_index"><code class="docutils literal notranslate"><span class="pre">Aggregate.vector_index</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ChangeStream"><code class="docutils literal notranslate"><span class="pre">ChangeStream</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ChangeStream.__call__"><code class="docutils literal notranslate"><span class="pre">ChangeStream.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ChangeStream.args"><code class="docutils literal notranslate"><span class="pre">ChangeStream.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ChangeStream.collection"><code class="docutils literal notranslate"><span class="pre">ChangeStream.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ChangeStream.kwargs"><code class="docutils literal notranslate"><span class="pre">ChangeStream.kwargs</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection"><code class="docutils literal notranslate"><span class="pre">Collection</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.aggregate"><code class="docutils literal notranslate"><span class="pre">Collection.aggregate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.change_stream"><code class="docutils literal notranslate"><span class="pre">Collection.change_stream()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.count_documents"><code class="docutils literal notranslate"><span class="pre">Collection.count_documents()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.delete_many"><code class="docutils literal notranslate"><span class="pre">Collection.delete_many()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.delete_one"><code class="docutils literal notranslate"><span class="pre">Collection.delete_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.find"><code class="docutils literal notranslate"><span class="pre">Collection.find()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.find_one"><code class="docutils literal notranslate"><span class="pre">Collection.find_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.insert_many"><code class="docutils literal notranslate"><span class="pre">Collection.insert_many()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.insert_one"><code class="docutils literal notranslate"><span class="pre">Collection.insert_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.like"><code class="docutils literal notranslate"><span class="pre">Collection.like()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.name"><code class="docutils literal notranslate"><span class="pre">Collection.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.replace_one"><code class="docutils literal notranslate"><span class="pre">Collection.replace_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.table"><code class="docutils literal notranslate"><span class="pre">Collection.table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.update_many"><code class="docutils literal notranslate"><span class="pre">Collection.update_many()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Collection.update_one"><code class="docutils literal notranslate"><span class="pre">Collection.update_one()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.CountDocuments"><code class="docutils literal notranslate"><span class="pre">CountDocuments</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.CountDocuments.__call__"><code class="docutils literal notranslate"><span class="pre">CountDocuments.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.CountDocuments.args"><code class="docutils literal notranslate"><span class="pre">CountDocuments.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.CountDocuments.collection"><code class="docutils literal notranslate"><span class="pre">CountDocuments.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.CountDocuments.kwargs"><code class="docutils literal notranslate"><span class="pre">CountDocuments.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.CountDocuments.like_parent"><code class="docutils literal notranslate"><span class="pre">CountDocuments.like_parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.CountDocuments.type_id"><code class="docutils literal notranslate"><span class="pre">CountDocuments.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteMany"><code class="docutils literal notranslate"><span class="pre">DeleteMany</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteMany.__call__"><code class="docutils literal notranslate"><span class="pre">DeleteMany.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteMany.args"><code class="docutils literal notranslate"><span class="pre">DeleteMany.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteMany.collection"><code class="docutils literal notranslate"><span class="pre">DeleteMany.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteMany.kwargs"><code class="docutils literal notranslate"><span class="pre">DeleteMany.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteMany.type_id"><code class="docutils literal notranslate"><span class="pre">DeleteMany.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteOne"><code class="docutils literal notranslate"><span class="pre">DeleteOne</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteOne.__call__"><code class="docutils literal notranslate"><span class="pre">DeleteOne.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteOne.args"><code class="docutils literal notranslate"><span class="pre">DeleteOne.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteOne.collection"><code class="docutils literal notranslate"><span class="pre">DeleteOne.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteOne.kwargs"><code class="docutils literal notranslate"><span class="pre">DeleteOne.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.DeleteOne.type_id"><code class="docutils literal notranslate"><span class="pre">DeleteOne.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize"><code class="docutils literal notranslate"><span class="pre">Featurize</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.__call__"><code class="docutils literal notranslate"><span class="pre">Featurize.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.add_fold"><code class="docutils literal notranslate"><span class="pre">Featurize.add_fold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.features"><code class="docutils literal notranslate"><span class="pre">Featurize.features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.get_ids"><code class="docutils literal notranslate"><span class="pre">Featurize.get_ids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.is_trivial"><code class="docutils literal notranslate"><span class="pre">Featurize.is_trivial()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.model_update"><code class="docutils literal notranslate"><span class="pre">Featurize.model_update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.parent"><code class="docutils literal notranslate"><span class="pre">Featurize.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.select_ids"><code class="docutils literal notranslate"><span class="pre">Featurize.select_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.select_ids_of_missing_outputs"><code class="docutils literal notranslate"><span class="pre">Featurize.select_ids_of_missing_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.select_table"><code class="docutils literal notranslate"><span class="pre">Featurize.select_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.select_using_ids"><code class="docutils literal notranslate"><span class="pre">Featurize.select_using_ids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Featurize.type_id"><code class="docutils literal notranslate"><span class="pre">Featurize.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FeaturizeOne"><code class="docutils literal notranslate"><span class="pre">FeaturizeOne</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FeaturizeOne.__call__"><code class="docutils literal notranslate"><span class="pre">FeaturizeOne.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FeaturizeOne.features"><code class="docutils literal notranslate"><span class="pre">FeaturizeOne.features</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FeaturizeOne.parent_find_one"><code class="docutils literal notranslate"><span class="pre">FeaturizeOne.parent_find_one</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FeaturizeOne.type_id"><code class="docutils literal notranslate"><span class="pre">FeaturizeOne.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find"><code class="docutils literal notranslate"><span class="pre">Find</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.__call__"><code class="docutils literal notranslate"><span class="pre">Find.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.add_fold"><code class="docutils literal notranslate"><span class="pre">Find.add_fold()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.args"><code class="docutils literal notranslate"><span class="pre">Find.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.collection"><code class="docutils literal notranslate"><span class="pre">Find.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.download_update"><code class="docutils literal notranslate"><span class="pre">Find.download_update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.featurize"><code class="docutils literal notranslate"><span class="pre">Find.featurize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.get_ids"><code class="docutils literal notranslate"><span class="pre">Find.get_ids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.id_field"><code class="docutils literal notranslate"><span class="pre">Find.id_field</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.kwargs"><code class="docutils literal notranslate"><span class="pre">Find.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.like"><code class="docutils literal notranslate"><span class="pre">Find.like()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.like_parent"><code class="docutils literal notranslate"><span class="pre">Find.like_parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.limit"><code class="docutils literal notranslate"><span class="pre">Find.limit()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.model_cleanup"><code class="docutils literal notranslate"><span class="pre">Find.model_cleanup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.model_update"><code class="docutils literal notranslate"><span class="pre">Find.model_update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.parent"><code class="docutils literal notranslate"><span class="pre">Find.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.select_ids"><code class="docutils literal notranslate"><span class="pre">Find.select_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.select_ids_of_missing_outputs"><code class="docutils literal notranslate"><span class="pre">Find.select_ids_of_missing_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.select_single_id"><code class="docutils literal notranslate"><span class="pre">Find.select_single_id()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.select_table"><code class="docutils literal notranslate"><span class="pre">Find.select_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.select_using_ids"><code class="docutils literal notranslate"><span class="pre">Find.select_using_ids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.table"><code class="docutils literal notranslate"><span class="pre">Find.table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Find.type_id"><code class="docutils literal notranslate"><span class="pre">Find.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FindOne"><code class="docutils literal notranslate"><span class="pre">FindOne</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FindOne.__call__"><code class="docutils literal notranslate"><span class="pre">FindOne.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FindOne.args"><code class="docutils literal notranslate"><span class="pre">FindOne.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FindOne.collection"><code class="docutils literal notranslate"><span class="pre">FindOne.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FindOne.featurize"><code class="docutils literal notranslate"><span class="pre">FindOne.featurize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FindOne.id_field"><code class="docutils literal notranslate"><span class="pre">FindOne.id_field</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FindOne.kwargs"><code class="docutils literal notranslate"><span class="pre">FindOne.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FindOne.like_parent"><code class="docutils literal notranslate"><span class="pre">FindOne.like_parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.FindOne.type_id"><code class="docutils literal notranslate"><span class="pre">FindOne.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany"><code class="docutils literal notranslate"><span class="pre">InsertMany</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.__call__"><code class="docutils literal notranslate"><span class="pre">InsertMany.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.args"><code class="docutils literal notranslate"><span class="pre">InsertMany.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.collection"><code class="docutils literal notranslate"><span class="pre">InsertMany.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.documents"><code class="docutils literal notranslate"><span class="pre">InsertMany.documents</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.encoders"><code class="docutils literal notranslate"><span class="pre">InsertMany.encoders</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.kwargs"><code class="docutils literal notranslate"><span class="pre">InsertMany.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.refresh"><code class="docutils literal notranslate"><span class="pre">InsertMany.refresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.select_table"><code class="docutils literal notranslate"><span class="pre">InsertMany.select_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.select_using_ids"><code class="docutils literal notranslate"><span class="pre">InsertMany.select_using_ids()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.table"><code class="docutils literal notranslate"><span class="pre">InsertMany.table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.type_id"><code class="docutils literal notranslate"><span class="pre">InsertMany.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.InsertMany.verbose"><code class="docutils literal notranslate"><span class="pre">InsertMany.verbose</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Limit"><code class="docutils literal notranslate"><span class="pre">Limit</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Limit.__call__"><code class="docutils literal notranslate"><span class="pre">Limit.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Limit.n"><code class="docutils literal notranslate"><span class="pre">Limit.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Limit.parent"><code class="docutils literal notranslate"><span class="pre">Limit.parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.Limit.type_id"><code class="docutils literal notranslate"><span class="pre">Limit.type_id</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PostLike"><code class="docutils literal notranslate"><span class="pre">PostLike</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PostLike.Config"><code class="docutils literal notranslate"><span class="pre">PostLike.Config</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PostLike.__call__"><code class="docutils literal notranslate"><span class="pre">PostLike.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PostLike.find_parent"><code class="docutils literal notranslate"><span class="pre">PostLike.find_parent</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PostLike.max_ids"><code class="docutils literal notranslate"><span class="pre">PostLike.max_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PostLike.n"><code class="docutils literal notranslate"><span class="pre">PostLike.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PostLike.r"><code class="docutils literal notranslate"><span class="pre">PostLike.r</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PostLike.type_id"><code class="docutils literal notranslate"><span class="pre">PostLike.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PostLike.vector_index"><code class="docutils literal notranslate"><span class="pre">PostLike.vector_index</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike"><code class="docutils literal notranslate"><span class="pre">PreLike</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike.__call__"><code class="docutils literal notranslate"><span class="pre">PreLike.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike.collection"><code class="docutils literal notranslate"><span class="pre">PreLike.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike.find"><code class="docutils literal notranslate"><span class="pre">PreLike.find()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike.find_one"><code class="docutils literal notranslate"><span class="pre">PreLike.find_one()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike.n"><code class="docutils literal notranslate"><span class="pre">PreLike.n</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike.r"><code class="docutils literal notranslate"><span class="pre">PreLike.r</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike.table"><code class="docutils literal notranslate"><span class="pre">PreLike.table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike.type_id"><code class="docutils literal notranslate"><span class="pre">PreLike.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.PreLike.vector_index"><code class="docutils literal notranslate"><span class="pre">PreLike.vector_index</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne"><code class="docutils literal notranslate"><span class="pre">ReplaceOne</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.__call__"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.args"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.collection"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.filter"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.filter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.kwargs"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.refresh"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.refresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.select"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.select</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.select_ids"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.select_ids</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.type_id"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.update"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.update</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.ReplaceOne.verbose"><code class="docutils literal notranslate"><span class="pre">ReplaceOne.verbose</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany"><code class="docutils literal notranslate"><span class="pre">UpdateMany</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.__call__"><code class="docutils literal notranslate"><span class="pre">UpdateMany.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.args"><code class="docutils literal notranslate"><span class="pre">UpdateMany.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.collection"><code class="docutils literal notranslate"><span class="pre">UpdateMany.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.filter"><code class="docutils literal notranslate"><span class="pre">UpdateMany.filter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.kwargs"><code class="docutils literal notranslate"><span class="pre">UpdateMany.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.refresh"><code class="docutils literal notranslate"><span class="pre">UpdateMany.refresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.select"><code class="docutils literal notranslate"><span class="pre">UpdateMany.select</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.select_table"><code class="docutils literal notranslate"><span class="pre">UpdateMany.select_table</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.type_id"><code class="docutils literal notranslate"><span class="pre">UpdateMany.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.update"><code class="docutils literal notranslate"><span class="pre">UpdateMany.update</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateMany.verbose"><code class="docutils literal notranslate"><span class="pre">UpdateMany.verbose</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne"><code class="docutils literal notranslate"><span class="pre">UpdateOne</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.__call__"><code class="docutils literal notranslate"><span class="pre">UpdateOne.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.args"><code class="docutils literal notranslate"><span class="pre">UpdateOne.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.collection"><code class="docutils literal notranslate"><span class="pre">UpdateOne.collection</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.filter"><code class="docutils literal notranslate"><span class="pre">UpdateOne.filter</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.kwargs"><code class="docutils literal notranslate"><span class="pre">UpdateOne.kwargs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.refresh"><code class="docutils literal notranslate"><span class="pre">UpdateOne.refresh</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.select"><code class="docutils literal notranslate"><span class="pre">UpdateOne.select</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.type_id"><code class="docutils literal notranslate"><span class="pre">UpdateOne.type_id</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.update"><code class="docutils literal notranslate"><span class="pre">UpdateOne.update</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.mongodb.html#superduperdb.db.mongodb.query.UpdateOne.verbose"><code class="docutils literal notranslate"><span class="pre">UpdateOne.verbose</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.db.mongodb.html#module-superduperdb.db.mongodb">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-superduperdb.db.query_dataset">
+<span id="superduperdb-db-query-dataset-module"></span><h2>superduperdb.db.query_dataset module<a class="headerlink" href="#module-superduperdb.db.query_dataset" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.db.query_dataset.CachedQueryDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.db.query_dataset.</span></span><span class="sig-name descname"><span class="pre">CachedQueryDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select" title="superduperdb.db.base.query.Select"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'train'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">database</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefetch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/db/query_dataset.html#CachedQueryDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.db.query_dataset.CachedQueryDataset" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class which fetch the document corresponding to the given <code class="docutils literal notranslate"><span class="pre">index</span></code>.
+This class prefetches documents from database and stores in the memory.</p>
+<p>This can drastically reduce database read operations and hence reduce the overall
+load on the database.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.db.query_dataset.CachedQueryDataset.count_documents">
+<span class="sig-name descname"><span class="pre">count_documents</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/superduperdb/db/query_dataset.html#CachedQueryDataset.count_documents"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.db.query_dataset.CachedQueryDataset.count_documents" title="Permalink to this definition">#</a></dt>
+<dd><p>Return the number of matching documents</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superduperdb.db.query_dataset.CachedQueryDataset.database">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">database</span></span><a class="headerlink" href="#superduperdb.db.query_dataset.CachedQueryDataset.database" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.db.query_dataset.ExpiryCache">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.db.query_dataset.</span></span><span class="sig-name descname"><span class="pre">ExpiryCache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iterable</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/db/query_dataset.html#ExpiryCache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.db.query_dataset.ExpiryCache" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.db.query_dataset.QueryDataset">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.db.query_dataset.</span></span><span class="sig-name descname"><span class="pre">QueryDataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">select</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select" title="superduperdb.db.base.query.Select"><span class="pre">Select</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">keys</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'train'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suppress</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transform</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">features</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_memory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extract</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/db/query_dataset.html#QueryDataset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.db.query_dataset.QueryDataset" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A dataset class which can be used to define a torch dataset class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>select</strong> – A select query object which defines the query to be executed.</p></li>
+<li><p><strong>keys</strong> – A list of keys to be returned from the dataset.</p></li>
+<li><p><strong>fold</strong> – The fold to be used for the dataset.</p></li>
+<li><p><strong>suppress</strong> – A list of keys to be suppressed from the dataset.</p></li>
+<li><p><strong>transform</strong> – A callable which can be used to transform the dataset.</p></li>
+<li><p><strong>features</strong> – A dictionary of features to be returned from the dataset.</p></li>
+<li><p><strong>db</strong> – A <code class="docutils literal notranslate"><span class="pre">DB</span></code> object to be used for the dataset.</p></li>
+<li><p><strong>ids</strong> – A list of ids to be used for the dataset.</p></li>
+<li><p><strong>in_memory</strong> – A boolean flag to indicate if the dataset should be loaded
+in memory.</p></li>
+<li><p><strong>extract</strong> – A key to be extracted from the dataset.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py property">
+<dt class="sig sig-object py" id="superduperdb.db.query_dataset.QueryDataset.database">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">database</span></span><a class="headerlink" href="#superduperdb.db.query_dataset.QueryDataset.database" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.db.query_dataset.query_dataset_factory">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.db.query_dataset.</span></span><span class="sig-name descname"><span class="pre">query_dataset_factory</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_prefetch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/db/query_dataset.html#query_dataset_factory"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.db.query_dataset.query_dataset_factory" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-superduperdb.db">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-superduperdb.db" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="superduperdb.db.base.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">superduperdb.db.base package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="superduperdb.data.tree.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">superduperdb.data.tree package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; SuperDuperDB Inc., opensource@superduperdb.com
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">superduperdb.db package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-superduperdb.db.query_dataset">superduperdb.db.query_dataset module</a><ul>
+<li><a class="reference internal" href="#superduperdb.db.query_dataset.CachedQueryDataset"><code class="docutils literal notranslate"><span class="pre">CachedQueryDataset</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.db.query_dataset.CachedQueryDataset.count_documents"><code class="docutils literal notranslate"><span class="pre">CachedQueryDataset.count_documents()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.db.query_dataset.CachedQueryDataset.database"><code class="docutils literal notranslate"><span class="pre">CachedQueryDataset.database</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.db.query_dataset.ExpiryCache"><code class="docutils literal notranslate"><span class="pre">ExpiryCache</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.db.query_dataset.QueryDataset"><code class="docutils literal notranslate"><span class="pre">QueryDataset</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.db.query_dataset.QueryDataset.database"><code class="docutils literal notranslate"><span class="pre">QueryDataset.database</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.db.query_dataset.query_dataset_factory"><code class="docutils literal notranslate"><span class="pre">query_dataset_factory()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.db">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

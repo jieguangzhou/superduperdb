@@ -1,0 +1,791 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="superduperdb.vector_search package" href="superduperdb.vector_search.html" /><link rel="prev" title="superduperdb.misc.runnable package" href="superduperdb.misc.runnable.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
+        <title>superduperdb.server package - Python documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/SuperDuperDB_logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Python  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">superduperdb</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of superduperdb</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="superduperdb.html">superduperdb package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of superduperdb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.base.html">superduperdb.base package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.cli.html">superduperdb.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.container.html">superduperdb.container package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.data.html">superduperdb.data package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of superduperdb.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.cache.html">superduperdb.data.cache package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.tree.html">superduperdb.data.tree package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.db.html">superduperdb.db package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of superduperdb.db package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html">superduperdb.db.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.filesystem.html">superduperdb.db.filesystem package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html">superduperdb.db.ibis package</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="superduperdb.db.mongodb.html">superduperdb.db.mongodb package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of superduperdb.db.mongodb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html">superduperdb.db.mongodb.cdc package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.ext.html">superduperdb.ext package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of superduperdb.ext package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.anthropic.html">superduperdb.ext.anthropic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.cohere.html">superduperdb.ext.cohere package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.numpy.html">superduperdb.ext.numpy package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.openai.html">superduperdb.ext.openai package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.pillow.html">superduperdb.ext.pillow package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sentence_transformer.html">superduperdb.ext.sentence_transformer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sklearn.html">superduperdb.ext.sklearn package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.torch.html">superduperdb.ext.torch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.transformers.html">superduperdb.ext.transformers package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.vector.html">superduperdb.ext.vector package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.misc.html">superduperdb.misc package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of superduperdb.misc package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html">superduperdb.misc.runnable package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">superduperdb.server package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.vector_search.html">superduperdb.vector_search package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="superduperdb-server-package">
+<h1>superduperdb.server package<a class="headerlink" href="#superduperdb-server-package" title="Permalink to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-superduperdb.server.client">
+<span id="superduperdb-server-client-module"></span><h2>superduperdb.server.client module<a class="headerlink" href="#module-superduperdb.server.client" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.server.client.</span></span><span class="sig-name descname"><span class="pre">Client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requests=&lt;module</span> <span class="pre">'requests'</span> <span class="pre">from</span> <span class="pre">'/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/requests/__init__.py'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>uri</strong> – uri of the server</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requests=&lt;module</span> <span class="pre">'requests'</span> <span class="pre">from</span> <span class="pre">'/opt/hostedtoolcache/Python/3.10.13/x64/lib/python3.10/site-packages/requests/__init__.py'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.__init__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>uri</strong> – uri of the server</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client._get">
+<span class="sig-name descname"><span class="pre">_get</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client._get"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client._get" title="Permalink to this definition">#</a></dt>
+<dd><p>Retrieve serialized artifact from the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request_id</strong> – id of the request that created the artifact on the server</p></li>
+<li><p><strong>file_id</strong> – id of the artifact</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>serialized artifact</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client._put">
+<span class="sig-name descname"><span class="pre">_put</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client._put"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client._put" title="Permalink to this definition">#</a></dt>
+<dd><p>Send serialized artifact to the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>request_id</strong> – id of the request, randomly generated</p></li>
+<li><p><strong>file_id</strong> – id of the artifact, randomly generated</p></li>
+<li><p><strong>data</strong> – serialized artifact</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">component</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.container.html#superduperdb.container.component.Component" title="superduperdb.container.component.Component"><span class="pre">Component</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.add" title="Permalink to this definition">#</a></dt>
+<dd><p>Serialize component to metadata and artifacts and send to the server.</p>
+<p>The request is split into two parts:
+1. Send serialized artifacts to the server one-by-one
+2. Send serialized metadata to the server</p>
+<p>Each artifact request contains the following information:
+- request_id: id of the request, randomly generated
+- file_id: id of the file, randomly generated
+- data: serialized artifact</p>
+<p>The metadata request contains the following information:
+- request_id: id of the request, randomly generated
+- component: serialized metadata
+- serializers: mapping from file_id to serializer name eg ‘dill’</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>component</strong> – component to be serialized and sent to the server</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.delete">
+<span class="sig-name descname"><span class="pre">delete</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Delete" title="superduperdb.db.base.query.Delete"><span class="pre">Delete</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.delete"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.delete" title="Permalink to this definition">#</a></dt>
+<dd><p>Send serialized delete query to the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>query</strong> – delete query to be sent to the server</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.execute">
+<span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select" title="superduperdb.db.base.query.Select"><span class="pre">Select</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.SelectOne" title="superduperdb.db.base.query.SelectOne"><span class="pre">SelectOne</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Delete" title="superduperdb.db.base.query.Delete"><span class="pre">Delete</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Update" title="superduperdb.db.base.query.Update"><span class="pre">Update</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Insert" title="superduperdb.db.base.query.Insert"><span class="pre">Insert</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.execute" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.insert">
+<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Insert" title="superduperdb.db.base.query.Insert"><span class="pre">Insert</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.insert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.insert" title="Permalink to this definition">#</a></dt>
+<dd><p>Dump a sequence of documents into BSON and send to the server.</p>
+<p>The request is split into two parts:
+1. Send serialized documents to the server in a single request
+2. Send serialized metadata to the server, including the query type</p>
+<p>Each serialized sequence of documents request contains the following
+information:
+- request_id: id of the request, randomly generated
+- file_id: extra randomly generated id (TODO: redundant?)
+- data: serialized documents</p>
+<p>The metadata request contains the following information:
+- request_id: id of the request, randomly generated
+- query: serialized query type
+- documents: ID for the documents on the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>query</strong> – query type and attached documents to be sent to the server</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.like">
+<span class="sig-name descname"><span class="pre">like</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Like" title="superduperdb.db.base.query.Like"><span class="pre">Like</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.like"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.like" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.load">
+<span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.load"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.load" title="Permalink to this definition">#</a></dt>
+<dd><p>Load component from the database via the server.</p>
+<p>This endpoint sends a request to the server to load the component from the
+database. It then receives the component metadata as a response. Then it
+retrieves the component from the server, derserialises the component and
+returns it. It generates a random ID value for communicating with the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type_id</strong> – type_id of component to load [‘encoder’, ‘model’, ‘listener’,
+‘learning_task’, ‘training_configuration’, ‘metric’,
+‘vector_index’, ‘job’]</p></li>
+<li><p><strong>identifier</strong> – identifying string to component</p></li>
+<li><p><strong>version</strong> – (optional) numerical version - specify for full metadata</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.remove">
+<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.remove"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.remove" title="Permalink to this definition">#</a></dt>
+<dd><p>Send forced remove request to the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type_id</strong> – type_id of component to show [‘encoder’, ‘model’, ‘listener’,
+‘learning_task’, ‘training_configuration’, ‘metric’,
+‘vector_index’, ‘job’]</p></li>
+<li><p><strong>identifier</strong> – identifying string to component</p></li>
+<li><p><strong>version</strong> – (optional) numerical version - specify for full metadata</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.select">
+<span class="sig-name descname"><span class="pre">select</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Select" title="superduperdb.db.base.query.Select"><span class="pre">Select</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.select"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.select" title="Permalink to this definition">#</a></dt>
+<dd><p>Send a request to the server to execute a select query and then
+retrieve the data from the server.</p>
+<p>The request is split into three parts:
+1. Send the serialized query to the server for execution
+2. Retrieve the serialized documents from the server
+3. Deserialize the documents</p>
+<p>Each serialized query contains the following information:
+- request_id: id of the request, randomly generated
+- query: serialized query type</p>
+<p>The request for the serialized documents contains the following information:
+- request_id: id of the request, randomly generated
+- file_id: id of the documents, returned by the initial server response</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>query</strong> – query type to be sent to the server</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>deserialized documents</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.select_one">
+<span class="sig-name descname"><span class="pre">select_one</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.SelectOne" title="superduperdb.db.base.query.SelectOne"><span class="pre">SelectOne</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="superduperdb.container.html#superduperdb.container.document.Document" title="superduperdb.container.document.Document"><span class="pre">Document</span></a></span></span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.select_one"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.select_one" title="Permalink to this definition">#</a></dt>
+<dd><p>Send a select query to the server and return a the result.</p>
+<p>This endpoint sends a request to the server to execute a single select
+statement in the database. It receives an ID for the result from the
+server, and then uses this ID to retrieve the result from the server.
+Finally it deserializes the result and returns it. It generates a random
+ID value for communicating with the server.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>query</strong> – serialized query</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.show">
+<span class="sig-name descname"><span class="pre">show</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.show"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.show" title="Permalink to this definition">#</a></dt>
+<dd><p>Send show request to the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type_id</strong> – type_id of component to show [‘encoder’, ‘model’, ‘listener’,
+‘learning_task’, ‘training_configuration’, ‘metric’,
+‘vector_index’, ‘job’]</p></li>
+<li><p><strong>identifier</strong> – identifying string to component</p></li>
+<li><p><strong>version</strong> – (optional) numerical version - specify for full metadata</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>metadata of componentd already added to the database</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.Client.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.db.base.html#superduperdb.db.base.query.Update" title="superduperdb.db.base.query.Update"><span class="pre">Update</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#Client.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.Client.update" title="Permalink to this definition">#</a></dt>
+<dd><p>Dump a sequence of documents into BSON and send to the server.</p>
+<p>The request is split into two parts:
+1. Send serialized documents to the server in a single request
+2. Send serialized metadata to the server, including the query type</p>
+<p>Each serialized sequence of documents request contains the following
+information:
+- request_id: id of the request, randomly generated
+- file_id: extra randomly generated id (TODO: redundant?)
+- data: serialized documents</p>
+<p>The metadata request contains the following information:
+- request_id: id of the request, randomly generated
+- query: serialized query type
+- documents: ID for the documents on the server</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>query</strong> – query type and attached documents to be sent to the server</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.server.client.ClientArtifactStore">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.server.client.</span></span><span class="sig-name descname"><span class="pre">ClientArtifactStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">get</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">put</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#ClientArtifactStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.ClientArtifactStore" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.ClientArtifactStore.create_artifact">
+<span class="sig-name descname"><span class="pre">create_artifact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bytes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#ClientArtifactStore.create_artifact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.ClientArtifactStore.create_artifact" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.client.ClientArtifactStore.load_artifact">
+<span class="sig-name descname"><span class="pre">load_artifact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#ClientArtifactStore.load_artifact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.ClientArtifactStore.load_artifact" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.server.client.LoadDict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.server.client.</span></span><span class="sig-name descname"><span class="pre">LoadDict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">client</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#superduperdb.server.client.Client" title="superduperdb.server.client.Client"><span class="pre">superduperdb.server.client.Client</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">field</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/client.html#LoadDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.LoadDict" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.server.client.LoadDict.client">
+<span class="sig-name descname"><span class="pre">client</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#superduperdb.server.client.Client" title="superduperdb.server.client.Client"><span class="pre">Client</span></a></em><a class="headerlink" href="#superduperdb.server.client.LoadDict.client" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.server.client.LoadDict.field">
+<span class="sig-name descname"><span class="pre">field</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#superduperdb.server.client.LoadDict.field" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="superduperdb.server.client.ServerSideException">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.server.client.</span></span><span class="sig-name descname"><span class="pre">ServerSideException</span></span><a class="reference internal" href="../_modules/superduperdb/server/client.html#ServerSideException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.client.ServerSideException" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ValueError</span></code></p>
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.server.dask_client">
+<span id="superduperdb-server-dask-client-module"></span><h2>superduperdb.server.dask_client module<a class="headerlink" href="#module-superduperdb.server.dask_client" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.server.dask_client.DaskClient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.server.dask_client.</span></span><span class="sig-name descname"><span class="pre">DaskClient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">address</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deserializers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/dask_client.html#DaskClient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.dask_client.DaskClient" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A client for interacting with a Dask cluster. Initialize the DaskClient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>address</strong> – The address of the Dask cluster.</p></li>
+<li><p><strong>serializers</strong> – A list of serializers to be used by the client. (optional)</p></li>
+<li><p><strong>deserializers</strong> – A list of deserializers to be used by the client. (optional)</p></li>
+<li><p><strong>local</strong> – Set to True to create a local Dask cluster. (optional)</p></li>
+<li><p><strong>envs</strong> – An environment dict for cluster.</p></li>
+<li><p><strong>**kwargs</strong> – <p>Additional keyword arguments to be passed to the DaskClient.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.dask_client.DaskClient.get_result">
+<span class="sig-name descname"><span class="pre">get_result</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/superduperdb/server/dask_client.html#DaskClient.get_result"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.dask_client.DaskClient.get_result" title="Permalink to this definition">#</a></dt>
+<dd><p>Retrieves the result of a previously submitted task.
+Note: This will block until the future is completed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>identifier</strong> – The identifier of the submitted task.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.dask_client.DaskClient.shutdown">
+<span class="sig-name descname"><span class="pre">shutdown</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/server/dask_client.html#DaskClient.shutdown"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.dask_client.DaskClient.shutdown" title="Permalink to this definition">#</a></dt>
+<dd><p>Shuts down the Dask client.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.dask_client.DaskClient.submit">
+<span class="sig-name descname"><span class="pre">submit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Future</span></span></span><a class="reference internal" href="../_modules/superduperdb/server/dask_client.html#DaskClient.submit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.dask_client.DaskClient.submit" title="Permalink to this definition">#</a></dt>
+<dd><p>Submits a function to the Dask server for execution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> – The function to be executed.</p></li>
+<li><p><strong>kwargs</strong> – Additional keyword arguments to be passed to the function.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.dask_client.DaskClient.submit_and_forget">
+<span class="sig-name descname"><span class="pre">submit_and_forget</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Future</span></span></span><a class="reference internal" href="../_modules/superduperdb/server/dask_client.html#DaskClient.submit_and_forget"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.dask_client.DaskClient.submit_and_forget" title="Permalink to this definition">#</a></dt>
+<dd><p>Submits a function to the Dask server and keep executing the future
+even if it is no longer referenced.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>function</strong> – The function to be executed.</p></li>
+<li><p><strong>kwargs</strong> – Additional keyword arguments to be passed to the function.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.server.dask_client.DaskClient.wait_all_pending_tasks">
+<span class="sig-name descname"><span class="pre">wait_all_pending_tasks</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/server/dask_client.html#DaskClient.wait_all_pending_tasks"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.dask_client.DaskClient.wait_all_pending_tasks" title="Permalink to this definition">#</a></dt>
+<dd><p>Waits for all pending tasks to complete.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.server.dask_client.dask_client">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.server.dask_client.</span></span><span class="sig-name descname"><span class="pre">dask_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serializers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deserializers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">envs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">local</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superduperdb.server.dask_client.DaskClient" title="superduperdb.server.dask_client.DaskClient"><span class="pre">DaskClient</span></a></span></span><a class="reference internal" href="../_modules/superduperdb/server/dask_client.html#dask_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.dask_client.dask_client" title="Permalink to this definition">#</a></dt>
+<dd><p>Creates a DaskClient instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uri</strong> – The address of the Dask cluster.</p></li>
+<li><p><strong>serializers</strong> – A list of serializers to be used by the client. (optional)</p></li>
+<li><p><strong>deserializers</strong> – A list of deserializers to be used by the client. (optional)</p></li>
+<li><p><strong>envs</strong> – An environment dict for cluster.</p></li>
+<li><p><strong>local</strong> – Set to True to create a local Dask cluster. (optional)</p></li>
+<li><p><strong>**kwargs</strong> – <p>Additional keyword arguments to be passed to the DaskClient.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.server.login">
+<span id="superduperdb-server-login-module"></span><h2>superduperdb.server.login module<a class="headerlink" href="#module-superduperdb.server.login" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.server.login.maybe_login_required">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.server.login.</span></span><span class="sig-name descname"><span class="pre">maybe_login_required</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">auth</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/login.html#maybe_login_required"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.login.maybe_login_required" title="Permalink to this definition">#</a></dt>
+<dd><p>Require login depending on the contents of the config file.:w</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>auth</strong> – basic auth instance</p></li>
+<li><p><strong>service</strong> – collection of the service on question</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.server.server">
+<span id="superduperdb-server-server-module"></span><h2>superduperdb.server.server module<a class="headerlink" href="#module-superduperdb.server.server" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.server.server.make_endpoints">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.server.server.</span></span><span class="sig-name descname"><span class="pre">make_endpoints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">app</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/server.html#make_endpoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.server.make_endpoints" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.server.server.make_flask_app">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.server.server.</span></span><span class="sig-name descname"><span class="pre">make_flask_app</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/server.html#make_flask_app"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.server.make_flask_app" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.server.server.serve">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.server.server.</span></span><span class="sig-name descname"><span class="pre">serve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">db</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/server/server.html#serve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.server.server.serve" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-superduperdb.server">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-superduperdb.server" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="superduperdb.vector_search.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">superduperdb.vector_search package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="superduperdb.misc.runnable.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">superduperdb.misc.runnable package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; SuperDuperDB Inc., opensource@superduperdb.com
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">superduperdb.server package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-superduperdb.server.client">superduperdb.server.client module</a><ul>
+<li><a class="reference internal" href="#superduperdb.server.client.Client"><code class="docutils literal notranslate"><span class="pre">Client</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.__init__"><code class="docutils literal notranslate"><span class="pre">Client.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client._get"><code class="docutils literal notranslate"><span class="pre">Client._get()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client._put"><code class="docutils literal notranslate"><span class="pre">Client._put()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.add"><code class="docutils literal notranslate"><span class="pre">Client.add()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.delete"><code class="docutils literal notranslate"><span class="pre">Client.delete()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.execute"><code class="docutils literal notranslate"><span class="pre">Client.execute()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.insert"><code class="docutils literal notranslate"><span class="pre">Client.insert()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.like"><code class="docutils literal notranslate"><span class="pre">Client.like()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.load"><code class="docutils literal notranslate"><span class="pre">Client.load()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.remove"><code class="docutils literal notranslate"><span class="pre">Client.remove()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.select"><code class="docutils literal notranslate"><span class="pre">Client.select()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.select_one"><code class="docutils literal notranslate"><span class="pre">Client.select_one()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.show"><code class="docutils literal notranslate"><span class="pre">Client.show()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.Client.update"><code class="docutils literal notranslate"><span class="pre">Client.update()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.server.client.ClientArtifactStore"><code class="docutils literal notranslate"><span class="pre">ClientArtifactStore</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.server.client.ClientArtifactStore.create_artifact"><code class="docutils literal notranslate"><span class="pre">ClientArtifactStore.create_artifact()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.ClientArtifactStore.load_artifact"><code class="docutils literal notranslate"><span class="pre">ClientArtifactStore.load_artifact()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.server.client.LoadDict"><code class="docutils literal notranslate"><span class="pre">LoadDict</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.server.client.LoadDict.client"><code class="docutils literal notranslate"><span class="pre">LoadDict.client</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.client.LoadDict.field"><code class="docutils literal notranslate"><span class="pre">LoadDict.field</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.server.client.ServerSideException"><code class="docutils literal notranslate"><span class="pre">ServerSideException</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.server.dask_client">superduperdb.server.dask_client module</a><ul>
+<li><a class="reference internal" href="#superduperdb.server.dask_client.DaskClient"><code class="docutils literal notranslate"><span class="pre">DaskClient</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.server.dask_client.DaskClient.get_result"><code class="docutils literal notranslate"><span class="pre">DaskClient.get_result()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.dask_client.DaskClient.shutdown"><code class="docutils literal notranslate"><span class="pre">DaskClient.shutdown()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.dask_client.DaskClient.submit"><code class="docutils literal notranslate"><span class="pre">DaskClient.submit()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.dask_client.DaskClient.submit_and_forget"><code class="docutils literal notranslate"><span class="pre">DaskClient.submit_and_forget()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.dask_client.DaskClient.wait_all_pending_tasks"><code class="docutils literal notranslate"><span class="pre">DaskClient.wait_all_pending_tasks()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.server.dask_client.dask_client"><code class="docutils literal notranslate"><span class="pre">dask_client()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.server.login">superduperdb.server.login module</a><ul>
+<li><a class="reference internal" href="#superduperdb.server.login.maybe_login_required"><code class="docutils literal notranslate"><span class="pre">maybe_login_required()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.server.server">superduperdb.server.server module</a><ul>
+<li><a class="reference internal" href="#superduperdb.server.server.make_endpoints"><code class="docutils literal notranslate"><span class="pre">make_endpoints()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.server.make_flask_app"><code class="docutils literal notranslate"><span class="pre">make_flask_app()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.server.server.serve"><code class="docutils literal notranslate"><span class="pre">serve()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.server">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,822 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="superduperdb.server package" href="superduperdb.server.html" /><link rel="prev" title="superduperdb.misc package" href="superduperdb.misc.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
+        <title>superduperdb.misc.runnable package - Python documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/SuperDuperDB_logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Python  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">superduperdb</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of superduperdb</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="superduperdb.html">superduperdb package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of superduperdb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.base.html">superduperdb.base package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.cli.html">superduperdb.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.container.html">superduperdb.container package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.data.html">superduperdb.data package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of superduperdb.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.cache.html">superduperdb.data.cache package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.tree.html">superduperdb.data.tree package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.db.html">superduperdb.db package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of superduperdb.db package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html">superduperdb.db.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.filesystem.html">superduperdb.db.filesystem package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html">superduperdb.db.ibis package</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="superduperdb.db.mongodb.html">superduperdb.db.mongodb package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of superduperdb.db.mongodb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html">superduperdb.db.mongodb.cdc package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.ext.html">superduperdb.ext package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of superduperdb.ext package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.anthropic.html">superduperdb.ext.anthropic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.cohere.html">superduperdb.ext.cohere package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.numpy.html">superduperdb.ext.numpy package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.openai.html">superduperdb.ext.openai package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.pillow.html">superduperdb.ext.pillow package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sentence_transformer.html">superduperdb.ext.sentence_transformer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sklearn.html">superduperdb.ext.sklearn package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.torch.html">superduperdb.ext.torch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.transformers.html">superduperdb.ext.transformers package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.vector.html">superduperdb.ext.vector package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current has-children"><a class="reference internal" href="superduperdb.misc.html">superduperdb.misc package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of superduperdb.misc package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l4 current current-page"><a class="current reference internal" href="#">superduperdb.misc.runnable package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.server.html">superduperdb.server package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.vector_search.html">superduperdb.vector_search package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="superduperdb-misc-runnable-package">
+<h1>superduperdb.misc.runnable package<a class="headerlink" href="#superduperdb-misc-runnable-package" title="Permalink to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-superduperdb.misc.runnable.collection">
+<span id="superduperdb-misc-runnable-collection-module"></span><h2>superduperdb.misc.runnable.collection module<a class="headerlink" href="#module-superduperdb.misc.runnable.collection" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.HasRunnables">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.runnable.collection.</span></span><span class="sig-name descname"><span class="pre">HasRunnables</span></span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/collection.html#HasRunnables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.collection.HasRunnables" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable" title="superduperdb.misc.runnable.runnable.Runnable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Runnable</span></code></a></p>
+<p>Collect zero or more Runnable into one</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.HasRunnables.finish">
+<span class="sig-name descname"><span class="pre">finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/collection.html#HasRunnables.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.collection.HasRunnables.finish" title="Permalink to this definition">#</a></dt>
+<dd><p>Request an orderly shutdown where all existing work is completed.</p>
+<p>Note that self.stopped might not be immediately true after this method completes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.HasRunnables.join">
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/collection.html#HasRunnables.join"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.collection.HasRunnables.join" title="Permalink to this definition">#</a></dt>
+<dd><p>Join this thread or process.  Might block indefinitely, might do nothing</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.HasRunnables.runnables">
+<span class="sig-name descname"><span class="pre">runnables</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable" title="superduperdb.misc.runnable.runnable.Runnable"><span class="pre">Runnable</span></a><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.misc.runnable.collection.HasRunnables.runnables" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.HasRunnables.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/collection.html#HasRunnables.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.collection.HasRunnables.start" title="Permalink to this definition">#</a></dt>
+<dd><p>Start this object.</p>
+<p>Note that self.running might not be immediately true after this method completes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.HasRunnables.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/collection.html#HasRunnables.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.collection.HasRunnables.stop" title="Permalink to this definition">#</a></dt>
+<dd><p>Stop as soon as possible. might not do anything, should never raise.</p>
+<p>Note that self.stopped might not be immediately true after this method completes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.ThreadQueue">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.runnable.collection.</span></span><span class="sig-name descname"><span class="pre">ThreadQueue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">callback:</span> <span class="pre">~typing.Callable[[~typing.Any],</span> <span class="pre">None],</span> <span class="pre">error:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">none&gt;,</span> <span class="pre">maxsize:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0,</span> <span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'thread_queue',</span> <span class="pre">thread_count:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">1,</span> <span class="pre">timeout:</span> <span class="pre">float</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">0.1</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/collection.html#ThreadQueue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.collection.ThreadQueue" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.misc.runnable.collection.HasRunnables" title="superduperdb.misc.runnable.collection.HasRunnables"><code class="xref py py-class docutils literal notranslate"><span class="pre">HasRunnables</span></code></a></p>
+<p>A simple multi-producer, multi-consumer queue with one thread per consumer.</p>
+<p>There is a special <cite>finish_message</cite> value, which when received shuts down
+that consumer.  ThreadQueue.finish() puts one <cite>self.finish_message</cite> onto the
+queue for each consumer.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.ThreadQueue.callback">
+<span class="sig-name descname"><span class="pre">callback</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.misc.runnable.collection.ThreadQueue.callback" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.ThreadQueue.error">
+<span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superduperdb.misc.runnable.collection.ThreadQueue.error" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.ThreadQueue.finish">
+<span class="sig-name descname"><span class="pre">finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/collection.html#ThreadQueue.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.collection.ThreadQueue.finish" title="Permalink to this definition">#</a></dt>
+<dd><p>Put an empty message into the queue for each listener</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.ThreadQueue.maxsize">
+<span class="sig-name descname"><span class="pre">maxsize</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#superduperdb.misc.runnable.collection.ThreadQueue.maxsize" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.ThreadQueue.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'thread_queue'</span></em><a class="headerlink" href="#superduperdb.misc.runnable.collection.ThreadQueue.name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.ThreadQueue.queue">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">queue</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Queue</span></em><a class="headerlink" href="#superduperdb.misc.runnable.collection.ThreadQueue.queue" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.ThreadQueue.thread_count">
+<span class="sig-name descname"><span class="pre">thread_count</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#superduperdb.misc.runnable.collection.ThreadQueue.thread_count" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.collection.ThreadQueue.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></em><a class="headerlink" href="#superduperdb.misc.runnable.collection.ThreadQueue.timeout" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.runnable.queue_chunker">
+<span id="superduperdb-misc-runnable-queue-chunker-module"></span><h2>superduperdb.misc.runnable.queue_chunker module<a class="headerlink" href="#module-superduperdb.misc.runnable.queue_chunker" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.queue_chunker.QueueChunker">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.runnable.queue_chunker.</span></span><span class="sig-name descname"><span class="pre">QueueChunker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">chunk_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">accumulate_timeouts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/queue_chunker.html#QueueChunker"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.queue_chunker.QueueChunker" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Chunk a queue into lists of length at most <cite>chunk_size</cite> within time <cite>timeout</cite>
+:param chunk_size: Maximum number of entries in a chunk
+:param timeout: Maximum amount of time to block
+:param accumulate_timeouts: If accumulate timeouts is True, then <cite>timeout</cite> is</p>
+<blockquote>
+<div><p>the total timeout allowed over the whole chunk,
+otherwise the timeout is applied to each item.</p>
+</div></blockquote>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.queue_chunker.QueueChunker.accumulate_timeouts">
+<span class="sig-name descname"><span class="pre">accumulate_timeouts</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#superduperdb.misc.runnable.queue_chunker.QueueChunker.accumulate_timeouts" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.queue_chunker.QueueChunker.chunk_size">
+<span class="sig-name descname"><span class="pre">chunk_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#superduperdb.misc.runnable.queue_chunker.QueueChunker.chunk_size" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.queue_chunker.QueueChunker.timeout">
+<span class="sig-name descname"><span class="pre">timeout</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#superduperdb.misc.runnable.queue_chunker.QueueChunker.timeout" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.runnable.runnable">
+<span id="superduperdb-misc-runnable-runnable-module"></span><h2>superduperdb.misc.runnable.runnable module<a class="headerlink" href="#module-superduperdb.misc.runnable.runnable" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Event">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.runnable.runnable.</span></span><span class="sig-name descname"><span class="pre">Event</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">on_set</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/runnable.html#Event"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Event" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Event</span></code></p>
+<p>A threading.Event that also calls back to zero or more functions when its state
+is set or reset, and has a __bool__ method.</p>
+<p>Note that the callback might happen on some completely different thread,
+so these functions cannot block</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Event.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/runnable.html#Event.clear"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Event.clear" title="Permalink to this definition">#</a></dt>
+<dd><p>Reset the internal flag to false.</p>
+<p>Subsequently, threads calling wait() will block until set() is called to
+set the internal flag to true again.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Event.on_set">
+<span class="sig-name descname"><span class="pre">on_set</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Event.on_set" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Event.set">
+<span class="sig-name descname"><span class="pre">set</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/runnable.html#Event.set"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Event.set" title="Permalink to this definition">#</a></dt>
+<dd><p>Set the internal flag to true.</p>
+<p>All threads waiting for it to become true are awakened. Threads
+that call wait() once the flag is true will not block at all.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Runnable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.runnable.runnable.</span></span><span class="sig-name descname"><span class="pre">Runnable</span></span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/runnable.html#Runnable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Runnable" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A base class for things that start, run, finish, stop and join</p>
+<p>Stopping is requesting immediate termination: finishing is saying that
+there is no more work to be done, finish what you are doing.</p>
+<p>A Runnable has two <cite>Event`s, `running</cite> and <cite>stopped</cite>, and you can either
+<cite>wait</cite> on either of these conditions to be true, or add a callback function
+(which must be non-blocking) to either of them.</p>
+<p><cite>running</cite> is not set until the setup for a <cite>Runnable</cite> has finished;
+<cite>stopped</cite> is not set until all the computations in a thread have ceased.</p>
+<p>An Runnable can be used as a context manager:</p>
+<blockquote>
+<div><dl class="simple">
+<dt>with runnable:</dt><dd><p># The runnable is running by this point
+do_stuff()</p>
+</dd>
+</dl>
+<p># By the time you get to here, the runnable has completely stopped</p>
+</div></blockquote>
+<p>The above means roughly the same as</p>
+<blockquote>
+<div><p>runnable.start()
+try:</p>
+<blockquote>
+<div><p>do_stuff()
+runnable.finish()
+runnable.join()</p>
+</div></blockquote>
+<dl class="simple">
+<dt>finally:</dt><dd><p>runnable.stop()</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Runnable.finish">
+<span class="sig-name descname"><span class="pre">finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/runnable.html#Runnable.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Runnable.finish" title="Permalink to this definition">#</a></dt>
+<dd><p>Request an orderly shutdown where all existing work is completed.</p>
+<p>Note that self.stopped might not be immediately true after this method completes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Runnable.join">
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/runnable.html#Runnable.join"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Runnable.join" title="Permalink to this definition">#</a></dt>
+<dd><p>Join this thread or process.  Might block indefinitely, might do nothing</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Runnable.running">
+<span class="sig-name descname"><span class="pre">running</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Event" title="superduperdb.misc.runnable.runnable.Event"><span class="pre">Event</span></a></em><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Runnable.running" title="Permalink to this definition">#</a></dt>
+<dd><p>An Event that is only set once this object is actually running</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Runnable.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/runnable.html#Runnable.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Runnable.start" title="Permalink to this definition">#</a></dt>
+<dd><p>Start this object.</p>
+<p>Note that self.running might not be immediately true after this method completes</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Runnable.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/runnable.html#Runnable.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Runnable.stop" title="Permalink to this definition">#</a></dt>
+<dd><p>Stop as soon as possible. might not do anything, should never raise.</p>
+<p>Note that self.stopped might not be immediately true after this method completes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.runnable.Runnable.stopped">
+<span class="sig-name descname"><span class="pre">stopped</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Event" title="superduperdb.misc.runnable.runnable.Event"><span class="pre">Event</span></a></em><a class="headerlink" href="#superduperdb.misc.runnable.runnable.Runnable.stopped" title="Permalink to this definition">#</a></dt>
+<dd><p>An event that is only set once this object is fully stopped</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.runnable.thread">
+<span id="superduperdb-misc-runnable-thread-module"></span><h2>superduperdb.misc.runnable.thread module<a class="headerlink" href="#module-superduperdb.misc.runnable.thread" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.runnable.thread.</span></span><span class="sig-name descname"><span class="pre">HasThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback:</span> <span class="pre">~typing.Callable[[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">None]</span> <span class="pre">=</span> <span class="pre">&lt;built-in</span> <span class="pre">function</span> <span class="pre">print&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">daemon:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">error:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">none&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">looping:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#HasThread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase" title="superduperdb.misc.runnable.thread.ThreadBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThreadBase</span></code></a></p>
+<p>This ThreadBase contains a thread, and is constructed with a callback</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread.callback">
+<span class="sig-name descname"><span class="pre">callback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread.callback" title="Permalink to this definition">#</a></dt>
+<dd><p>print(value, …, sep=’ ‘, end=’n’, file=sys.stdout, flush=False)</p>
+<p>Prints the values to a stream, or to sys.stdout by default.
+Optional keyword arguments:
+file:  a file-like object (stream); defaults to the current sys.stdout.
+sep:   string inserted between values, default a space.
+end:   string appended after the last value, default a newline.
+flush: whether to forcibly flush the stream.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread.daemon">
+<span class="sig-name descname"><span class="pre">daemon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread.daemon" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread.error">
+<span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread.error" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread.join">
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#HasThread.join"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread.join" title="Permalink to this definition">#</a></dt>
+<dd><p>Join this thread or process.  Might block indefinitely, might do nothing</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread.looping">
+<span class="sig-name descname"><span class="pre">looping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread.looping" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread.name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread.new_thread">
+<span class="sig-name descname"><span class="pre">new_thread</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Thread</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#HasThread.new_thread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread.new_thread" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#HasThread.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread.start" title="Permalink to this definition">#</a></dt>
+<dd><p>Start this object.</p>
+<p>Note that self.running might not be immediately true after this method completes</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.HasThread.thread">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">thread</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Thread</span></em><a class="headerlink" href="#superduperdb.misc.runnable.thread.HasThread.thread" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.IsThread">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.runnable.thread.</span></span><span class="sig-name descname"><span class="pre">IsThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#IsThread"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.IsThread" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase" title="superduperdb.misc.runnable.thread.ThreadBase"><code class="xref py py-class docutils literal notranslate"><span class="pre">ThreadBase</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Thread</span></code></p>
+<p>This ThreadBase inherits from threading.Thread.</p>
+<p>To use IsThread, derive from it and override either or both of
+self.callback() and self.pre_run()</p>
+<p>This constructor should always be called with keyword arguments. Arguments are:</p>
+<p><em>group</em> should be None; reserved for future extension when a ThreadGroup
+class is implemented.</p>
+<p><em>target</em> is the callable object to be invoked by the run()
+method. Defaults to None, meaning nothing is called.</p>
+<p><em>name</em> is the thread name. By default, a unique name is constructed of
+the form “Thread-N” where N is a small decimal number.</p>
+<p><em>args</em> is the argument tuple for the target invocation. Defaults to ().</p>
+<p><em>kwargs</em> is a dictionary of keyword arguments for the target
+invocation. Defaults to {}.</p>
+<p>If a subclass overrides the constructor, it must make sure to invoke
+the base class constructor (Thread.__init__()) before doing anything
+else to the thread.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.IsThread.callback">
+<span class="sig-name descname"><span class="pre">callback</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#IsThread.callback"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.IsThread.callback" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.IsThread.error">
+<span class="sig-name descname"><span class="pre">error</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Exception</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#IsThread.error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.IsThread.error" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.IsThread.join">
+<span class="sig-name descname"><span class="pre">join</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#IsThread.join"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.IsThread.join" title="Permalink to this definition">#</a></dt>
+<dd><p>Join this thread or process.  Might block indefinitely, might do nothing</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.IsThread.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#IsThread.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.IsThread.start" title="Permalink to this definition">#</a></dt>
+<dd><p>Start this object.</p>
+<p>Note that self.running might not be immediately true after this method completes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.runnable.thread.</span></span><span class="sig-name descname"><span class="pre">ThreadBase</span></span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#ThreadBase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable" title="superduperdb.misc.runnable.runnable.Runnable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Runnable</span></code></a></p>
+<p>A base class for classes with a thread.</p>
+<p>It adds the following features to threading.Thread:</p>
+<ul class="simple">
+<li><p>Has Events <cite>running</cite> and <cite>stopped</cite> with <cite>on_set</cite> callbacks</p></li>
+<li><p>Handles exceptions and prints or redirects them</p></li>
+<li><p>Runs once, or multiple times, depending on <cite>self.looping</cite></p></li>
+</ul>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase.callback">
+<span class="sig-name descname"><span class="pre">callback</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase.callback" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase.daemon">
+<span class="sig-name descname"><span class="pre">daemon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase.daemon" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase.error">
+<span class="sig-name descname"><span class="pre">error</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">Exception</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase.error" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase.finish">
+<span class="sig-name descname"><span class="pre">finish</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#ThreadBase.finish"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase.finish" title="Permalink to this definition">#</a></dt>
+<dd><p>Request an orderly shutdown where all existing work is completed.</p>
+<p>Note that self.stopped might not be immediately true after this method completes</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase.looping">
+<span class="sig-name descname"><span class="pre">looping</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase.looping" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">''</span></em><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase.name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase.pre_run">
+<span class="sig-name descname"><span class="pre">pre_run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#ThreadBase.pre_run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase.pre_run" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#ThreadBase.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase.run" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.ThreadBase.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#ThreadBase.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.ThreadBase.stop" title="Permalink to this definition">#</a></dt>
+<dd><p>Stop as soon as possible. might not do anything, should never raise.</p>
+<p>Note that self.stopped might not be immediately true after this method completes</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.misc.runnable.thread.none">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.misc.runnable.thread.</span></span><span class="sig-name descname"><span class="pre">none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/runnable/thread.html#none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.runnable.thread.none" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.runnable">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-superduperdb.misc.runnable" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="superduperdb.server.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">superduperdb.server package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="superduperdb.misc.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">superduperdb.misc package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; SuperDuperDB Inc., opensource@superduperdb.com
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">superduperdb.misc.runnable package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-superduperdb.misc.runnable.collection">superduperdb.misc.runnable.collection module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.HasRunnables"><code class="docutils literal notranslate"><span class="pre">HasRunnables</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.HasRunnables.finish"><code class="docutils literal notranslate"><span class="pre">HasRunnables.finish()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.HasRunnables.join"><code class="docutils literal notranslate"><span class="pre">HasRunnables.join()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.HasRunnables.runnables"><code class="docutils literal notranslate"><span class="pre">HasRunnables.runnables</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.HasRunnables.start"><code class="docutils literal notranslate"><span class="pre">HasRunnables.start()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.HasRunnables.stop"><code class="docutils literal notranslate"><span class="pre">HasRunnables.stop()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.ThreadQueue"><code class="docutils literal notranslate"><span class="pre">ThreadQueue</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.ThreadQueue.callback"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.callback</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.ThreadQueue.error"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.error()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.ThreadQueue.finish"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.finish()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.ThreadQueue.maxsize"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.maxsize</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.ThreadQueue.name"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.name</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.ThreadQueue.queue"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.queue</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.ThreadQueue.thread_count"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.thread_count</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.collection.ThreadQueue.timeout"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.timeout</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.runnable.queue_chunker">superduperdb.misc.runnable.queue_chunker module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.queue_chunker.QueueChunker"><code class="docutils literal notranslate"><span class="pre">QueueChunker</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.queue_chunker.QueueChunker.accumulate_timeouts"><code class="docutils literal notranslate"><span class="pre">QueueChunker.accumulate_timeouts</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.queue_chunker.QueueChunker.chunk_size"><code class="docutils literal notranslate"><span class="pre">QueueChunker.chunk_size</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.queue_chunker.QueueChunker.timeout"><code class="docutils literal notranslate"><span class="pre">QueueChunker.timeout</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.runnable.runnable">superduperdb.misc.runnable.runnable module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Event.clear"><code class="docutils literal notranslate"><span class="pre">Event.clear()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Event.on_set"><code class="docutils literal notranslate"><span class="pre">Event.on_set</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Event.set"><code class="docutils literal notranslate"><span class="pre">Event.set()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable"><code class="docutils literal notranslate"><span class="pre">Runnable</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable.finish"><code class="docutils literal notranslate"><span class="pre">Runnable.finish()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable.join"><code class="docutils literal notranslate"><span class="pre">Runnable.join()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable.running"><code class="docutils literal notranslate"><span class="pre">Runnable.running</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable.start"><code class="docutils literal notranslate"><span class="pre">Runnable.start()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable.stop"><code class="docutils literal notranslate"><span class="pre">Runnable.stop()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.runnable.Runnable.stopped"><code class="docutils literal notranslate"><span class="pre">Runnable.stopped</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.runnable.thread">superduperdb.misc.runnable.thread module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread"><code class="docutils literal notranslate"><span class="pre">HasThread</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread.callback"><code class="docutils literal notranslate"><span class="pre">HasThread.callback()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread.daemon"><code class="docutils literal notranslate"><span class="pre">HasThread.daemon</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread.error"><code class="docutils literal notranslate"><span class="pre">HasThread.error()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread.join"><code class="docutils literal notranslate"><span class="pre">HasThread.join()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread.looping"><code class="docutils literal notranslate"><span class="pre">HasThread.looping</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread.name"><code class="docutils literal notranslate"><span class="pre">HasThread.name</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread.new_thread"><code class="docutils literal notranslate"><span class="pre">HasThread.new_thread()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread.start"><code class="docutils literal notranslate"><span class="pre">HasThread.start()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.HasThread.thread"><code class="docutils literal notranslate"><span class="pre">HasThread.thread</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.IsThread"><code class="docutils literal notranslate"><span class="pre">IsThread</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.IsThread.callback"><code class="docutils literal notranslate"><span class="pre">IsThread.callback()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.IsThread.error"><code class="docutils literal notranslate"><span class="pre">IsThread.error()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.IsThread.join"><code class="docutils literal notranslate"><span class="pre">IsThread.join()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.IsThread.start"><code class="docutils literal notranslate"><span class="pre">IsThread.start()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase"><code class="docutils literal notranslate"><span class="pre">ThreadBase</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase.callback"><code class="docutils literal notranslate"><span class="pre">ThreadBase.callback</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase.daemon"><code class="docutils literal notranslate"><span class="pre">ThreadBase.daemon</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase.error"><code class="docutils literal notranslate"><span class="pre">ThreadBase.error</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase.finish"><code class="docutils literal notranslate"><span class="pre">ThreadBase.finish()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase.looping"><code class="docutils literal notranslate"><span class="pre">ThreadBase.looping</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase.name"><code class="docutils literal notranslate"><span class="pre">ThreadBase.name</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase.pre_run"><code class="docutils literal notranslate"><span class="pre">ThreadBase.pre_run()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase.run"><code class="docutils literal notranslate"><span class="pre">ThreadBase.run()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.ThreadBase.stop"><code class="docutils literal notranslate"><span class="pre">ThreadBase.stop()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.runnable.thread.none"><code class="docutils literal notranslate"><span class="pre">none()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.runnable">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

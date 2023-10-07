@@ -1,0 +1,837 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="next" title="superduperdb.misc.runnable package" href="superduperdb.misc.runnable.html" /><link rel="prev" title="superduperdb.ext.vector package" href="superduperdb.ext.vector.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
+        <title>superduperdb.misc package - Python documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/SuperDuperDB_logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Python  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">superduperdb</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of superduperdb</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="superduperdb.html">superduperdb package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of superduperdb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.base.html">superduperdb.base package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.cli.html">superduperdb.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.container.html">superduperdb.container package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.data.html">superduperdb.data package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of superduperdb.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.cache.html">superduperdb.data.cache package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.tree.html">superduperdb.data.tree package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.db.html">superduperdb.db package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of superduperdb.db package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html">superduperdb.db.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.filesystem.html">superduperdb.db.filesystem package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html">superduperdb.db.ibis package</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="superduperdb.db.mongodb.html">superduperdb.db.mongodb package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of superduperdb.db.mongodb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html">superduperdb.db.mongodb.cdc package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.ext.html">superduperdb.ext package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of superduperdb.ext package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.anthropic.html">superduperdb.ext.anthropic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.cohere.html">superduperdb.ext.cohere package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.numpy.html">superduperdb.ext.numpy package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.openai.html">superduperdb.ext.openai package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.pillow.html">superduperdb.ext.pillow package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sentence_transformer.html">superduperdb.ext.sentence_transformer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sklearn.html">superduperdb.ext.sklearn package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.torch.html">superduperdb.ext.torch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.transformers.html">superduperdb.ext.transformers package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.vector.html">superduperdb.ext.vector package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current has-children current-page"><a class="current reference internal" href="#">superduperdb.misc package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of superduperdb.misc package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html">superduperdb.misc.runnable package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.server.html">superduperdb.server package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.vector_search.html">superduperdb.vector_search package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="superduperdb-misc-package">
+<h1>superduperdb.misc package<a class="headerlink" href="#superduperdb-misc-package" title="Permalink to this heading">#</a></h1>
+<section id="subpackages">
+<h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="superduperdb.misc.runnable.html">superduperdb.misc.runnable package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.misc.runnable.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.misc.runnable.html#module-superduperdb.misc.runnable.collection">superduperdb.misc.runnable.collection module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.HasRunnables"><code class="docutils literal notranslate"><span class="pre">HasRunnables</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.HasRunnables.finish"><code class="docutils literal notranslate"><span class="pre">HasRunnables.finish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.HasRunnables.join"><code class="docutils literal notranslate"><span class="pre">HasRunnables.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.HasRunnables.runnables"><code class="docutils literal notranslate"><span class="pre">HasRunnables.runnables</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.HasRunnables.start"><code class="docutils literal notranslate"><span class="pre">HasRunnables.start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.HasRunnables.stop"><code class="docutils literal notranslate"><span class="pre">HasRunnables.stop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.ThreadQueue"><code class="docutils literal notranslate"><span class="pre">ThreadQueue</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.ThreadQueue.callback"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.callback</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.ThreadQueue.error"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.ThreadQueue.finish"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.finish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.ThreadQueue.maxsize"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.maxsize</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.ThreadQueue.name"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.ThreadQueue.queue"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.queue</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.ThreadQueue.thread_count"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.thread_count</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.collection.ThreadQueue.timeout"><code class="docutils literal notranslate"><span class="pre">ThreadQueue.timeout</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.misc.runnable.html#module-superduperdb.misc.runnable.queue_chunker">superduperdb.misc.runnable.queue_chunker module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.queue_chunker.QueueChunker"><code class="docutils literal notranslate"><span class="pre">QueueChunker</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.queue_chunker.QueueChunker.accumulate_timeouts"><code class="docutils literal notranslate"><span class="pre">QueueChunker.accumulate_timeouts</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.queue_chunker.QueueChunker.chunk_size"><code class="docutils literal notranslate"><span class="pre">QueueChunker.chunk_size</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.queue_chunker.QueueChunker.timeout"><code class="docutils literal notranslate"><span class="pre">QueueChunker.timeout</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.misc.runnable.html#module-superduperdb.misc.runnable.runnable">superduperdb.misc.runnable.runnable module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Event"><code class="docutils literal notranslate"><span class="pre">Event</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Event.clear"><code class="docutils literal notranslate"><span class="pre">Event.clear()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Event.on_set"><code class="docutils literal notranslate"><span class="pre">Event.on_set</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Event.set"><code class="docutils literal notranslate"><span class="pre">Event.set()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Runnable"><code class="docutils literal notranslate"><span class="pre">Runnable</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Runnable.finish"><code class="docutils literal notranslate"><span class="pre">Runnable.finish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Runnable.join"><code class="docutils literal notranslate"><span class="pre">Runnable.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Runnable.running"><code class="docutils literal notranslate"><span class="pre">Runnable.running</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Runnable.start"><code class="docutils literal notranslate"><span class="pre">Runnable.start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Runnable.stop"><code class="docutils literal notranslate"><span class="pre">Runnable.stop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.runnable.Runnable.stopped"><code class="docutils literal notranslate"><span class="pre">Runnable.stopped</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.misc.runnable.html#module-superduperdb.misc.runnable.thread">superduperdb.misc.runnable.thread module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread"><code class="docutils literal notranslate"><span class="pre">HasThread</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread.callback"><code class="docutils literal notranslate"><span class="pre">HasThread.callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread.daemon"><code class="docutils literal notranslate"><span class="pre">HasThread.daemon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread.error"><code class="docutils literal notranslate"><span class="pre">HasThread.error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread.join"><code class="docutils literal notranslate"><span class="pre">HasThread.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread.looping"><code class="docutils literal notranslate"><span class="pre">HasThread.looping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread.name"><code class="docutils literal notranslate"><span class="pre">HasThread.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread.new_thread"><code class="docutils literal notranslate"><span class="pre">HasThread.new_thread()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread.start"><code class="docutils literal notranslate"><span class="pre">HasThread.start()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.HasThread.thread"><code class="docutils literal notranslate"><span class="pre">HasThread.thread</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.IsThread"><code class="docutils literal notranslate"><span class="pre">IsThread</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.IsThread.callback"><code class="docutils literal notranslate"><span class="pre">IsThread.callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.IsThread.error"><code class="docutils literal notranslate"><span class="pre">IsThread.error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.IsThread.join"><code class="docutils literal notranslate"><span class="pre">IsThread.join()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.IsThread.start"><code class="docutils literal notranslate"><span class="pre">IsThread.start()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase"><code class="docutils literal notranslate"><span class="pre">ThreadBase</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase.callback"><code class="docutils literal notranslate"><span class="pre">ThreadBase.callback</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase.daemon"><code class="docutils literal notranslate"><span class="pre">ThreadBase.daemon</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase.error"><code class="docutils literal notranslate"><span class="pre">ThreadBase.error</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase.finish"><code class="docutils literal notranslate"><span class="pre">ThreadBase.finish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase.looping"><code class="docutils literal notranslate"><span class="pre">ThreadBase.looping</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase.name"><code class="docutils literal notranslate"><span class="pre">ThreadBase.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase.pre_run"><code class="docutils literal notranslate"><span class="pre">ThreadBase.pre_run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase.run"><code class="docutils literal notranslate"><span class="pre">ThreadBase.run()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.ThreadBase.stop"><code class="docutils literal notranslate"><span class="pre">ThreadBase.stop()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.misc.runnable.html#superduperdb.misc.runnable.thread.none"><code class="docutils literal notranslate"><span class="pre">none()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="superduperdb.misc.runnable.html#module-superduperdb.misc.runnable">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-superduperdb.misc.colors">
+<span id="superduperdb-misc-colors-module"></span><h2>superduperdb.misc.colors module<a class="headerlink" href="#module-superduperdb.misc.colors" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.colors.</span></span><span class="sig-name descname"><span class="pre">Colors</span></span><a class="reference internal" href="../_modules/superduperdb/misc/colors.html#Colors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.colors.Colors" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.BLACK">
+<span class="sig-name descname"><span class="pre">BLACK</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[30m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.BLACK" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.BLUE">
+<span class="sig-name descname"><span class="pre">BLUE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[34m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.BLUE" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.CYAN">
+<span class="sig-name descname"><span class="pre">CYAN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[36m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.CYAN" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.GREEN">
+<span class="sig-name descname"><span class="pre">GREEN</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[32m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.GREEN" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.MAGENTA">
+<span class="sig-name descname"><span class="pre">MAGENTA</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[35m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.MAGENTA" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.RED">
+<span class="sig-name descname"><span class="pre">RED</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[31m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.RED" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.RESET">
+<span class="sig-name descname"><span class="pre">RESET</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[0m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.RESET" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.UNDERLINE">
+<span class="sig-name descname"><span class="pre">UNDERLINE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[4m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.UNDERLINE" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.WHITE">
+<span class="sig-name descname"><span class="pre">WHITE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[37m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.WHITE" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.colors.Colors.YELLOW">
+<span class="sig-name descname"><span class="pre">YELLOW</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'\x1b[33m'</span></em><a class="headerlink" href="#superduperdb.misc.colors.Colors.YELLOW" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.compat">
+<span id="superduperdb-misc-compat-module"></span><h2>superduperdb.misc.compat module<a class="headerlink" href="#module-superduperdb.misc.compat" title="Permalink to this heading">#</a></h2>
+<p>Functions from later standard libraries not available in Python 3.8</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.misc.compat.cache">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.misc.compat.</span></span><span class="sig-name descname"><span class="pre">cache</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_function</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">/</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/compat.html#cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.compat.cache" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.files">
+<span id="superduperdb-misc-files-module"></span><h2>superduperdb.misc.files module<a class="headerlink" href="#module-superduperdb.misc.files" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.misc.files._get_file">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.misc.files.</span></span><span class="sig-name descname"><span class="pre">_get_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/files.html#_get_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.files._get_file" title="Permalink to this definition">#</a></dt>
+<dd><p>Get file name from uri.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">_get_file</span><span class="p">(</span><span class="s1">&#39;file://test.txt&#39;</span><span class="p">)</span>
+<span class="go">&#39;test.txt&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_get_file</span><span class="p">(</span><span class="s1">&#39;http://test.txt&#39;</span><span class="p">)</span>
+<span class="go">&#39;414388bd5644669b8a92e45a96318890f6e8de54&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.misc.files.load_uris">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.misc.files.</span></span><span class="sig-name descname"><span class="pre">load_uris</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">r</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">raises</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/files.html#load_uris"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.files.load_uris" title="Permalink to this definition">#</a></dt>
+<dd><p>Load <code class="docutils literal notranslate"><span class="pre">&quot;bytes&quot;</span></code> into <code class="docutils literal notranslate"><span class="pre">&quot;_content&quot;</span></code> from <code class="docutils literal notranslate"><span class="pre">&quot;uri&quot;</span></code> inside <code class="docutils literal notranslate"><span class="pre">r</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>r</strong> – The dict to load the bytes into</p></li>
+<li><p><strong>root</strong> – The root directory to load the bytes from</p></li>
+<li><p><strong>raises</strong> – Whether to raise an error if the file is not found</p></li>
+</ul>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/tmp/test.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="s1">&#39;test&#39;</span><span class="p">,</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;_content&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;file://test.txt&quot;</span><span class="p">}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">load_uris</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="s1">&#39;/tmp&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">r</span>
+<span class="go">{&#39;_content&#39;: {&#39;uri&#39;: &#39;file://test.txt&#39;, &#39;bytes&#39;: b&#39;test&#39;}}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.retry">
+<span id="superduperdb-misc-retry-module"></span><h2>superduperdb.misc.retry module<a class="headerlink" href="#module-superduperdb.misc.retry" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.retry.Retry">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.retry.</span></span><span class="sig-name descname"><span class="pre">Retry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exception_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseException</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseException</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cfg</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="superduperdb.base.html#superduperdb.base.config.Retry" title="superduperdb.base.config.Retry"><span class="pre">Retry</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/retry.html#Retry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.retry.Retry" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Retry a function until it succeeds.</p>
+<p>This is a thin wrapper around the tenacity retry library, using our configs.
+:param exception_types: The exception types to retry on.
+:param cfg: The retry config.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.retry.Retry.cfg">
+<span class="sig-name descname"><span class="pre">cfg</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="superduperdb.base.html#superduperdb.base.config.Retry" title="superduperdb.base.config.Retry"><span class="pre">Retry</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#superduperdb.misc.retry.Retry.cfg" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.retry.Retry.exception_types">
+<span class="sig-name descname"><span class="pre">exception_types</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseException</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">Type</span><span class="p"><span class="pre">[</span></span><span class="pre">BaseException</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.misc.retry.Retry.exception_types" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.run">
+<span id="superduperdb-misc-run-module"></span><h2>superduperdb.misc.run module<a class="headerlink" href="#module-superduperdb.misc.run" title="Permalink to this heading">#</a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="superduperdb.misc.run.CalledProcessError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.run.</span></span><span class="sig-name descname"><span class="pre">CalledProcessError</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">returncode</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cmd</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/subprocess.html#CalledProcessError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.run.CalledProcessError" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">SubprocessError</span></code></p>
+<p>Raised when run() is called with check=True and the process
+returns a non-zero exit status.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py">
+<span class="sig-name descname"><span class="pre">cmd,</span> <span class="pre">returncode,</span> <span class="pre">stdout,</span> <span class="pre">stderr,</span> <span class="pre">output</span></span></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superduperdb.misc.run.CalledProcessError.stdout">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stdout</span></span><a class="headerlink" href="#superduperdb.misc.run.CalledProcessError.stdout" title="Permalink to this definition">#</a></dt>
+<dd><p>Alias for output attribute, to match stderr</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.misc.run.out">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.misc.run.</span></span><span class="sig-name descname"><span class="pre">out</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/run.html#out"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.run.out" title="Permalink to this definition">#</a></dt>
+<dd><p>Run a command and return the output.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – The command to run.</p></li>
+<li><p><strong>**kwargs</strong> – <p>Additional arguments to pass to <code class="docutils literal notranslate"><span class="pre">subprocess.run</span></code>.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.misc.run.run">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.misc.run.</span></span><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">CompletedProcess</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/run.html#run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.run.run" title="Permalink to this definition">#</a></dt>
+<dd><p>Run a command, printing it if verbose is enabled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>args</strong> – The command to run.</p></li>
+<li><p><strong>text</strong> – Whether to use text mode.</p></li>
+<li><p><strong>check</strong> – Whether to raise an error if the command fails.</p></li>
+<li><p><strong>**kwargs</strong> – <p>Additional arguments to pass to <code class="docutils literal notranslate"><span class="pre">subprocess.run</span></code>.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.serialization">
+<span id="superduperdb-misc-serialization-module"></span><h2>superduperdb.misc.serialization module<a class="headerlink" href="#module-superduperdb.misc.serialization" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.DillSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.serialization.</span></span><span class="sig-name descname"><span class="pre">DillSerializer</span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#DillSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.DillSerializer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.misc.serialization.Serializer" title="superduperdb.misc.serialization.Serializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serializer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.DillSerializer.decode">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#DillSerializer.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.DillSerializer.decode" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.DillSerializer.encode">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#DillSerializer.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.DillSerializer.encode" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.Method">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.serialization.</span></span><span class="sig-name descname"><span class="pre">Method</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#Method"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.Method" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A callable that calls a method on the object it is called with.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> – The method to call.</p></li>
+<li><p><strong>*args</strong> – <p>The args to call the method with.</p>
+</p></li>
+<li><p><strong>**kwargs</strong> – <p>The kwargs to call the method with.</p>
+</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.ModuleClassDict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.serialization.</span></span><span class="sig-name descname"><span class="pre">ModuleClassDict</span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#ModuleClassDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.ModuleClassDict" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">TypedDict</span></code></p>
+<p>A <a href="#id9"><span class="problematic" id="id10">``</span></a>dict``with the module, class and JSONization of an object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>module</strong> – The module of the object</p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.ModuleClassDict.cls">
+<span class="sig-name descname"><span class="pre">cls</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#superduperdb.misc.serialization.ModuleClassDict.cls" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.ModuleClassDict.dict">
+<span class="sig-name descname"><span class="pre">dict</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.misc.serialization.ModuleClassDict.dict" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.ModuleClassDict.module">
+<span class="sig-name descname"><span class="pre">module</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#superduperdb.misc.serialization.ModuleClassDict.module" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.PickleSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.serialization.</span></span><span class="sig-name descname"><span class="pre">PickleSerializer</span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#PickleSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.PickleSerializer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.misc.serialization.Serializer" title="superduperdb.misc.serialization.Serializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serializer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.PickleSerializer.decode">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#PickleSerializer.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.PickleSerializer.decode" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.PickleSerializer.encode">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#PickleSerializer.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.PickleSerializer.encode" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.Serializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.serialization.</span></span><span class="sig-name descname"><span class="pre">Serializer</span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#Serializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.Serializer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.Serializer.decode">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#Serializer.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.Serializer.decode" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.Serializer.encode">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#Serializer.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.Serializer.encode" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.TorchSerializer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.serialization.</span></span><span class="sig-name descname"><span class="pre">TorchSerializer</span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#TorchSerializer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.TorchSerializer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.misc.serialization.Serializer" title="superduperdb.misc.serialization.Serializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Serializer</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.TorchSerializer.decode">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">decode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#TorchSerializer.decode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.TorchSerializer.decode" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.misc.serialization.TorchSerializer.encode">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">encode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bytes</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/serialization.html#TorchSerializer.encode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.serialization.TorchSerializer.encode" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.special_dicts">
+<span id="superduperdb-misc-special-dicts-module"></span><h2>superduperdb.misc.special_dicts module<a class="headerlink" href="#module-superduperdb.misc.special_dicts" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.misc.special_dicts.MongoStyleDict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.misc.special_dicts.</span></span><span class="sig-name descname"><span class="pre">MongoStyleDict</span></span><a class="reference internal" href="../_modules/superduperdb/misc/special_dicts.html#MongoStyleDict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.special_dicts.MongoStyleDict" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">Any</span></code>]</p>
+<p>Dictionary object mirroring how fields can be referred to and set in MongoDB.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">MongoStyleDict</span><span class="p">({</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;a.b&#39;</span><span class="p">]</span>
+<span class="go">1</span>
+</pre></div>
+</div>
+<p>t.Set deep fields directly with string keys:
+&gt;&gt;&gt; d[‘a.c’] = 2
+&gt;&gt;&gt; d
+{‘a’: {‘b’: 1, ‘c’: 2}}</p>
+<p>Parent keys should exist in order to set subfields:
+&gt;&gt;&gt; d[‘a.d.e’] = 3
+Traceback (most recent call last):
+…
+KeyError: ‘d’</p>
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc.superduper">
+<span id="superduperdb-misc-superduper-module"></span><h2>superduperdb.misc.superduper module<a class="headerlink" href="#module-superduperdb.misc.superduper" title="Permalink to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.misc.superduper.superduper">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.misc.superduper.</span></span><span class="sig-name descname"><span class="pre">superduper</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">item</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/superduperdb/misc/superduper.html#superduper"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.misc.superduper.superduper" title="Permalink to this definition">#</a></dt>
+<dd><p>Attempts to automatically wrap an item in a superduperdb container by
+using duck typing to recognize it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> – A database or model</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.misc">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-superduperdb.misc" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="superduperdb.misc.runnable.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">superduperdb.misc.runnable package</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="superduperdb.ext.vector.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">superduperdb.ext.vector package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; SuperDuperDB Inc., opensource@superduperdb.com
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">superduperdb.misc package</a><ul>
+<li><a class="reference internal" href="#subpackages">Subpackages</a></li>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-superduperdb.misc.colors">superduperdb.misc.colors module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors"><code class="docutils literal notranslate"><span class="pre">Colors</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.BLACK"><code class="docutils literal notranslate"><span class="pre">Colors.BLACK</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.BLUE"><code class="docutils literal notranslate"><span class="pre">Colors.BLUE</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.CYAN"><code class="docutils literal notranslate"><span class="pre">Colors.CYAN</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.GREEN"><code class="docutils literal notranslate"><span class="pre">Colors.GREEN</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.MAGENTA"><code class="docutils literal notranslate"><span class="pre">Colors.MAGENTA</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.RED"><code class="docutils literal notranslate"><span class="pre">Colors.RED</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.RESET"><code class="docutils literal notranslate"><span class="pre">Colors.RESET</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.UNDERLINE"><code class="docutils literal notranslate"><span class="pre">Colors.UNDERLINE</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.WHITE"><code class="docutils literal notranslate"><span class="pre">Colors.WHITE</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.colors.Colors.YELLOW"><code class="docutils literal notranslate"><span class="pre">Colors.YELLOW</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.compat">superduperdb.misc.compat module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.compat.cache"><code class="docutils literal notranslate"><span class="pre">cache()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.files">superduperdb.misc.files module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.files._get_file"><code class="docutils literal notranslate"><span class="pre">_get_file()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.files.load_uris"><code class="docutils literal notranslate"><span class="pre">load_uris()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.retry">superduperdb.misc.retry module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.retry.Retry"><code class="docutils literal notranslate"><span class="pre">Retry</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.retry.Retry.cfg"><code class="docutils literal notranslate"><span class="pre">Retry.cfg</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.retry.Retry.exception_types"><code class="docutils literal notranslate"><span class="pre">Retry.exception_types</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.run">superduperdb.misc.run module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.run.CalledProcessError"><code class="docutils literal notranslate"><span class="pre">CalledProcessError</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.run.CalledProcessError.stdout"><code class="docutils literal notranslate"><span class="pre">CalledProcessError.stdout</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.run.out"><code class="docutils literal notranslate"><span class="pre">out()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.run.run"><code class="docutils literal notranslate"><span class="pre">run()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.serialization">superduperdb.misc.serialization module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.DillSerializer"><code class="docutils literal notranslate"><span class="pre">DillSerializer</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.DillSerializer.decode"><code class="docutils literal notranslate"><span class="pre">DillSerializer.decode()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.DillSerializer.encode"><code class="docutils literal notranslate"><span class="pre">DillSerializer.encode()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.Method"><code class="docutils literal notranslate"><span class="pre">Method</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.ModuleClassDict"><code class="docutils literal notranslate"><span class="pre">ModuleClassDict</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.ModuleClassDict.cls"><code class="docutils literal notranslate"><span class="pre">ModuleClassDict.cls</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.ModuleClassDict.dict"><code class="docutils literal notranslate"><span class="pre">ModuleClassDict.dict</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.ModuleClassDict.module"><code class="docutils literal notranslate"><span class="pre">ModuleClassDict.module</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.PickleSerializer"><code class="docutils literal notranslate"><span class="pre">PickleSerializer</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.PickleSerializer.decode"><code class="docutils literal notranslate"><span class="pre">PickleSerializer.decode()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.PickleSerializer.encode"><code class="docutils literal notranslate"><span class="pre">PickleSerializer.encode()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.Serializer"><code class="docutils literal notranslate"><span class="pre">Serializer</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.Serializer.decode"><code class="docutils literal notranslate"><span class="pre">Serializer.decode()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.Serializer.encode"><code class="docutils literal notranslate"><span class="pre">Serializer.encode()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.TorchSerializer"><code class="docutils literal notranslate"><span class="pre">TorchSerializer</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.TorchSerializer.decode"><code class="docutils literal notranslate"><span class="pre">TorchSerializer.decode()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.misc.serialization.TorchSerializer.encode"><code class="docutils literal notranslate"><span class="pre">TorchSerializer.encode()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.special_dicts">superduperdb.misc.special_dicts module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.special_dicts.MongoStyleDict"><code class="docutils literal notranslate"><span class="pre">MongoStyleDict</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc.superduper">superduperdb.misc.superduper module</a><ul>
+<li><a class="reference internal" href="#superduperdb.misc.superduper.superduper"><code class="docutils literal notranslate"><span class="pre">superduper()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.misc">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>

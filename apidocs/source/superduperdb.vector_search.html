@@ -1,0 +1,911 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" /><link rel="prev" title="superduperdb.server package" href="superduperdb.server.html" />
+
+    <!-- Generated with Sphinx 7.1.2 and Furo 2023.09.10 -->
+        <title>superduperdb.vector_search package - Python documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">Python  documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../_static/SuperDuperDB_logo.png" alt="Logo"/>
+  </div>
+  
+  <span class="sidebar-brand-text">Python  documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1 current has-children"><a class="reference internal" href="modules.html">superduperdb</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of superduperdb</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 current has-children"><a class="reference internal" href="superduperdb.html">superduperdb package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of superduperdb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.base.html">superduperdb.base package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.cli.html">superduperdb.cli package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.container.html">superduperdb.container package</a></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.data.html">superduperdb.data package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle navigation of superduperdb.data package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.cache.html">superduperdb.data.cache package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.data.tree.html">superduperdb.data.tree package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.db.html">superduperdb.db package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle navigation of superduperdb.db package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.base.html">superduperdb.db.base package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.filesystem.html">superduperdb.db.filesystem package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.db.ibis.html">superduperdb.db.ibis package</a></li>
+<li class="toctree-l4 has-children"><a class="reference internal" href="superduperdb.db.mongodb.html">superduperdb.db.mongodb package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle navigation of superduperdb.db.mongodb package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l5"><a class="reference internal" href="superduperdb.db.mongodb.cdc.html">superduperdb.db.mongodb.cdc package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.ext.html">superduperdb.ext package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle navigation of superduperdb.ext package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.anthropic.html">superduperdb.ext.anthropic package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.cohere.html">superduperdb.ext.cohere package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.numpy.html">superduperdb.ext.numpy package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.openai.html">superduperdb.ext.openai package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.pillow.html">superduperdb.ext.pillow package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sentence_transformer.html">superduperdb.ext.sentence_transformer package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.sklearn.html">superduperdb.ext.sklearn package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.torch.html">superduperdb.ext.torch package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.transformers.html">superduperdb.ext.transformers package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.ext.vector.html">superduperdb.ext.vector package</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="superduperdb.misc.html">superduperdb.misc package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle navigation of superduperdb.misc package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="superduperdb.misc.runnable.html">superduperdb.misc.runnable package</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="superduperdb.server.html">superduperdb.server package</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">superduperdb.vector_search package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="superduperdb-vector-search-package">
+<h1>superduperdb.vector_search package<a class="headerlink" href="#superduperdb-vector-search-package" title="Permalink to this heading">#</a></h1>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="module-superduperdb.vector_search.base">
+<span id="superduperdb-vector-search-base-module"></span><h2>superduperdb.vector_search.base module<a class="headerlink" href="#module-superduperdb.vector_search.base" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.base.</span></span><span class="sig-name descname"><span class="pre">BaseVectorIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#BaseVectorIndex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_array">
+<span class="sig-name descname"><span class="pre">find_nearest_from_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#BaseVectorIndex.find_nearest_from_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_array" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_arrays">
+<span class="sig-name descname"><span class="pre">find_nearest_from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#BaseVectorIndex.find_nearest_from_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_arrays" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_id">
+<span class="sig-name descname"><span class="pre">find_nearest_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#BaseVectorIndex.find_nearest_from_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_id" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_ids">
+<span class="sig-name descname"><span class="pre">find_nearest_from_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_ids</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#BaseVectorIndex.find_nearest_from_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_ids" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.h">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">h</span></span><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.h" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.index">
+<span class="sig-name descname"><span class="pre">index</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.index" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.lookup">
+<span class="sig-name descname"><span class="pre">lookup</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.lookup" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.measure" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.BaseVectorIndex.shape">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#superduperdb.vector_search.base.BaseVectorIndex.shape" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.base.</span></span><span class="sig-name descname"><span class="pre">VectorCollection</span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollection" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>A vector collection within a vector database.</p>
+<p>Concrete implementations of this class are responsible for lifecycle management of
+a single vector collection within a specific vector database.</p>
+<p>It is assumed that a vector collection is associated with a single vector column or
+field within a vector database.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollection.add">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItem" title="superduperdb.vector_search.base.VectorCollectionItem"><span class="pre">VectorCollectionItem</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollection.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollection.add" title="Permalink to this definition">#</a></dt>
+<dd><p>Add items to the collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>items</strong> – items to add</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollection.find_nearest_from_array">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_nearest_from_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionResult" title="superduperdb.vector_search.base.VectorCollectionResult"><span class="pre">VectorCollectionResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollection.find_nearest_from_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollection.find_nearest_from_array" title="Permalink to this definition">#</a></dt>
+<dd><p>Find items that are nearest to the given vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> – array representing the vector</p></li>
+<li><p><strong>within_ids</strong> – identifiers to search within</p></li>
+<li><p><strong>limit</strong> – maximum number of nearest items to return</p></li>
+<li><p><strong>offset</strong> – offset of the first item to return</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollection.find_nearest_from_id">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_nearest_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionResult" title="superduperdb.vector_search.base.VectorCollectionResult"><span class="pre">VectorCollectionResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollection.find_nearest_from_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollection.find_nearest_from_id" title="Permalink to this definition">#</a></dt>
+<dd><p>Find items that are nearest to the item with the given identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>identifier</strong> – identifier of the item</p></li>
+<li><p><strong>within_ids</strong> – identifiers to search within</p></li>
+<li><p><strong>limit</strong> – maximum number of nearest items to return</p></li>
+<li><p><strong>offset</strong> – offset of the first item to return</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.base.</span></span><span class="sig-name descname"><span class="pre">VectorCollectionConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id:</span> <span class="pre">'VectorCollectionId'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimensions:</span> <span class="pre">'int'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure:</span> <span class="pre">'VectorIndexMeasure'</span> <span class="pre">=</span> <span class="pre">&lt;VectorIndexMeasureType.l2:</span> <span class="pre">'l2'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameters:</span> <span class="pre">'t.Mapping[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t.Any]'</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollectionConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionConfig" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionConfig.dimensions">
+<span class="sig-name descname"><span class="pre">dimensions</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionConfig.dimensions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionConfig.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionConfig.id" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionConfig.measure">
+<span class="sig-name descname"><span class="pre">measure</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#superduperdb.vector_search.base.VectorIndexMeasureType" title="superduperdb.vector_search.base.VectorIndexMeasureType"><span class="pre">VectorIndexMeasureType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'l2'</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionConfig.measure" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionConfig.parameters">
+<span class="sig-name descname"><span class="pre">parameters</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionConfig.parameters" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionItem">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.base.</span></span><span class="sig-name descname"><span class="pre">VectorCollectionItem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'VectorCollectionItemId'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'numpy.ndarray'</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollectionItem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionItem" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionItem.create">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">create</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItem" title="superduperdb.vector_search.base.VectorCollectionItem"><span class="pre">VectorCollectionItem</span></a></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollectionItem.create"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionItem.create" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionItem.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionItem.id" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionItem.to_dict">
+<span class="sig-name descname"><span class="pre">to_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollectionItem.to_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionItem.to_dict" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionItem.vector">
+<span class="sig-name descname"><span class="pre">vector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">ndarray</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionItem.vector" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionItemNotFound">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.base.</span></span><span class="sig-name descname"><span class="pre">VectorCollectionItemNotFound</span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollectionItemNotFound"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionItemNotFound" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.base.</span></span><span class="sig-name descname"><span class="pre">VectorCollectionResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'VectorCollectionItemId'</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="s"><span class="pre">'float'</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorCollectionResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionResult" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionResult.id">
+<span class="sig-name descname"><span class="pre">id</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionResult.id" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorCollectionResult.score">
+<span class="sig-name descname"><span class="pre">score</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorCollectionResult.score" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.base.</span></span><span class="sig-name descname"><span class="pre">VectorDatabase</span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorDatabase" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code></p>
+<p>A vector database that manages vector collections.</p>
+<p>Concrete implementations of this class are responsible for lifecycle management of
+vector collections within a specific vector database.</p>
+<p>Implementations of this abstract base class retrieve vector collections by their
+identifier for subsequent operations.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorDatabase.get_table">
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionConfig" title="superduperdb.vector_search.base.VectorCollectionConfig"><span class="pre">VectorCollectionConfig</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection" title="superduperdb.vector_search.base.VectorCollection"><span class="pre">VectorCollection</span></a></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorDatabase.get_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorDatabase.get_table" title="Permalink to this definition">#</a></dt>
+<dd><p>Get a vector collection by its identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration for the vector database</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorIndexMeasureType">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.base.</span></span><span class="sig-name descname"><span class="pre">VectorIndexMeasureType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#VectorIndexMeasureType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.VectorIndexMeasureType" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorIndexMeasureType._generate_next_value_">
+<span class="sig-name descname"><span class="pre">_generate_next_value_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">last_values</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#superduperdb.vector_search.base.VectorIndexMeasureType._generate_next_value_" title="Permalink to this definition">#</a></dt>
+<dd><p>Generate the next value when not given.</p>
+<p>name: the name of the member
+start: the initial start value or None
+count: the number of existing members
+last_value: the last value assigned or None</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorIndexMeasureType.cosine">
+<span class="sig-name descname"><span class="pre">cosine</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cosine'</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorIndexMeasureType.cosine" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorIndexMeasureType.css">
+<span class="sig-name descname"><span class="pre">css</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'css'</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorIndexMeasureType.css" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorIndexMeasureType.dot">
+<span class="sig-name descname"><span class="pre">dot</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'dot'</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorIndexMeasureType.dot" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.VectorIndexMeasureType.l2">
+<span class="sig-name descname"><span class="pre">l2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'l2'</span></em><a class="headerlink" href="#superduperdb.vector_search.base.VectorIndexMeasureType.l2" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.vector_search.base.to_numpy">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.base.</span></span><span class="sig-name descname"><span class="pre">to_numpy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">ndarray</span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/base.html#to_numpy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.base.to_numpy" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-superduperdb.vector_search.inmemory">
+<span id="superduperdb-vector-search-inmemory-module"></span><h2>superduperdb.vector_search.inmemory module<a class="headerlink" href="#module-superduperdb.vector_search.inmemory" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.inmemory.InMemoryVectorCollection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.inmemory.</span></span><span class="sig-name descname"><span class="pre">InMemoryVectorCollection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#superduperdb.vector_search.base.VectorIndexMeasureType" title="superduperdb.vector_search.base.VectorIndexMeasureType"><span class="pre">VectorIndexMeasureType</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">VectorIndexMeasureType.l2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/inmemory.html#InMemoryVectorCollection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection" title="superduperdb.vector_search.base.VectorCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">VectorCollection</span></code></a></p>
+<p>An in-memory vector collection.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dimensions</strong> – The number of dimensions of the vectors in the collection.</p></li>
+<li><p><strong>measure</strong> – The distance measure to use for vector search.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.inmemory.InMemoryVectorCollection.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">items</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItem" title="superduperdb.vector_search.base.VectorCollectionItem"><span class="pre">VectorCollectionItem</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/inmemory.html#InMemoryVectorCollection.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection.add" title="Permalink to this definition">#</a></dt>
+<dd><p>Add items to the collection.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.inmemory.InMemoryVectorCollection.find_nearest_from_array">
+<span class="sig-name descname"><span class="pre">find_nearest_from_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionResult" title="superduperdb.vector_search.base.VectorCollectionResult"><span class="pre">VectorCollectionResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/inmemory.html#InMemoryVectorCollection.find_nearest_from_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection.find_nearest_from_array" title="Permalink to this definition">#</a></dt>
+<dd><p>Find items that are nearest to the given vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> – array representing the vector</p></li>
+<li><p><strong>within_ids</strong> – identifiers to search within</p></li>
+<li><p><strong>limit</strong> – maximum number of nearest items to return</p></li>
+<li><p><strong>offset</strong> – offset of the first item to return</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.inmemory.InMemoryVectorCollection.find_nearest_from_id">
+<span class="sig-name descname"><span class="pre">find_nearest_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionResult" title="superduperdb.vector_search.base.VectorCollectionResult"><span class="pre">VectorCollectionResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/inmemory.html#InMemoryVectorCollection.find_nearest_from_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection.find_nearest_from_id" title="Permalink to this definition">#</a></dt>
+<dd><p>Find items that are nearest to the item with the given identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>identifier</strong> – identifier of the item</p></li>
+<li><p><strong>within_ids</strong> – identifiers to search within</p></li>
+<li><p><strong>limit</strong> – maximum number of nearest items to return</p></li>
+<li><p><strong>offset</strong> – offset of the first item to return</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.inmemory.InMemoryVectorCollection.init">
+<span class="sig-name descname"><span class="pre">init</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Iterator</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection" title="superduperdb.vector_search.base.VectorCollection"><span class="pre">VectorCollection</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/inmemory.html#InMemoryVectorCollection.init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection.init" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.inmemory.InMemoryVectorDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.inmemory.</span></span><span class="sig-name descname"><span class="pre">InMemoryVectorDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'inmemory://'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/inmemory.html#InMemoryVectorDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.inmemory.InMemoryVectorDatabase" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.vector_search.base.VectorDatabase" title="superduperdb.vector_search.base.VectorDatabase"><code class="xref py py-class docutils literal notranslate"><span class="pre">VectorDatabase</span></code></a></p>
+<p>An in-memory vector database.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.inmemory.InMemoryVectorDatabase.get_table">
+<span class="sig-name descname"><span class="pre">get_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionConfig" title="superduperdb.vector_search.base.VectorCollectionConfig"><span class="pre">VectorCollectionConfig</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection" title="superduperdb.vector_search.base.VectorCollection"><span class="pre">VectorCollection</span></a></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/inmemory.html#InMemoryVectorDatabase.get_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.inmemory.InMemoryVectorDatabase.get_table" title="Permalink to this definition">#</a></dt>
+<dd><p>Get a vector collection by its identifier.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>config</strong> – configuration for the vector database</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.vector_search.lance">
+<span id="superduperdb-vector-search-lance-module"></span><h2>superduperdb.vector_search.lance module<a class="headerlink" href="#module-superduperdb.vector_search.lance" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorCollection">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.lance.</span></span><span class="sig-name descname"><span class="pre">LanceVectorCollection</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cosine'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorCollection"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorCollection" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection" title="superduperdb.vector_search.base.VectorCollection"><code class="xref py py-class docutils literal notranslate"><span class="pre">VectorCollection</span></code></a></p>
+<p>A class for managing a lance dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uri</strong> – URI of the Lance dataset</p></li>
+<li><p><strong>dimensions</strong> – dimension of the vector embeddings in the Lance dataset</p></li>
+<li><p><strong>measure</strong> – measure which defines strategy to use for vector search.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorCollection.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">uri</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dimensions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'cosine'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorCollection.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorCollection.__init__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>uri</strong> – URI of the Lance dataset</p></li>
+<li><p><strong>dimensions</strong> – dimension of the vector embeddings in the Lance dataset</p></li>
+<li><p><strong>measure</strong> – measure which defines strategy to use for vector search.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorCollection.add">
+<span class="sig-name descname"><span class="pre">add</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItem" title="superduperdb.vector_search.base.VectorCollectionItem"><span class="pre">VectorCollectionItem</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upsert</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorCollection.add"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorCollection.add" title="Permalink to this definition">#</a></dt>
+<dd><p>Add vectors to existing Lance dataset or create a new one if it doesn’t exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – t.Sequence of <code class="docutils literal notranslate"><span class="pre">VectorCollectionItem</span></code> objects.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorCollection.delete_from_ids">
+<span class="sig-name descname"><span class="pre">delete_from_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorCollection.delete_from_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorCollection.delete_from_ids" title="Permalink to this definition">#</a></dt>
+<dd><p>Delete vectors from the lance dataset.
+:param ids: t.Sequence of identifiers.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorCollection.find_nearest_from_array">
+<span class="sig-name descname"><span class="pre">find_nearest_from_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">_SupportsArray</span><span class="p"><span class="pre">[</span></span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">_NestedSequence</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">complex</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">bytes</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionResult" title="superduperdb.vector_search.base.VectorCollectionResult"><span class="pre">VectorCollectionResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorCollection.find_nearest_from_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorCollection.find_nearest_from_array" title="Permalink to this definition">#</a></dt>
+<dd><p>Find items that are nearest to the given vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> – array representing the vector</p></li>
+<li><p><strong>within_ids</strong> – identifiers to search within</p></li>
+<li><p><strong>limit</strong> – maximum number of nearest items to return</p></li>
+<li><p><strong>offset</strong> – offset of the first item to return</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorCollection.find_nearest_from_id">
+<span class="sig-name descname"><span class="pre">find_nearest_from_id</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identifier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">within_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">offset</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionResult" title="superduperdb.vector_search.base.VectorCollectionResult"><span class="pre">VectorCollectionResult</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorCollection.find_nearest_from_id"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorCollection.find_nearest_from_id" title="Permalink to this definition">#</a></dt>
+<dd><p>Find items that are nearest to the item with the given identifier.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">lance</span></code> file format has been specifically designed for fast
+random access. The logic to take advantage of this is implemented
+by the <code class="docutils literal notranslate"><span class="pre">.take</span></code> method.</p>
+<p>See <a class="reference external" href="https://blog.lancedb.com/benchmarking-random-access-in-lance-ed690757a826">https://blog.lancedb.com/benchmarking-random-access-in-lance-ed690757a826</a>
+for further details.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>identifier</strong> – identifier of the item</p></li>
+<li><p><strong>within_ids</strong> – identifiers to search within</p></li>
+<li><p><strong>limit</strong> – maximum number of nearest items to return</p></li>
+<li><p><strong>offset</strong> – offset of the first item to return</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorCollection.size">
+<span class="sig-name descname"><span class="pre">size</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorCollection.size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorCollection.size" title="Permalink to this definition">#</a></dt>
+<dd><p>Get the number of rows in lance dataset.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorDatabase">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.lance.</span></span><span class="sig-name descname"><span class="pre">LanceVectorDatabase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorDatabase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorDatabase" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.vector_search.base.VectorDatabase" title="superduperdb.vector_search.base.VectorDatabase"><code class="xref py py-class docutils literal notranslate"><span class="pre">VectorDatabase</span></code></a></p>
+<p>A class for managing multiple Lance datasets.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root_dir</strong> – root directory that contains all Lance datasets</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorDatabase.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorDatabase.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorDatabase.__init__" title="Permalink to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root_dir</strong> – root directory that contains all Lance datasets</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.lance.LanceVectorDatabase.get_table">
+<span class="sig-name descname"><span class="pre">get_table</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionConfig" title="superduperdb.vector_search.base.VectorCollectionConfig"><span class="pre">VectorCollectionConfig</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">create</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection" title="superduperdb.vector_search.base.VectorCollection"><span class="pre">VectorCollection</span></a></span></span><a class="reference internal" href="../_modules/superduperdb/vector_search/lance.html#LanceVectorDatabase.get_table"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.lance.LanceVectorDatabase.get_table" title="Permalink to this definition">#</a></dt>
+<dd><p>Retrieve a managed Lance dataset according to the given config.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-superduperdb.vector_search.table_scan">
+<span id="superduperdb-vector-search-table-scan-module"></span><h2>superduperdb.vector_search.table_scan module<a class="headerlink" href="#module-superduperdb.vector_search.table_scan" title="Permalink to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="superduperdb.vector_search.table_scan.VanillaVectorIndex">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.table_scan.</span></span><span class="sig-name descname"><span class="pre">VanillaVectorIndex</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">measure</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cosine'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/table_scan.html#VanillaVectorIndex"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.table_scan.VanillaVectorIndex" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex" title="superduperdb.vector_search.base.BaseVectorIndex"><code class="xref py py-class docutils literal notranslate"><span class="pre">BaseVectorIndex</span></code></a></p>
+<p>Simple hash-set for looking up with vector similarity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>h</strong> – <code class="docutils literal notranslate"><span class="pre">torch.Tensor</span></code></p></li>
+<li><p><strong>index</strong> – list of IDs</p></li>
+<li><p><strong>measure</strong> – measure to assess similarity</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="superduperdb.vector_search.table_scan.VanillaVectorIndex.find_nearest_from_arrays">
+<span class="sig-name descname"><span class="pre">find_nearest_from_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/table_scan.html#VanillaVectorIndex.find_nearest_from_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.table_scan.VanillaVectorIndex.find_nearest_from_arrays" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="superduperdb.vector_search.table_scan.VanillaVectorIndex.name">
+<span class="sig-name descname"><span class="pre">name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">t.Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'vanilla'</span></em><a class="headerlink" href="#superduperdb.vector_search.table_scan.VanillaVectorIndex.name" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.vector_search.table_scan.cosine">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.table_scan.</span></span><span class="sig-name descname"><span class="pre">cosine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/table_scan.html#cosine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.table_scan.cosine" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.vector_search.table_scan.dot">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.table_scan.</span></span><span class="sig-name descname"><span class="pre">dot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/table_scan.html#dot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.table_scan.dot" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="superduperdb.vector_search.table_scan.l2">
+<span class="sig-prename descclassname"><span class="pre">superduperdb.vector_search.table_scan.</span></span><span class="sig-name descname"><span class="pre">l2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/superduperdb/vector_search/table_scan.html#l2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#superduperdb.vector_search.table_scan.l2" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-superduperdb.vector_search">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-superduperdb.vector_search" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          <a class="prev-page" href="superduperdb.server.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">superduperdb.server package</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; SuperDuperDB Inc., opensource@superduperdb.com
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">superduperdb.vector_search package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-superduperdb.vector_search.base">superduperdb.vector_search.base module</a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_array"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.find_nearest_from_array()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_arrays"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.find_nearest_from_arrays()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_id"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.find_nearest_from_id()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.find_nearest_from_ids"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.find_nearest_from_ids()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.h"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.h</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.index"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.index</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.lookup"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.lookup</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.measure"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.measure</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.name"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.name</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.BaseVectorIndex.shape"><code class="docutils literal notranslate"><span class="pre">BaseVectorIndex.shape</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection"><code class="docutils literal notranslate"><span class="pre">VectorCollection</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection.add"><code class="docutils literal notranslate"><span class="pre">VectorCollection.add()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection.find_nearest_from_array"><code class="docutils literal notranslate"><span class="pre">VectorCollection.find_nearest_from_array()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollection.find_nearest_from_id"><code class="docutils literal notranslate"><span class="pre">VectorCollection.find_nearest_from_id()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionConfig"><code class="docutils literal notranslate"><span class="pre">VectorCollectionConfig</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionConfig.dimensions"><code class="docutils literal notranslate"><span class="pre">VectorCollectionConfig.dimensions</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionConfig.id"><code class="docutils literal notranslate"><span class="pre">VectorCollectionConfig.id</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionConfig.measure"><code class="docutils literal notranslate"><span class="pre">VectorCollectionConfig.measure</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionConfig.parameters"><code class="docutils literal notranslate"><span class="pre">VectorCollectionConfig.parameters</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItem"><code class="docutils literal notranslate"><span class="pre">VectorCollectionItem</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItem.create"><code class="docutils literal notranslate"><span class="pre">VectorCollectionItem.create()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItem.id"><code class="docutils literal notranslate"><span class="pre">VectorCollectionItem.id</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItem.to_dict"><code class="docutils literal notranslate"><span class="pre">VectorCollectionItem.to_dict()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItem.vector"><code class="docutils literal notranslate"><span class="pre">VectorCollectionItem.vector</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionItemNotFound"><code class="docutils literal notranslate"><span class="pre">VectorCollectionItemNotFound</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionResult"><code class="docutils literal notranslate"><span class="pre">VectorCollectionResult</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionResult.id"><code class="docutils literal notranslate"><span class="pre">VectorCollectionResult.id</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorCollectionResult.score"><code class="docutils literal notranslate"><span class="pre">VectorCollectionResult.score</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorDatabase"><code class="docutils literal notranslate"><span class="pre">VectorDatabase</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorDatabase.get_table"><code class="docutils literal notranslate"><span class="pre">VectorDatabase.get_table()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorIndexMeasureType"><code class="docutils literal notranslate"><span class="pre">VectorIndexMeasureType</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorIndexMeasureType._generate_next_value_"><code class="docutils literal notranslate"><span class="pre">VectorIndexMeasureType._generate_next_value_()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorIndexMeasureType.cosine"><code class="docutils literal notranslate"><span class="pre">VectorIndexMeasureType.cosine</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorIndexMeasureType.css"><code class="docutils literal notranslate"><span class="pre">VectorIndexMeasureType.css</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorIndexMeasureType.dot"><code class="docutils literal notranslate"><span class="pre">VectorIndexMeasureType.dot</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.VectorIndexMeasureType.l2"><code class="docutils literal notranslate"><span class="pre">VectorIndexMeasureType.l2</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.base.to_numpy"><code class="docutils literal notranslate"><span class="pre">to_numpy()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.vector_search.inmemory">superduperdb.vector_search.inmemory module</a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection"><code class="docutils literal notranslate"><span class="pre">InMemoryVectorCollection</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection.add"><code class="docutils literal notranslate"><span class="pre">InMemoryVectorCollection.add()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection.find_nearest_from_array"><code class="docutils literal notranslate"><span class="pre">InMemoryVectorCollection.find_nearest_from_array()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection.find_nearest_from_id"><code class="docutils literal notranslate"><span class="pre">InMemoryVectorCollection.find_nearest_from_id()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.inmemory.InMemoryVectorCollection.init"><code class="docutils literal notranslate"><span class="pre">InMemoryVectorCollection.init()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.inmemory.InMemoryVectorDatabase"><code class="docutils literal notranslate"><span class="pre">InMemoryVectorDatabase</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.inmemory.InMemoryVectorDatabase.get_table"><code class="docutils literal notranslate"><span class="pre">InMemoryVectorDatabase.get_table()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.vector_search.lance">superduperdb.vector_search.lance module</a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorCollection"><code class="docutils literal notranslate"><span class="pre">LanceVectorCollection</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorCollection.__init__"><code class="docutils literal notranslate"><span class="pre">LanceVectorCollection.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorCollection.add"><code class="docutils literal notranslate"><span class="pre">LanceVectorCollection.add()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorCollection.delete_from_ids"><code class="docutils literal notranslate"><span class="pre">LanceVectorCollection.delete_from_ids()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorCollection.find_nearest_from_array"><code class="docutils literal notranslate"><span class="pre">LanceVectorCollection.find_nearest_from_array()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorCollection.find_nearest_from_id"><code class="docutils literal notranslate"><span class="pre">LanceVectorCollection.find_nearest_from_id()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorCollection.size"><code class="docutils literal notranslate"><span class="pre">LanceVectorCollection.size()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorDatabase"><code class="docutils literal notranslate"><span class="pre">LanceVectorDatabase</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorDatabase.__init__"><code class="docutils literal notranslate"><span class="pre">LanceVectorDatabase.__init__()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.lance.LanceVectorDatabase.get_table"><code class="docutils literal notranslate"><span class="pre">LanceVectorDatabase.get_table()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.vector_search.table_scan">superduperdb.vector_search.table_scan module</a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.table_scan.VanillaVectorIndex"><code class="docutils literal notranslate"><span class="pre">VanillaVectorIndex</span></code></a><ul>
+<li><a class="reference internal" href="#superduperdb.vector_search.table_scan.VanillaVectorIndex.find_nearest_from_arrays"><code class="docutils literal notranslate"><span class="pre">VanillaVectorIndex.find_nearest_from_arrays()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.table_scan.VanillaVectorIndex.name"><code class="docutils literal notranslate"><span class="pre">VanillaVectorIndex.name</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#superduperdb.vector_search.table_scan.cosine"><code class="docutils literal notranslate"><span class="pre">cosine()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.table_scan.dot"><code class="docutils literal notranslate"><span class="pre">dot()</span></code></a></li>
+<li><a class="reference internal" href="#superduperdb.vector_search.table_scan.l2"><code class="docutils literal notranslate"><span class="pre">l2()</span></code></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-superduperdb.vector_search">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=b3ba4146"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    </body>
+</html>
