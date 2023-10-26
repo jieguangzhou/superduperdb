@@ -12,26 +12,10 @@ superduperdb.cli.config module
    :undoc-members:
    :show-inheritance:
 
-superduperdb.cli.docs module
-----------------------------
-
-.. automodule:: superduperdb.cli.docs
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 superduperdb.cli.info module
 ----------------------------
 
 .. automodule:: superduperdb.cli.info
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-superduperdb.cli.release module
--------------------------------
-
-.. automodule:: superduperdb.cli.release
    :members:
    :undoc-members:
    :show-inheritance:

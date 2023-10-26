@@ -1,0 +1,53 @@
+superduperdb.backends.mongodb package
+=====================================
+
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   superduperdb.backends.mongodb.cdc
+
+Submodules
+----------
+
+superduperdb.backends.mongodb.artifacts module
+----------------------------------------------
+
+.. automodule:: superduperdb.backends.mongodb.artifacts
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.backends.mongodb.data\_backend module
+--------------------------------------------------
+
+.. automodule:: superduperdb.backends.mongodb.data_backend
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.backends.mongodb.metadata module
+---------------------------------------------
+
+.. automodule:: superduperdb.backends.mongodb.metadata
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.backends.mongodb.query module
+------------------------------------------
+
+.. automodule:: superduperdb.backends.mongodb.query
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: superduperdb.backends.mongodb
+   :members:
+   :undoc-members:
+   :show-inheritance:

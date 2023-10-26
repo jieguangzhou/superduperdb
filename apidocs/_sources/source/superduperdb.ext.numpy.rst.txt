@@ -4,10 +4,10 @@ superduperdb.ext.numpy package
 Submodules
 ----------
 
-superduperdb.ext.numpy.array module
------------------------------------
+superduperdb.ext.numpy.encoder module
+-------------------------------------
 
-.. automodule:: superduperdb.ext.numpy.array
+.. automodule:: superduperdb.ext.numpy.encoder
    :members:
    :undoc-members:
    :show-inheritance:

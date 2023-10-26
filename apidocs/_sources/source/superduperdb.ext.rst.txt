@@ -16,7 +16,6 @@ Subpackages
    superduperdb.ext.sklearn
    superduperdb.ext.torch
    superduperdb.ext.transformers
-   superduperdb.ext.vector
 
 Submodules
 ----------

@@ -1,0 +1,61 @@
+superduperdb.backends.base package
+==================================
+
+Submodules
+----------
+
+superduperdb.backends.base.artifact module
+------------------------------------------
+
+.. automodule:: superduperdb.backends.base.artifact
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.backends.base.backends module
+------------------------------------------
+
+.. automodule:: superduperdb.backends.base.backends
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.backends.base.cdc module
+-------------------------------------
+
+.. automodule:: superduperdb.backends.base.cdc
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.backends.base.data\_backend module
+-----------------------------------------------
+
+.. automodule:: superduperdb.backends.base.data_backend
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.backends.base.metadata module
+------------------------------------------
+
+.. automodule:: superduperdb.backends.base.metadata
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.backends.base.query module
+---------------------------------------
+
+.. automodule:: superduperdb.backends.base.query
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: superduperdb.backends.base
+   :members:
+   :undoc-members:
+   :show-inheritance:

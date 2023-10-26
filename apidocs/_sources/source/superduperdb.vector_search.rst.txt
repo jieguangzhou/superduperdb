@@ -12,10 +12,10 @@ superduperdb.vector\_search.base module
    :undoc-members:
    :show-inheritance:
 
-superduperdb.vector\_search.inmemory module
--------------------------------------------
+superduperdb.vector\_search.in\_memory module
+---------------------------------------------
 
-.. automodule:: superduperdb.vector_search.inmemory
+.. automodule:: superduperdb.vector_search.in_memory
    :members:
    :undoc-members:
    :show-inheritance:
@@ -28,10 +28,10 @@ superduperdb.vector\_search.lance module
    :undoc-members:
    :show-inheritance:
 
-superduperdb.vector\_search.table\_scan module
-----------------------------------------------
+superduperdb.vector\_search.update\_tasks module
+------------------------------------------------
 
-.. automodule:: superduperdb.vector_search.table_scan
+.. automodule:: superduperdb.vector_search.update_tasks
    :members:
    :undoc-members:
    :show-inheritance:

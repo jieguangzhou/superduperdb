@@ -1,0 +1,85 @@
+superduperdb.components package
+===============================
+
+Submodules
+----------
+
+superduperdb.components.component module
+----------------------------------------
+
+.. automodule:: superduperdb.components.component
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.components.dataset module
+--------------------------------------
+
+.. automodule:: superduperdb.components.dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.components.encoder module
+--------------------------------------
+
+.. automodule:: superduperdb.components.encoder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.components.listener module
+---------------------------------------
+
+.. automodule:: superduperdb.components.listener
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.components.metric module
+-------------------------------------
+
+.. automodule:: superduperdb.components.metric
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.components.model module
+------------------------------------
+
+.. automodule:: superduperdb.components.model
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.components.schema module
+-------------------------------------
+
+.. automodule:: superduperdb.components.schema
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.components.serializer module
+-----------------------------------------
+
+.. automodule:: superduperdb.components.serializer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.components.vector\_index module
+--------------------------------------------
+
+.. automodule:: superduperdb.components.vector_index
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Module contents
+---------------
+
+.. automodule:: superduperdb.components
+   :members:
+   :undoc-members:
+   :show-inheritance:

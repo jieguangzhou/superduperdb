@@ -28,10 +28,34 @@ superduperdb.misc.compat module
    :undoc-members:
    :show-inheritance:
 
+superduperdb.misc.data module
+-----------------------------
+
+.. automodule:: superduperdb.misc.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.misc.download module
+---------------------------------
+
+.. automodule:: superduperdb.misc.download
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 superduperdb.misc.files module
 ------------------------------
 
 .. automodule:: superduperdb.misc.files
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.misc.for\_each module
+----------------------------------
+
+.. automodule:: superduperdb.misc.for_each
    :members:
    :undoc-members:
    :show-inheritance:
@@ -72,6 +96,14 @@ superduperdb.misc.superduper module
 -----------------------------------
 
 .. automodule:: superduperdb.misc.superduper
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+superduperdb.misc.tree module
+-----------------------------
+
+.. automodule:: superduperdb.misc.tree
    :members:
    :undoc-members:
    :show-inheritance:

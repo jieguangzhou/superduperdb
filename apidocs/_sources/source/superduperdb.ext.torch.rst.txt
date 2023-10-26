@@ -4,18 +4,18 @@ superduperdb.ext.torch package
 Submodules
 ----------
 
-superduperdb.ext.torch.model module
------------------------------------
+superduperdb.ext.torch.encoder module
+-------------------------------------
 
-.. automodule:: superduperdb.ext.torch.model
+.. automodule:: superduperdb.ext.torch.encoder
    :members:
    :undoc-members:
    :show-inheritance:
 
-superduperdb.ext.torch.tensor module
-------------------------------------
+superduperdb.ext.torch.model module
+-----------------------------------
 
-.. automodule:: superduperdb.ext.torch.tensor
+.. automodule:: superduperdb.ext.torch.model
    :members:
    :undoc-members:
    :show-inheritance:
