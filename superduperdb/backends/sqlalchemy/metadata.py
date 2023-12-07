@@ -4,7 +4,8 @@ import typing as t
 from contextlib import contextmanager
 
 import click
-from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text, TypeDecorator
+from clickhouse_sqlalchemy import engines, types
+from sqlalchemy import Boolean, Column, DateTime, Integer, Text, TypeDecorator
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
@@ -54,46 +55,50 @@ class JsonAsText(JsonAsString):
 
 class QueryID(Base):  # type: ignore[valid-type, misc]
     __tablename__ = 'query_id_table'
+    __table_args__ = (engines.MergeTree(order_by='query_id'),)
 
-    query_id = Column(String(DEFAULT_LENGTH), primary_key=True)
+    query_id = Column(types.String, primary_key=True)
     query = Column(JsonAsString)
-    model = Column(String(DEFAULT_LENGTH))
+    model = Column(types.String)
 
 
 class Job(Base, DictMixin):  # type: ignore[valid-type, misc]
     __tablename__ = 'job'
+    __table_args__ = (engines.MergeTree(order_by='identifier'),)
 
-    identifier = Column(String(DEFAULT_LENGTH), primary_key=True)
-    component_identifier = Column(String(DEFAULT_LENGTH))
-    type_id = Column(String(DEFAULT_LENGTH))
+    identifier = Column(types.String, primary_key=True)
+    component_identifier = Column(types.String)
+    type_id = Column(types.String)
     info = Column(JsonAsString)
     time = Column(DateTime)
-    status = Column(String(DEFAULT_LENGTH))
+    status = Column(types.String)
     args = Column(JsonAsString)
     kwargs = Column(JsonAsString)
-    method_name = Column(String(DEFAULT_LENGTH))
+    method_name = Column(types.String)
     stdout = Column(JsonAsString)
     stderr = Column(JsonAsString)
-    cls = Column(String(DEFAULT_LENGTH))
+    cls = Column(types.String)
 
 
 class ParentChildAssociation(Base):  # type: ignore[valid-type, misc]
     __tablename__ = 'parent_child_association'
+    __table_args__ = (engines.MergeTree(order_by='parent_id'),)
 
-    parent_id = Column(String(DEFAULT_LENGTH), primary_key=True)
-    child_id = Column(String(DEFAULT_LENGTH), primary_key=True)
+    parent_id = Column(types.String, primary_key=True)
+    child_id = Column(types.String, primary_key=True)
 
 
 class Component(Base, DictMixin):  # type: ignore[valid-type, misc]
     __tablename__ = 'component'
+    __table_args__ = (engines.MergeTree(order_by='id'),)
 
-    id = Column(String(DEFAULT_LENGTH), primary_key=True)
-    identifier = Column(String(DEFAULT_LENGTH))
+    id = Column(types.String, primary_key=True)
+    identifier = Column(types.String)
     version = Column(Integer)
     hidden = Column(Boolean)
-    type_id = Column(String(DEFAULT_LENGTH))
-    cls = Column(String(DEFAULT_LENGTH))
-    module = Column(String(DEFAULT_LENGTH))
+    type_id = Column(types.String)
+    cls = Column(types.String)
+    module = Column(types.String)
     dict = Column(JsonAsText)
 
     # Define the parent-child relationship
@@ -109,9 +114,10 @@ class Component(Base, DictMixin):  # type: ignore[valid-type, misc]
 
 class Meta(Base, DictMixin):  # type: ignore[valid-type, misc]
     __tablename__ = 'meta'
+    __table_args__ = (engines.MergeTree(order_by='key'),)
 
-    key = Column(String(DEFAULT_LENGTH), primary_key=True)
-    value = Column(String(DEFAULT_LENGTH))
+    key = Column(types.String, primary_key=True)
+    value = Column(types.String)
 
 
 class SQLAlchemyMetadata(MetaDataStore):

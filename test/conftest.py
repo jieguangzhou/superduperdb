@@ -306,6 +306,8 @@ def db(request, monkeypatch) -> Iterator[Datalayer]:
         raise ValueError(f'Unsupported param type: {type(param)}')
 
     monkeypatch.setattr(CFG, 'data_backend', setup_config['data_backend'])
+    if setup_config.get('data_backend', '').startswith('clickhouse'):
+        monkeypatch.setattr(CFG, 'metadata_store', setup_config['data_backend'])
 
     db = create_db(CFG, **setup_config)
     yield db

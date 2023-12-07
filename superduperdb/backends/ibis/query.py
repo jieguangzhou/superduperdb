@@ -21,6 +21,7 @@ from superduperdb.backends.base.query import (
     _ReprMixin,
 )
 from superduperdb.backends.ibis.cursor import SuperDuperIbisResult
+from superduperdb.backends.ibis.utils import get_output_table_name
 from superduperdb.base.serializable import Variable
 from superduperdb.components.component import Component
 from superduperdb.components.encoder import Encoder
@@ -156,10 +157,14 @@ class IbisCompoundSelect(CompoundSelect):
         for tab in component_tables:
             fields_copy = tab.schema.fields.copy()
             if '_outputs' in tab.identifier and self.renamings:
-                model = tab.identifier.split('/')[1]
+                match = re.search(r"_outputs_(.*?)_(\d+)", tab.identifier)
+                if match:
+                    model = match.group(1)
+                else:
+                    raise Exception(f'Match model name error {tab.identifier}')
                 for k in self.renamings.values():
                     if (
-                        re.match(f'^_outputs/{model}/[0-9]+$', tab.identifier)
+                        re.match(f'^_outputs_{model}_[0-9]+$', tab.identifier)
                         is not None
                     ):
                         fields_copy[k] = fields_copy['output']
@@ -179,7 +184,6 @@ class IbisCompoundSelect(CompoundSelect):
     def _execute_with_pre_like(self, db):
         assert self.pre_like is not None
         assert self.post_like is None
-        similar_scores = None
         similar_ids, similar_scores = self.pre_like.execute(db)
         similar_scores = dict(zip(similar_ids, similar_scores))
 
@@ -225,6 +229,7 @@ class IbisCompoundSelect(CompoundSelect):
         return {}
 
     def execute(self, db):
+        """__import__('ipdb').set_trace()"""
         output, scores = self._execute(db)
         fields = self._get_all_fields(db)
 
@@ -301,7 +306,7 @@ class IbisCompoundSelect(CompoundSelect):
         for r in table_records:
             if isinstance(r['output'], dict) and '_content' in r['output']:
                 r['output'] = r['output']['_content']['bytes']
-        db.databackend.insert(f'_outputs/{model}/{version}', table_records)
+        db.databackend.insert(get_output_table_name(model, version), table_records)
 
     def add_fold(self, fold: str) -> Select:
         if self.query_linker is not None:
@@ -444,7 +449,7 @@ class IbisQueryLinker(QueryLinker, _LogicalExprMixin):
         self, key: str, model: str, query_id: str, version: int
     ):
         output_table = IbisQueryTable(
-            identifier=f'_outputs/{model}/{version}',
+            identifier=get_output_table_name(model, version),
             primary_id='output_id',
         )
         filtered = output_table.filter(
@@ -468,10 +473,10 @@ class IbisQueryLinker(QueryLinker, _LogicalExprMixin):
                 model, version = model.split('/')
             symbol_table = IbisQueryTable(
                 identifier=(
-                    f'_outputs/{model}/{version}'
+                    get_output_table_name(model, version)
                     if version is not None
                     else Variable(
-                        f'_outputs/{model}' + '/{version}',
+                        get_output_table_name(model, '{version}'),
                         lambda db, value: value.format(
                             version=db.show('model', model)[-1]
                         ),
@@ -519,6 +524,8 @@ class IbisQueryLinker(QueryLinker, _LogicalExprMixin):
             raise IbisBackendError(
                 f'{native_query} Wrong query or not supported yet :: {exc}'
             )
+        for column in result.columns:
+            result[column] = result[column].map(db.databackend.recover_data_format)
         return result
 
 
@@ -669,7 +676,7 @@ class IbisQueryTable(_ReprMixin, TableOrCollection, Select):
         self, key: str, model: str, version: int
     ) -> Select:
         output_table = IbisQueryTable(
-            identifier=f'_outputs/{model}/{version}',
+            identifier=get_output_table_name(model, version),
             primary_id='output_id',
         )
         query_id = str(hash(self))
@@ -840,6 +847,7 @@ class IbisInsert(Insert):
             'table',
             self.table_or_collection.identifier,
         )
+        """ __import__('ipdb').set_trace() """
         encoded_documents = self._encode_documents(table=table)
         ids = [r[table.primary_id] for r in encoded_documents]
 

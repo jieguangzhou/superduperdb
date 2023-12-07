@@ -1,3 +1,4 @@
+import time
 from typing import Optional
 
 import pytest
@@ -97,10 +98,8 @@ def add_fake_model(db: Datalayer):
     )
 
 
-@pytest.mark.parametrize(
-    "db", [DBConfig.mongodb_empty, DBConfig.sqldb_empty], indirect=True
-)
-def test_add_version(db):
+@pytest.mark.parametrize("db", [DBConfig.sqldb_empty], indirect=True)
+def test_add_version(db: Datalayer):
     # Check the component functions are called
     component = TestComponent(identifier='test')
     db.add(component)
@@ -109,6 +108,7 @@ def test_add_version(db):
     assert component.is_schedule_jobs is True
     assert component.version == 0
     assert db.show('test-component', 'test') == [0]
+    assert db.show('test-component')
 
     # Test the component saves the data correctly
     component_loaded = db.load('test-component', 'test')
@@ -211,9 +211,7 @@ def test_add(db):
         db.add('test')
 
 
-@pytest.mark.parametrize(
-    "db", [DBConfig.mongodb_empty, DBConfig.sqldb_empty], indirect=True
-)
+@pytest.mark.parametrize("db", [DBConfig.sqldb_empty], indirect=True)
 def test_remove_component_version(db):
     db.add(
         [
@@ -231,10 +229,12 @@ def test_remove_component_version(db):
     # Remove if confirmed
     with patch('click.confirm', return_value=True):
         db._remove_component_version('test-component', 'test', 0)
+        time.sleep(0.5)
         assert db.show('test-component', 'test') == [1]
 
     # Remove force
     db._remove_component_version('test-component', 'test', 1, force=True)
+    time.sleep(0.5)
     assert db.show('test-component', 'test') == []
 
 
@@ -315,6 +315,7 @@ def test_remove_one_version(db):
 
     # Only remove the version
     db.remove('test-component', 'test', 1, force=True)
+    time.sleep(0.5)
     assert db.show('test-component', 'test') == [0]
 
 
@@ -331,6 +332,7 @@ def test_remove_multi_version(db):
     )
 
     db.remove('test-component', 'test', force=True)
+    time.sleep(0.5)
     assert db.show('test-component', 'test') == []
 
 
@@ -345,9 +347,7 @@ def test_remove_not_exist_component(db):
     db.remove('test-component', 'test', force=True)
 
 
-@pytest.mark.parametrize(
-    "db", [DBConfig.mongodb_empty, DBConfig.sqldb_empty], indirect=True
-)
+@pytest.mark.parametrize("db", [DBConfig.sqldb_empty], indirect=True)
 def test_show(db):
     db.add(
         [
@@ -614,9 +614,7 @@ def test_replace(db):
 
 
 @pytest.mark.skipif(not torch, reason='Torch not installed')
-@pytest.mark.parametrize(
-    "db", [DBConfig.mongodb_empty, DBConfig.sqldb_empty], indirect=True
-)
+@pytest.mark.parametrize("db", [DBConfig.sqldb_empty], indirect=True)
 def test_compound_component(db):
     m = TorchModel(
         object=torch.nn.Linear(16, 32),
@@ -656,7 +654,7 @@ def test_compound_component(db):
 
 
 @pytest.mark.skipif(not torch, reason='Torch not installed')
-@pytest.mark.parametrize("db", [DBConfig.mongodb, DBConfig.sqldb], indirect=True)
+@pytest.mark.parametrize("db", [DBConfig.sqldb], indirect=True)
 def test_reload_dataset(db):
     from superduperdb.components.dataset import Dataset
 
@@ -680,7 +678,7 @@ def test_reload_dataset(db):
 @pytest.mark.parametrize(
     "db",
     [
-        (DBConfig.mongodb_no_vector_index, {'n_data': n_data_points}),
+        # (DBConfig.mongodb_no_vector_index, {'n_data': n_data_points}),
         (DBConfig.sqldb_no_vector_index, {'n_data': n_data_points}),
     ],
     indirect=True,

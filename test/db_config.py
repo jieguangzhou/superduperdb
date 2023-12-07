@@ -1,5 +1,7 @@
 MONGOMOCK_URI = 'mongomock:///test_db'
-SQLITE_URI = 'sqlite://:memory:'
+SQLITE_URI = 'clickhouse://default:@localhost:8123/default'
+""" SQLITE_URI = 'mysql://root:root123@localhost:3306/test_db' """
+""" SQLITE_URI = 'sqlite://:memory:' """
 N_DATA_POINTS = 5
 
 

@@ -1,3 +1,4 @@
+import base64
 import typing as t
 from warnings import warn
 
@@ -8,10 +9,13 @@ from ibis.backends.base import BaseBackend
 from superduperdb.backends.base.data_backend import BaseDataBackend
 from superduperdb.backends.ibis.field_types import FieldType, dtype
 from superduperdb.backends.ibis.query import Table
+from superduperdb.backends.ibis.utils import get_output_table_name
 from superduperdb.backends.local.artifacts import FileSystemArtifactStore
 from superduperdb.backends.sqlalchemy.metadata import SQLAlchemyMetadata
 from superduperdb.components.model import APIModel, Model
 from superduperdb.components.schema import Schema
+
+BASE64_PREFIX = 'base64:'
 
 
 class IbisDataBackend(BaseDataBackend):
@@ -32,10 +36,27 @@ class IbisDataBackend(BaseDataBackend):
         self.conn.create_table(identifier, schema=schema)
 
     def insert(self, table_name, raw_documents):
+        for doc in raw_documents:
+            for k, v in doc.items():
+                doc[k] = self.convert_data_format(v)
         if not self.in_memory:
-            self.conn.insert(table_name, raw_documents)
+            self.conn.insert(table_name, pandas.DataFrame(raw_documents))
         else:
             self.conn.create_table(table_name, pandas.DataFrame(raw_documents))
+
+    @staticmethod
+    def convert_data_format(data):
+        if isinstance(data, bytes):
+            return BASE64_PREFIX + base64.b64encode(data).decode('utf-8')
+        else:
+            return data
+
+    @staticmethod
+    def recover_data_format(data):
+        if isinstance(data, str) and data.startswith(BASE64_PREFIX):
+            return base64.b64decode(data[len(BASE64_PREFIX) :])
+        else:
+            return data
 
     def create_model_table_or_collection(self, model: t.Union[Model, APIModel]):
         msg = (
@@ -55,7 +76,7 @@ class IbisDataBackend(BaseDataBackend):
             'key': dtype('string'),
         }
         return Table(
-            identifier=f'_outputs/{model.identifier}/{model.version}',
+            identifier=get_output_table_name(model.identifier, model.version),
             schema=Schema(
                 identifier=f'_schema/{model.identifier}/{model.version}', fields=fields
             ),
