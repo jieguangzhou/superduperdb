@@ -1,9 +1,10 @@
+import json
 import threading
 import typing as t
 from contextlib import contextmanager
 
 import click
-from sqlalchemy import JSON, Boolean, Column, DateTime, Integer, String
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, Text, TypeDecorator
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship, sessionmaker
 
@@ -25,11 +26,37 @@ class DictMixin:
         return {c.name: getattr(self, c.name) for c in self.__table__.columns}
 
 
+class JsonAsString(TypeDecorator):
+    """
+    Stores and retrieves JSON as a string.
+    """
+
+    impl = Text
+
+    def process_bind_param(self, value, dialect):
+        if value is not None:
+            value = json.dumps(value)
+        return value
+
+    def process_result_value(self, value, dialect):
+        if value is not None:
+            value = json.loads(value)
+        return value
+
+
+class JsonAsText(JsonAsString):
+    """
+    Stores and retrieves JSON as a string.
+    """
+
+    impl = Text
+
+
 class QueryID(Base):  # type: ignore[valid-type, misc]
     __tablename__ = 'query_id_table'
 
     query_id = Column(String(DEFAULT_LENGTH), primary_key=True)
-    query = Column(JSON)
+    query = Column(JsonAsString)
     model = Column(String(DEFAULT_LENGTH))
 
 
@@ -39,14 +66,14 @@ class Job(Base, DictMixin):  # type: ignore[valid-type, misc]
     identifier = Column(String(DEFAULT_LENGTH), primary_key=True)
     component_identifier = Column(String(DEFAULT_LENGTH))
     type_id = Column(String(DEFAULT_LENGTH))
-    info = Column(JSON)
+    info = Column(JsonAsString)
     time = Column(DateTime)
     status = Column(String(DEFAULT_LENGTH))
-    args = Column(JSON)
-    kwargs = Column(JSON)
+    args = Column(JsonAsString)
+    kwargs = Column(JsonAsString)
     method_name = Column(String(DEFAULT_LENGTH))
-    stdout = Column(JSON)
-    stderr = Column(JSON)
+    stdout = Column(JsonAsString)
+    stderr = Column(JsonAsString)
     cls = Column(String(DEFAULT_LENGTH))
 
 
@@ -67,7 +94,7 @@ class Component(Base, DictMixin):  # type: ignore[valid-type, misc]
     type_id = Column(String(DEFAULT_LENGTH))
     cls = Column(String(DEFAULT_LENGTH))
     module = Column(String(DEFAULT_LENGTH))
-    dict = Column(JSON)
+    dict = Column(JsonAsText)
 
     # Define the parent-child relationship
     children = relationship(
