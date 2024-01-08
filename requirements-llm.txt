@@ -2,3 +2,5 @@ bitsandbytes
 datasets
 peft
 sentencepiece
+trl
+accelerate
