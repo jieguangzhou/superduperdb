@@ -68,6 +68,11 @@ class QueryDataset:
             self.select_one = self.select.select_single_id
         self.suppress = suppress
         self.extract = extract
+        self._map_funcs = []
+
+    def map(self, func):
+        self._map_funcs.append(func)
+        return self
 
     @property
     def database(self):
@@ -104,6 +109,8 @@ class QueryDataset:
         out = self.transform(s)
         if self.extract:
             out = out[self.extract]
+        for func in self._map_funcs:
+            out = func(out)
         return out
 
 
@@ -139,6 +146,11 @@ class CachedQueryDataset:
         self._max_cache_size = prefetch_size
         self._cache: ExpiryCache = self._fetch_cache()
         self._total_documents = self.count_documents()
+        self._map_funcs = []
+
+    def map(self, func):
+        self._map_funcs.append(func)
+        return self
 
     def count_documents(self) -> int:
         """Return the number of matching documents"""
@@ -201,7 +213,10 @@ class CachedQueryDataset:
                     s[k] = r[k]
         else:
             s = r
-        return self.transform(s)
+        out = self.transform(s)
+        for func in self._map_funcs:
+            out = func(out)
+        return out
 
 
 def query_dataset_factory(data_prefetch: bool = False, **kwargs):

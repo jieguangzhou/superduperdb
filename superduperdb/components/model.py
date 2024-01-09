@@ -54,7 +54,7 @@ class _TrainingConfiguration(Component):
     """
 
     kwargs: t.Optional[t.Dict] = None
-    type_id: t.ClassVar[str] = 'training_configuration'
+    type_id: t.ClassVar[str] = "training_configuration"
 
     def get(self, k, default=None):
         try:
@@ -82,7 +82,7 @@ class _Predictor:
     :param predict_max_chunk_size: The max chunk size to use for .predict
     :param predict_kwargs: The kwargs to use for .predict"""
 
-    type_id: t.ClassVar[str] = 'model'
+    type_id: t.ClassVar[str] = "model"
 
     encoder: EncoderArg = None
     output_schema: t.Optional[t.Union[Schema, dict]] = None
@@ -118,13 +118,13 @@ class _Predictor:
     ):
         return ComponentJob(
             component_identifier=self.identifier,
-            method_name='predict',
-            type_id='model',
+            method_name="predict",
+            type_id="model",
             args=[X],
             kwargs={
-                'select': select.serialize() if select else None,
-                'ids': ids,
-                'max_chunk_size': max_chunk_size,
+                "select": select.serialize() if select else None,
+                "ids": ids,
+                "max_chunk_size": max_chunk_size,
                 **kwargs,
             },
         )
@@ -139,14 +139,14 @@ class _Predictor:
         if isinstance(self.preprocess, Artifact):
             X = self.preprocess.artifact(X)
         elif self.preprocess is not None:
-            raise ValueError('Bad preprocess')
+            raise ValueError("Bad preprocess")
 
         output = self.to_call(X, **kwargs)
 
         if isinstance(self.postprocess, Artifact):
             output = self.postprocess.artifact(output)
         elif self.postprocess is not None:
-            raise ValueError('Bad postprocess')
+            raise ValueError("Bad postprocess")
 
         return output
 
@@ -176,10 +176,10 @@ class _Predictor:
         if isinstance(self.preprocess, Artifact):
             X = [self.preprocess.artifact(i) for i in X]
         elif self.preprocess is not None:
-            raise ValueError('Bad preprocess')
+            raise ValueError("Bad preprocess")
 
         if isinstance(self.collate_fn, Artifact):
-            raise ValueError('Bad collate function')
+            raise ValueError("Bad collate function")
 
         elif self.collate_fn is not None:
             X = self.collate_fn(X)
@@ -189,7 +189,7 @@ class _Predictor:
         if isinstance(self.postprocess, Artifact):
             outputs = [self.postprocess.artifact(o) for o in outputs]
         elif self.postprocess is not None:
-            raise ValueError('Bad postprocess')
+            raise ValueError("Bad postprocess")
 
         return outputs
 
@@ -214,7 +214,7 @@ class _Predictor:
         db = self.db or db
 
         if one:
-            assert select is None, 'select must be None when ``one=True`` (direct call)'
+            assert select is None, "select must be None when ``one=True`` (direct call)"
 
         if isinstance(select, dict):
             select = Serializable.deserialize(select)
@@ -230,12 +230,12 @@ class _Predictor:
                 try:
                     _ = db.metadata.get_query(str(hash(select)))
                 except NonExistentMetadataError:
-                    logging.info(f'Query {select} not found in metadata, adding...')
+                    logging.info(f"Query {select} not found in metadata, adding...")
                     db.metadata.add_query(select, self.identifier)
-                    logging.info('Done')
+                    logging.info("Done")
 
             if not was_added:
-                logging.info(f'Adding model {self.identifier} to db')
+                logging.info(f"Adding model {self.identifier} to db")
                 assert isinstance(self, Component)
                 db.add(self)
 
@@ -251,7 +251,7 @@ class _Predictor:
             )
 
         # TODO: tidy up this logic
-        if select is not None and db is not None and db.compute.type == 'distributed':
+        if select is not None and db is not None and db.compute.type == "distributed":
             return self.create_predict_job(
                 X,
                 select=select,
@@ -285,7 +285,7 @@ class _Predictor:
                 )
             else:
                 if self.takes_context:
-                    kwargs['context'] = context
+                    kwargs["context"] = context
 
                 output = self._predict(
                     (X[key] if one else [r[key] for r in X]) if key else X,
@@ -294,8 +294,8 @@ class _Predictor:
                 )
                 if insert_to is not None:
                     msg = (
-                        '`self.db` has not been set; this is necessary if'
-                        ' `insert_to` is not None; use `db.add(self)`'
+                        "`self.db` has not been set; this is necessary if"
+                        " `insert_to` is not None; use `db.add(self)`"
                     )
 
                     from superduperdb.base.datalayer import Datalayer
@@ -303,7 +303,7 @@ class _Predictor:
                     assert isinstance(db, Datalayer), msg
                     if isinstance(insert_to, str):
                         insert_to = db.load(
-                            'table',
+                            "table",
                             insert_to,
                         )  # type: ignore[assignment]
                     if one:
@@ -334,7 +334,7 @@ class _Predictor:
         **kwargs,
     ):
         if self.takes_context:
-            kwargs['context'] = context
+            kwargs["context"] = context
         return await self._apredict(X, one=one, **kwargs)
 
     def _predict_and_listen(
@@ -356,8 +356,8 @@ class _Predictor:
                 select=select,
                 predict_kwargs={
                     **kwargs,
-                    'in_memory': in_memory,
-                    'max_chunk_size': max_chunk_size,
+                    "in_memory": in_memory,
+                    "max_chunk_size": max_chunk_size,
                 },
             ),
             dependencies=dependencies,
@@ -414,7 +414,7 @@ class _Predictor:
         if max_chunk_size is not None:
             it = 0
             for i in range(0, len(ids), max_chunk_size):
-                logging.info(f'Computing chunk {it}/{int(len(ids) / max_chunk_size)}')
+                logging.info(f"Computing chunk {it}/{int(len(ids) / max_chunk_size)}")
                 self._predict_with_select_and_ids(
                     X=X,
                     db=db,
@@ -430,9 +430,9 @@ class _Predictor:
         X_data: t.Any
         if in_memory:
             if db is None:
-                raise ValueError('db cannot be None')
+                raise ValueError("db cannot be None")
             docs = list(db.execute(select.select_using_ids(ids)))
-            if X != '_base':
+            if X != "_base":
                 X_data = [MongoStyleDict(r.unpack())[X] for r in docs]
             else:
                 X_data = [r.unpack() for r in docs]
@@ -448,9 +448,9 @@ class _Predictor:
 
         if len(X_data) > len(ids):
             raise Exception(
-                'You\'ve specified more documents than unique ids;'
-                f' Is it possible that {select.table_or_collection.primary_id}'
-                f' isn\'t unique identifying?'
+                "You've specified more documents than unique ids;"
+                f" Is it possible that {select.table_or_collection.primary_id}"
+                f" isn't unique identifying?"
             )
 
         outputs = self.predict(X=X_data, one=False, **kwargs)
@@ -474,7 +474,7 @@ class _Predictor:
 
         assert isinstance(self.version, int)
 
-        logging.info(f'Adding {len(outputs)} model outputs to `db`')
+        logging.info(f"Adding {len(outputs)} model outputs to `db`")
         select.model_update(
             db=db,
             model=self.identifier,
@@ -487,7 +487,7 @@ class _Predictor:
         )
 
 
-@public_api(stability='stable')
+@public_api(stability="stable")
 @dc.dataclass(kw_only=True)
 class Model(_Predictor, Component):
     """Model component which wraps a model to become serializable
@@ -517,7 +517,7 @@ class Model(_Predictor, Component):
     metric_values: t.Optional[t.Dict] = dc.field(default_factory=dict)
     predict_method: t.Optional[str] = None
     model_update_kwargs: dict = dc.field(default_factory=dict)
-    serializer: str = 'dill'
+    serializer: str = "dill"
     device: str = "cpu"
     preferred_devices: t.Union[None, t.Sequence[str]] = ("cuda", "mps", "cpu")
 
@@ -527,11 +527,11 @@ class Model(_Predictor, Component):
     train_select: t.Optional[CompoundSelect] = None
 
     artifact_attributes: t.ClassVar[t.Sequence[str]] = (
-        'object',
-        'preprocess',
-        'postprocess',
+        "object",
+        "preprocess",
+        "postprocess",
     )
-    type_id: t.ClassVar[str] = 'model'
+    type_id: t.ClassVar[str] = "model"
 
     def __post_init__(self):
         super().__post_init__()
@@ -556,7 +556,7 @@ class Model(_Predictor, Component):
     def post_create(self, db: Datalayer) -> None:
         if isinstance(self.training_configuration, str):
             self.training_configuration = db.load(
-                'training_configuration', self.training_configuration
+                "training_configuration", self.training_configuration
             )  # type: ignore[assignment]
         if isinstance(self.output_schema, Schema):
             db.add(self.output_schema)
@@ -605,7 +605,7 @@ class Model(_Predictor, Component):
         return jobs
 
     def on_load(self, db: Datalayer) -> None:
-        logging.debug(f'Calling on_load method of {self}')
+        logging.debug(f"Calling on_load method of {self}")
         if self._artifact_method and self.preferred_devices:
             for i, device in enumerate(self.preferred_devices):
                 try:
@@ -620,9 +620,9 @@ class Model(_Predictor, Component):
     def child_components(self) -> t.Sequence[t.Tuple[str, str]]:
         out = []
         if isinstance(self.encoder, Encoder):
-            out.append(('encoder', 'encoder'))
+            out.append(("encoder", "encoder"))
         if self.training_configuration is not None:
-            out.append(('training_configuration', 'training_configuration'))
+            out.append(("training_configuration", "training_configuration"))
         return out
 
     @property
@@ -649,19 +649,19 @@ class Model(_Predictor, Component):
         db.add(self)
         out = self._validate(db, validation_set, metrics)
         if self.metric_values is None:
-            raise ValueError('self.metric_values cannot be None')
+            raise ValueError("self.metric_values cannot be None")
         self.metric_values.update(out)
         db.metadata.update_object(
-            type_id='model',
+            type_id="model",
             identifier=self.identifier,
             version=self.version,
-            key='dict.metric_values',
+            key="dict.metric_values",
             value=self.metric_values,
         )
 
     def pre_create(self, db: Datalayer):
         if isinstance(self.encoder, str):
-            self.encoder = db.load('encoder', self.encoder)  # type: ignore[assignment]
+            self.encoder = db.load("encoder", self.encoder)  # type: ignore[assignment]
 
     def _validate(
         self,
@@ -672,7 +672,7 @@ class Model(_Predictor, Component):
         if isinstance(validation_set, str):
             from superduperdb.components.dataset import Dataset
 
-            validation_set = t.cast(Dataset, db.load('dataset', validation_set))
+            validation_set = t.cast(Dataset, db.load("dataset", validation_set))
 
         mdicts = [MongoStyleDict(r.unpack()) for r in validation_set.data]
         assert self.train_X is not None
@@ -685,7 +685,7 @@ class Model(_Predictor, Component):
 
         for m in metrics:
             out = m(prediction, target)
-            results[f'{validation_set.identifier}/{m.identifier}'] = out
+            results[f"{validation_set.identifier}/{m.identifier}"] = out
         return results
 
     def create_fit_job(
@@ -697,12 +697,12 @@ class Model(_Predictor, Component):
     ):
         return ComponentJob(
             component_identifier=self.identifier,
-            method_name='fit',
-            type_id='model',
+            method_name="fit",
+            type_id="model",
             args=[X],
             kwargs={
-                'y': y,
-                'select': select.serialize() if select else None,
+                "y": y,
+                "select": select.serialize() if select else None,
                 **kwargs,
             },
         )
@@ -763,7 +763,7 @@ class Model(_Predictor, Component):
         if db is not None:
             db.add(self)
 
-        if db is not None and db.compute.type == 'distributed':
+        if db is not None and db.compute.type == "distributed":
             return self.create_fit_job(
                 X,
                 select=select,
@@ -789,12 +789,12 @@ def TrainingConfiguration(identifier: str, **kwargs):
     return _TrainingConfiguration(identifier=identifier, kwargs=kwargs)
 
 
-@public_api(stability='beta')
+@public_api(stability="beta")
 @dc.dataclass(kw_only=True)
 class APIModel(Component, _Predictor):
-    '''{component_params}
+    """{component_params}
     {predictor_params}
-    :param model: The model to use, e.g. ``'text-embedding-ada-002'``'''
+    :param model: The model to use, e.g. ``'text-embedding-ada-002'``"""
 
     __doc__ = __doc__.format(
         component_params=Component.__doc__,
@@ -843,7 +843,7 @@ class APIModel(Component, _Predictor):
     @property
     def child_components(self):
         if isinstance(self.encoder, Encoder):
-            return [('encoder', 'encoder')]
+            return [("encoder", "encoder")]
         return []
 
 
@@ -947,7 +947,7 @@ class SequentialModel(Component, _Predictor):
     def on_load(self, db: Datalayer):
         for i, p in enumerate(self.predictors):
             if isinstance(p, str):
-                self.predictors[i] = db.load('model', p)  # type: ignore[call-overload]
+                self.predictors[i] = db.load("model", p)  # type: ignore[call-overload]
 
     def _predict(self, X: t.Any, one: bool = False, **predict_kwargs):
         out = X

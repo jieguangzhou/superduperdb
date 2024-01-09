@@ -11,13 +11,22 @@ from peft import LoraConfig, get_peft_model, prepare_model_for_kbit_training
 from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
+    AwqConfig,
     BitsAndBytesConfig,
+    GPTQConfig,
+    PretrainedConfig,
+    PreTrainedModel,
     PreTrainedTokenizer,
     deepspeed,
 )
+from transformers.utils.quantization_config import QuantizationConfigMixin
 
 from superduperdb.backends.query_dataset import query_dataset_factory
-from superduperdb.components.model import Model, _TrainingConfiguration
+from superduperdb.components.model import (
+    Model,
+    _TrainingConfiguration,
+    TrainingConfiguration,
+)
 from superduperdb.ext.utils import ensure_initialized
 
 if typing.TYPE_CHECKING:
@@ -27,20 +36,7 @@ if typing.TYPE_CHECKING:
     from superduperdb.components.metric import Metric
 
 
-from transformers import modeling_utils
-
-
-@dataclass
-class ModelArguments:
-    model_name_or_path: t.Optional[str] = field(
-        default="mistralai/mistral-7b-instruct-v0.2"
-    )
-    trust_remote_code: bool = field(
-        default=True,
-        metadata={
-            "help": "Whether or not to allow for custom models defined on the Hub in their own modeling files"
-        },
-    )
+QuantizationConfigType = t.Union[BitsAndBytesConfig, GPTQConfig, AwqConfig]
 
 
 @dataclass
@@ -50,14 +46,6 @@ class TrainingArguments(transformers.TrainingArguments):
         metadata={
             "help": "Maximum sequence length. Sequences will be right padded (and possibly truncated)."
         },
-    )
-
-
-@dataclass
-class DataArguments:
-    data_name: str = field(
-        default="c-s-ale/alpaca-gpt4-data-zh",
-        metadata={"help": "dataset name"},
     )
 
 
@@ -81,70 +69,25 @@ def LLMTrainingConfiguration(identifier: str, *args, **kwargs):
 class LLM(Model):
     object: t.Optional[transformers.Trainer] = None
     model_name_or_path: str = "facebook/opt-125m"
+    trust_remote_code: bool = False
     bits: t.Optional[int] = None
-    qlora: bool = True
-    per_device_train_batch_size: int = 1
-    per_device_eval_batch_size: int = 1
-    gradient_accumulation_steps: int = 8
-    output_dir: str = "output"
-    batch_size: int = 16
-    model_args: ModelArguments = field(default_factory=ModelArguments)
-    data_args: DataArguments = field(default_factory=DataArguments)
-    training_args: TrainingArguments = field(
-        default_factory=lambda: TrainingArguments(output_dir="")
-    )
-    lora_args: LoraArguments = field(default_factory=LoraArguments)
-
-    # def __post_init__(self, **kwargs):
-    #     self.model_args.model_name_or_path = self.model_name_or_path
-    #     self.lora_args.bits = self.bits
-    #     self.lora_args.q_lora = self.qlora
-    #
-    #     self.training_args.per_device_train_batch_size = (
-    #         self.per_device_train_batch_size
-    #     )
-    #     self.training_args.per_device_eval_batch_size = self.per_device_eval_batch_size
-    #     self.training_args.gradient_accumulation_steps = (
-    #         self.gradient_accumulation_steps
-    #     )
-    #     self.training_args.output_dir = self.output_dir
-    #     super().__post_init__()
+    quantization_config: t.Optional[QuantizationConfigType] = None
+    transform: t.Optional[t.Callable] = None
 
     def init(self):
-        world_size = int(os.environ.get("WORLD_SIZE", 1))
-        self.ddp = world_size != 1
-        # device_map = {"": int(os.environ.get("LOCAL_RANK") or 0)} if self.ddp else None
-        device_map = "mps"
-
-        is_deepspeed_zero3_enabled = deepspeed.is_deepspeed_zero3_enabled()
-
-        self.model = AutoModelForCausalLM.from_pretrained(
-            self.model_name_or_path,
-            quantization_config=self._create_quantization_config(),
-            low_cpu_mem_usage=not is_deepspeed_zero3_enabled,
-            device_map=device_map if not is_deepspeed_zero3_enabled else None,
-            trust_remote_code=self.model_args.trust_remote_code,
-        )
-
-        self.tokenizer = AutoTokenizer.from_pretrained(
-            self.model_name_or_path,
-            use_fast=False,
-            model_max_length=self.training_args.model_max_length,
-            padding_side="left",
-            trust_remote_code=self.model_args.trust_remote_code,
-        )
-        self.tokenizer.pad_token = self.tokenizer.pad_token or self.tokenizer.eos_token
+        self.model, self.tokenizer = self.init_model_and_tokenizer()
 
     @ensure_initialized
     def to_call(self, X: t.Any, **kwargs):
         outputs = self.model.generate(
-            input_ids=self.tokenizer(X, return_tensors="pt")["input_ids"],
+            input_ids=self.tokenizer(X, return_tensors="pt")["input_ids"].to(
+                self.model.device
+            ),
             **kwargs,
         )
         text = self.tokenizer.batch_decode(outputs)[0]
         return text
 
-    @ensure_initialized
     def _fit(
         self,
         X: t.Any,
@@ -155,29 +98,82 @@ class LLM(Model):
         metrics: t.Optional[t.Sequence["Metric"]] = None,
         select: t.Optional["Select"] = None,
         validation_sets: t.Optional[t.Sequence[t.Union[str, "Dataset"]]] = None,
+        **kwargs,
     ):
+        training_args = TrainingArguments(output_dir="outputs", **kwargs)
+        lora_args = LoraArguments()
+        ## merge configuration to training_args and lora_args
+        if configuration is not None:
+            for key, value in configuration.kwargs.items():
+                if hasattr(training_args, key):
+                    setattr(training_args, key, value)
+
+                if hasattr(lora_args, key):
+                    setattr(lora_args, key, value)
+
+        self.model, self.tokenizer = self.init_model_and_tokenizer()
+        self._prepare_lora_training(training_args, lora_args)
+
         train_dataset, eval_dataset = self.get_datasets(
-            X, y, db, select, data_prefetch=data_prefetch
+            X, y, db, select, data_prefetch=data_prefetch, eval=True
         )
-        __import__('ipdb').set_trace()
+
+        # TODO: Defind callbacks about superduperdb side
+
+        trainer = self.create_trainer(
+            train_dataset,
+            eval_dataset,
+            compute_metrics=metrics,
+            training_args=training_args,
+            **kwargs,
+        )
+        trainer.model.config.use_cache = False
+        trainer.train()
+        trainer.save_state()
+
+    def init_model_and_tokenizer(self):
+        device_map = "auto"
+        is_deepspeed_zero3_enabled = deepspeed.is_deepspeed_zero3_enabled()
+        model = AutoModelForCausalLM.from_pretrained(
+            self.model_name_or_path,
+            quantization_config=self._create_quantization_config(),
+            low_cpu_mem_usage=not is_deepspeed_zero3_enabled,
+            device_map=device_map if not is_deepspeed_zero3_enabled else None,
+            trust_remote_code=self.trust_remote_code,
+        )
+
+        tokenizer = AutoTokenizer.from_pretrained(
+            self.model_name_or_path,
+            use_fast=False,
+            padding_side="left",
+            model_max_length=512,
+            trust_remote_code=self.trust_remote_code,
+        )
+        tokenizer.pad_token = tokenizer.pad_token or tokenizer.eos_token
+        return model, tokenizer
+
+    def create_trainer(
+        self, train_dataset, eval_dataset, training_args, **kwargs
+    ) -> transformers.Trainer:
 
         trainer = transformers.Trainer(
             model=self.model,
             tokenizer=self.tokenizer,
-            args=self.training_args,
+            args=training_args,
             train_dataset=train_dataset,
             eval_dataset=eval_dataset,
+            **kwargs,
         )
-        self.model.config.use_cache = False
+        return trainer
 
-        trainer.train()
-        trainer.save_state()
 
     def _create_quantization_config(self):
+        if self.quantization_config:
+            return self.quantization_config
         compute_dtype = (
             torch.float16
-            if self.training_args.fp16
-            else (torch.bfloat16 if self.training_args.bf16 else torch.float32)
+            # if self.training_args.fp16
+            # else (torch.bfloat16 if self.training_args.bf16 else torch.float32)
         )
         if self.bits is not None:
             quantization_config = BitsAndBytesConfig(
@@ -191,17 +187,19 @@ class LLM(Model):
             quantization_config = None
         return quantization_config
 
-    def _prepare_lora_training(self):
+    def _prepare_lora_training(
+        self, training_args: TrainingArguments, lora_args: LoraArguments
+    ):
         lora_config = LoraConfig(
-            r=self.lora_args.lora_r,
-            lora_alpha=self.lora_args.lora_alpha,
-            target_modules=self._get_lora_target_modules(),
-            lora_dropout=self.lora_args.lora_dropout,
-            bias=self.lora_args.lora_bias,
+            r=lora_args.lora_r,
+            lora_alpha=lora_args.lora_alpha,
+            target_modules=self._get_lora_target_modules(lora_args),
+            lora_dropout=lora_args.lora_dropout,
+            bias=lora_args.lora_bias,
             task_type="CAUSAL_LM",
         )
 
-        if self.lora_args.bits:
+        if lora_args.bits:
             self.model = prepare_model_for_kbit_training(
                 self.model,
                 use_gradient_checkpointing=self.training_args.gradient_checkpointing,
@@ -213,26 +211,23 @@ class LLM(Model):
 
         self.model = get_peft_model(self.model, lora_config)
 
-        if (
-            self.training_args.deepspeed is not None
-            and self.training_args.local_rank == 0
-        ):
+        if training_args.deepspeed is not None and training_args.local_rank == 0:
             self.model.print_trainable_parameters()
 
-        if self.training_args.gradient_checkpointing:
+        if training_args.gradient_checkpointing:
             self.model.enable_input_require_grads()
 
-        if self.training_args.local_rank == 0:
+        if training_args.local_rank == 0:
             self.model.print_trainable_parameters()
 
-    def _get_lora_target_modules(self):
-        if self.lora_args.lora_target_modules is not None:
-            return self.lora_args.lora_target_modules
+    def _get_lora_target_modules(self, lora_args):
+        if lora_args.lora_target_modules is not None:
+            return lora_args.lora_target_modules
 
         cls = (
             bnb.nn.Linear4bit
-            if self.lora_args.bits == 4
-            else (bnb.nn.Linear8bitLt if self.lora_args.bits == 8 else torch.nn.Linear)
+            if lora_args.bits == 4
+            else (bnb.nn.Linear8bitLt if lora_args.bits == 8 else torch.nn.Linear)
         )
         lora_module_names = set()
         for name, module in self.model.named_modules():
@@ -245,50 +240,59 @@ class LLM(Model):
         return list(lora_module_names)
 
     def get_datasets(
-        self, X, y, db: "Datalayer", select: "Select", data_prefetch: bool = False
+        self,
+        X,
+        y,
+        db: "Datalayer",
+        select: "Select",
+        data_prefetch: bool = False,
+        eval: bool = False,
     ):
-        def transform(example):
-            if example.get("input"):
-                example[X] = example[X] + example["input"]
-            return _default_transform(X, y, example, self.tokenizer)
+        keys = [X]
+        if y is not None:
+            keys.append(y)
 
         train_dataset = query_dataset_factory(
+            keys=keys,
             data_prefetch=data_prefetch,
             select=select,
             fold="train",
             db=db,
-            transform=transform,
+            transform=self.preprocess,
         )
-        eval_dataset = query_dataset_factory(
-            data_prefetch=data_prefetch,
-            select=select,
-            fold="vaild",
-            db=db,
-            transform=transform,
-        )
+        if eval:
+            eval_dataset = query_dataset_factory(
+                keys=keys,
+                data_prefetch=data_prefetch,
+                select=select,
+                fold="vaild",
+                db=db,
+                transform=self.preprocess,
+            )
+        else:
+            eval_dataset = None
+        
+        def process_func(example):
+            return self.tokenize(example, X, y)
+
+        train_dataset = train_dataset.map(process_func)
+        if eval_dataset is not None:
+            eval_dataset = eval_dataset.map(process_func)
         return train_dataset, eval_dataset
 
+    def tokenize(self, example, X, y):
+        prompt = example[X]
 
-_prompt_template = (
-    "Below is an instruction that describes a task,"
-    "paired with an input that provides further context. "
-    "Write a response that appropriately completes the request."
-    "\n\n### Instruction:\n{x}\n\n### Response:\n{y}"
-)
+        prompt = prompt + self.tokenizer.eos_token
+        result = self.tokenizer(
+            prompt,
+            truncation=True,
+            max_length=self.tokenizer.model_max_length,
+            padding="max_length",
+        )
+        result["labels"] = result["input_ids"].copy()
+        return result
 
-
-def _default_transform(X, y, example: dict, tokenizer: PreTrainedTokenizer, **kwargs):
-    x = example[X]
-    y = example.get(y, "")
-
-    prompt = _prompt_template.format(x=x, y=y)
-
-    prompt = prompt + tokenizer.eos_token
-    result = tokenizer(
-        prompt,
-        truncation=True,
-        max_length=tokenizer.model_max_length,
-        padding="max_length",
-    )
-    result["labels"] = result["input_ids"].copy()
-    return result
+    @property
+    def ddp(self):
+        return int(os.environ.get("WORLD_SIZE", 1)) != 1
