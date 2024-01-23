@@ -12,6 +12,7 @@ from transformers import (
     BitsAndBytesConfig,
     TrainerCallback,
     TrainingArguments,
+    deepspeed,
 )
 
 from superduperdb import logging
@@ -143,8 +144,9 @@ class LLM(Model):
                 logging.warn(
                     "The bits is set, will overwrite the load_in_4bit and load_in_8bit"
                 )
-            self.model_kwargs.artifact["load_in_4bit"] = self.bits == 4
-            self.model_kwargs.artifact["load_in_8bit"] = self.bits == 8
+            # self.model_kwargs.artifact["load_in_4bit"] = self.bits == 4
+            # self.model_kwargs.artifact["load_in_8bit"] = self.bits == 8
+            pass
         super().__post_init__()
 
     def init_model_and_tokenizer(self):
@@ -169,6 +171,9 @@ class LLM(Model):
                 **self.tokenizer_kwags.artifact,
             )
             self._tokenizer_cache[tokenizer_key] = tokenizer
+
+            if tokenizer.pad_token is None:
+                tokenizer.pad_token = tokenizer.eos_token
         else:
             logging.info("Reuse tokenizer from cache")
         return self._model_cache[model_key], self._tokenizer_cache[tokenizer_key]
@@ -176,12 +181,14 @@ class LLM(Model):
     def create_trainer(
         self, train_dataset, eval_dataset, training_args, **kwargs
     ) -> transformers.Trainer:
-        trainer = transformers.Trainer(
+        from trl import SFTTrainer
+        trainer = SFTTrainer(
             model=self.model,
             tokenizer=self.tokenizer,
             args=training_args,
             train_dataset=train_dataset,
             eval_dataset=eval_dataset,
+            dataset_text_field="text",
             **kwargs,
         )
         return trainer
@@ -195,6 +202,17 @@ class LLM(Model):
         self.model, self.tokenizer = self.init_model_and_tokenizer()
         if self.adapter_id is not None:
             self.add_adapter(self.adapter_id, self.adapter_id)
+
+    def fit(
+        self,
+        *args,
+        **kwargs,
+    ):
+        import torch.distributed as dist
+
+        if dist.is_available() and dist.is_initialized() and dist.get_rank() != 0:
+            kwargs["db"] = None
+        return super().fit(*args, **kwargs)
 
     def _fit(
         self,
@@ -212,12 +230,21 @@ class LLM(Model):
 
         training_args = LLMTrainingArguments(**configuration.kwargs)  # type: ignore
 
+        world_size = int(os.environ.get("WORLD_SIZE", 1))
+        ddp = world_size != 1
+        assert isinstance(self.model_kwargs, Artifact)
         # get device map
-        device_map: t.Union[None, str, t.Dict[str, int]] = None
+        device_map: t.Union[
+            None, str, t.Dict[str, int]
+        ] = self.model_kwargs.artifact.get("device_map")
         if os.environ.get("LOCAL_RANK") is not None:
-            device_map = {"": int(os.environ.get("LOCAL_RANK", "0"))}
+            device_map = {"": int(os.environ.get("LOCAL_RANK", "0"))} if ddp else None
         elif torch.backends.mps.is_available():
             device_map = "mps"
+
+        if deepspeed.is_deepspeed_zero3_enabled():
+            device_map = None
+            self.model_kwargs.artifact['low_cpu_mem_usage'] = False
 
         quantization_config = self._create_quantization_config(training_args)
 
@@ -225,7 +252,6 @@ class LLM(Model):
         logging.info(f"quantization_config: {quantization_config}")
         logging.info(f"device_map: {device_map}")
 
-        assert isinstance(self.model_kwargs, Artifact)
         self.model_kwargs.artifact["quantization_config"] = quantization_config
         self.model_kwargs.artifact["device_map"] = device_map
         self.model, self.tokenizer = self.init_model_and_tokenizer()
@@ -235,25 +261,32 @@ class LLM(Model):
         )
         self._prepare_lora_training(training_args)
 
-        train_dataset, eval_datasets = self.get_datasets(
-            X,
-            y,
-            db,
-            select,
-            db_validation_sets=validation_sets,
-            data_prefetch=data_prefetch,
-            prefetch_size=kwargs.pop("prefetch_size", DEFAULT_FETCH_SIZE),
-        )
+        # train_dataset, eval_datasets = self.get_datasets(
+        #     X,
+        #     y,
+        #     db,
+        #     select,
+        #     db_validation_sets=validation_sets,
+        #     data_prefetch=data_prefetch,
+        #     prefetch_size=kwargs.pop("prefetch_size", DEFAULT_FETCH_SIZE),
+        # )
+        import pandas as pd
+        from datasets import Dataset
+
+        train_df = pd.read_csv("train.csv")
+        train_dataset = Dataset.from_pandas(train_df)
+        validation_df = pd.read_csv("val.csv")
+        eval_datasets = Dataset.from_pandas(validation_df)
 
         # TODO: Defind callbacks about superduperdb side
         trainer = self.create_trainer(
             train_dataset,
             eval_datasets,
-            compute_metrics=self.get_compute_metrics(metrics),
+            # compute_metrics=self.get_compute_metrics(metrics),
             training_args=training_args,
             **kwargs,
         )
-        trainer.add_callback(LLMCallback(self))
+        # trainer.add_callback(LLMCallback(self))
         trainer.model.config.use_cache = False
         trainer.train()
         trainer.save_state()
@@ -320,9 +353,7 @@ class LLM(Model):
         )
         kwargs.setdefault("pad_token_id", self.tokenizer.eos_token_id)
         outputs = self.model.generate(**model_inputs, **kwargs)
-        texts = self.tokenizer.batch_decode(outputs)
-        texts = [text.replace(self.tokenizer.eos_token, "") for text in texts]
-        texts = [text.replace(self.tokenizer.pad_token, "") for text in texts]
+        texts = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         if isinstance(X, str):
             return texts[0]
         return texts
@@ -357,8 +388,6 @@ class LLM(Model):
             quantization_config = BitsAndBytesConfig(
                 load_in_4bit=self.bits == 4,
                 load_in_8bit=self.bits == 8,
-                llm_int8_threshold=6.0,
-                llm_int8_has_fp16_weight=False,
                 bnb_4bit_compute_dtype=compute_dtype,
                 bnb_4bit_use_double_quant=True,
                 bnb_4bit_quant_type="nf4",
