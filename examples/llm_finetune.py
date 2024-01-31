@@ -33,25 +33,9 @@ deepspped = {
     "train_batch_size": "auto",
     "train_micro_batch_size_per_gpu": "auto",
     "gradient_accumulation_steps": "auto",
-    "gradient_clipping": "auto",
-    "zero_allow_untested_optimizer": True,
-    "fp16": {
-        "enabled": "auto",
-        "loss_scale": 0,
-        "initial_scale_power": 16,
-        "loss_scale_window": 1000,
-        "hysteresis": 2,
-        "min_loss_scale": 1,
-    },
     "zero_optimization": {
         "stage": 2,
-        "allgather_partitions": True,
-        "allgather_bucket_size": 5e8,
-        "reduce_scatter": True,
-        "reduce_bucket_size": 5e8,
-        "overlap_comm": True,
-        "contiguous_gradients": True,
-    },
+    }
 }
 
 

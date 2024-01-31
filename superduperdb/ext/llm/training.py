@@ -100,7 +100,11 @@ class LLMTrainingArguments(TrainingArguments):
             Maximum source sequence length during training.
         log_to_db (`bool`, *optional*, defaults to True):
             Log training to db.
+<<<<<<< HEAD
             If True, will log checkpoint to superduperdb,
+=======
+            If True, will log checkpoint to superduperdb, 
+>>>>>>> 252d09e7 (Support finetuning on remote ray)
                 but need ray cluster can access to db.
             If can't access to db, please set it to False.
     """
