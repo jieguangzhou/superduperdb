@@ -203,13 +203,11 @@ def test_remote_ray_lora_finetune(db, base_config):
         use_gpu=True,
     )
 
-    run_config = RunConfig(
-        storage_path=os.path.abspath(output_dir),
-    )
+    # run_config = RunConfig()
 
     ray_configs = {
         "scaling_config": scaling_config,
-        "run_config": run_config,
+        # "run_config": run_config,
     }
 
     llm.fit(
@@ -218,7 +216,7 @@ def test_remote_ray_lora_finetune(db, base_config):
         configuration=base_config,
         db=db,
         on_ray=True,
-        ray_address="ray://localhost:10001",
+        ray_address="ray://ec2-3-90-216-222.compute-1.amazonaws.com:10001",
         ray_configs=ray_configs,
     )
 

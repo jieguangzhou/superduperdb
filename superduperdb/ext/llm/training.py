@@ -117,6 +117,14 @@ class LLMTrainingArguments(TrainingArguments):
     max_length: int = 512
     log_to_db: bool = False
 
+    def __post_init__(self):
+        ...
+        # Overwrite __post_init__ for lazy build
+        # Cause we can run on remote ray, that can avoid building error on client side
+
+    def build(self):
+        super().__post_init__()
+
 
 def tokenize(tokenizer, example, X, y):
     """Function to tokenize the example."""
@@ -178,16 +186,7 @@ def train(
     :param ray_configs: ray configs, must provide if using ray
     """
 
-    try:
-        training_args = LLMTrainingArguments(**training_config)
-    except ImportError as e:
-        # Do not raise error if deepspeed is not installed when using ray
-        if "deepspeed" in str(e) and on_ray:
-            deepspeed = training_config.pop("deepspeed")
-            training_args = LLMTrainingArguments(**training_config)
-            training_args.deepspeed = deepspeed
-        else:
-            raise e
+    training_args = LLMTrainingArguments(**training_config)
     if X:
         tokenizer = AutoTokenizer.from_pretrained(
             **tokenizer_kwargs,
@@ -231,6 +230,8 @@ def train(
             callbacks = [LLMCallback(db=db, llm=llm)]
         else:
             callbacks = None
+        # build training_args for local training
+        training_args.build()
         return train_func(
             training_args,
             train_dataset,
@@ -262,25 +263,26 @@ def train(
         )
         logging.info(f"Training finished, results: {results}")
 
-        # Update llm adapter_id to the last checkpoint
-        # and update the llm to db
-        if llm is not None:
-            checkpoint = results.checkpoint
-            if checkpoint is None:
-                logging.warn("No checkpoint found, skip saving checkpoint")
-                return results
-            path = checkpoint.path
-            if checkpoint.filesystem.type_name != "s3":
-                # Pad the path to the checkpoint
-                path = os.path.join(checkpoint.path, "checkpoint")
-                llm.adapter_id = Artifact(path, serializer="zip")
-            else:
-                #TODO: Need to handle s3 path
-                llm.adapter_id = Artifact(path)
-
-        if db is not None and llm is not None:
-            db.replace(llm, upsert=True)
+        handle_ray_results(db, llm, results)
         return results
+
+
+def handle_ray_results(db, llm, results):
+    """Handle the ray results."""
+    checkpoint = results.checkpoint
+    if checkpoint is None:
+        logging.warn("No checkpoint found, skip saving checkpoint")
+        return results
+    path = checkpoint.path
+    __import__("ipdb").set_trace()
+    if checkpoint.filesystem.type_name != "s3":
+        # Pad the path to the checkpoint
+        path = os.path.join(checkpoint.path, "checkpoint")
+
+    if llm is not None:
+        llm.adapter_id = Artifact(path, serializer="zip")
+        if db is not None:
+            db.replace(llm, upsert=True)
 
 
 def train_func(
@@ -450,6 +452,8 @@ def ray_train(
                 "gradient_checkpointing_kwargs"
             ] = gradient_checkpointing_kwargs
         train_loop_args = LLMTrainingArguments(**train_loop_config)
+        # Build the training_args on remote machine
+        train_loop_args.build()
         return train_func(
             train_loop_args, train_ds_iterable, eval_ds_iterable, **kwargs
         )
