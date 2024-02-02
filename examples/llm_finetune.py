@@ -35,7 +35,7 @@ deepspeed = {
     "gradient_accumulation_steps": "auto",
     "zero_optimization": {
         "stage": 2,
-    }
+    },
 }
 
 

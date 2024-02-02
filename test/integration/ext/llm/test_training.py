@@ -141,7 +141,7 @@ def test_qlora_finetune(db, base_config):
     assert len(result) > 0
 
 
-def test_ray_lora_finetune(db, base_config):
+def test_local_ray_lora_finetune(db, base_config):
     llm = LLM(
         identifier="llm-finetune",
         model_name_or_path=model,
@@ -149,7 +149,7 @@ def test_ray_lora_finetune(db, base_config):
 
     base_config.kwargs["use_lora"] = True
     base_config.kwargs["log_to_db"] = False
-    output_dir = os.path.join(save_folder, "test_ray_lora_finetune")
+    output_dir = os.path.join(save_folder, "test_local_ray_lora_finetune")
     base_config.kwargs["output_dir"] = output_dir
 
     from ray.train import RunConfig, ScalingConfig
@@ -203,11 +203,70 @@ def test_remote_ray_lora_finetune(db, base_config):
         use_gpu=True,
     )
 
-    # run_config = RunConfig()
+    run_config = RunConfig(
+        storage_path="s3://llm-test-jalon/llm-finetune",
+        name="llm-finetune-test100",
+    )
 
     ray_configs = {
         "scaling_config": scaling_config,
-        # "run_config": run_config,
+        "run_config": run_config,
+    }
+
+    llm.fit(
+        X="text",
+        select=Collection("datas").find(),
+        configuration=base_config,
+        db=db,
+        on_ray=True,
+        ray_address="ray://ec2-3-90-216-222.compute-1.amazonaws.com:10001",
+        ray_configs=ray_configs,
+    )
+
+    assert isinstance(llm.adapter_id, Artifact)
+    assert os.path.exists(llm.adapter_id.artifact)
+
+    result = db.predict('llm-finetune', prompt, max_new_tokens=100, do_sample=False)[0].content
+    print(result)
+    assert len(result) > 0
+
+def test_remote_ray_qlora_deepspeed_finetune(db, base_config):
+    llm = LLM(
+        identifier="llm-finetune",
+        model_name_or_path=model,
+    )
+
+    deepspeed = {
+        "train_batch_size": "auto",
+        "train_micro_batch_size_per_gpu": "auto",
+        "gradient_accumulation_steps": "auto",
+        "zero_optimization": {
+            "stage": 2,
+        },
+    }
+
+    base_config.kwargs["use_lora"] = True
+    base_config.kwargs["log_to_db"] = False
+    # Use absolute path, because the ray will run in remote
+    output_dir = "test_remote_ray_qlora_deepspeed_finetune"
+    base_config.kwargs["output_dir"] = output_dir
+    base_config.kwargs["deepspeed"] = deepspeed
+
+    from ray.train import RunConfig, ScalingConfig
+
+    scaling_config = ScalingConfig(
+        num_workers=1,
+        use_gpu=True,
+    )
+
+    run_config = RunConfig(
+        storage_path="s3://llm-test-jalon/llm-finetune",
+        name="llm-finetune-test100",
+    )
+
+    ray_configs = {
+        "scaling_config": scaling_config,
+        "run_config": run_config,
     }
 
     llm.fit(

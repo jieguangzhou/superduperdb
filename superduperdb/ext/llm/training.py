@@ -268,17 +268,23 @@ def train(
 
 
 def handle_ray_results(db, llm, results):
-    """Handle the ray results."""
+    """
+    Handle the ray results.
+    Will save the checkpoint to db if db and llm provided.
+    """
     checkpoint = results.checkpoint
     if checkpoint is None:
         logging.warn("No checkpoint found, skip saving checkpoint")
         return results
     path = checkpoint.path
-    __import__("ipdb").set_trace()
-    if checkpoint.filesystem.type_name != "s3":
-        # Pad the path to the checkpoint
-        path = os.path.join(checkpoint.path, "checkpoint")
+    if checkpoint.filesystem.type_name == "s3":
+        # download the checkpoint from s3
+        logging.info(f"Download checkpoint from s3, {checkpoint}")
+        path = checkpoint.to_directory()
+        logging.info(f"Downloaded checkpoint to {path}")
 
+    # Pad the path to the checkpoint
+    path = os.path.join(path, "checkpoint")
     if llm is not None:
         llm.adapter_id = Artifact(path, serializer="zip")
         if db is not None:
