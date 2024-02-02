@@ -114,7 +114,7 @@ class LLMTrainingArguments(TrainingArguments):
     lora_target_modules: t.Optional[t.List[str]] = None
     lora_bias: t.Literal["none", "all", "lora_only"] = "none"
     bits: t.Optional[int] = None
-    max_length: int = 1024
+    max_length: int = 512
     log_to_db: bool = False
 
 
@@ -249,8 +249,7 @@ def train(
             callbacks = [LLMCallback(cfg=CFG, identifier=llm.identifier)]
         else:
             callbacks = None
-        # TODO: Record the result to db, checkpoint, metrics, etc.
-        return ray_train(
+        results = ray_train(
             training_args,
             train_dataset,
             eval_datasets,
@@ -261,6 +260,27 @@ def train(
             ray_configs=ray_configs,
             **kwargs,
         )
+        logging.info(f"Training finished, results: {results}")
+
+        # Update llm adapter_id to the last checkpoint
+        # and update the llm to db
+        if llm is not None:
+            checkpoint = results.checkpoint
+            if checkpoint is None:
+                logging.warn("No checkpoint found, skip saving checkpoint")
+                return results
+            path = checkpoint.path
+            if checkpoint.filesystem.type_name != "s3":
+                # Pad the path to the checkpoint
+                path = os.path.join(checkpoint.path, "checkpoint")
+                llm.adapter_id = Artifact(path, serializer="zip")
+            else:
+                #TODO: Need to handle s3 path
+                llm.adapter_id = Artifact(path)
+
+        if db is not None and llm is not None:
+            db.replace(llm, upsert=True)
+        return results
 
 
 def train_func(
@@ -289,6 +309,8 @@ def train_func(
         All the kwargs will be passed to Trainer,
         make sure the Trainer support these kwargs
     """
+    logging.info("Start training LLM model")
+    logging.info(f"training_args: {training_args}")
     model_kwargs = deepcopy(model_kwargs)
     tokenizer_kwargs = deepcopy(tokenizer_kwargs)
     # Get device map
