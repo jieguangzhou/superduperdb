@@ -10,7 +10,12 @@ from superduperdb.ext.llm.model import LLMTrainingConfiguration
 import transformers
 import os
 
-model = "facebook/opt-350m"
+# Don't run on CI
+RUN_LLM_FINETUNE = os.environ.get("RUN_LLM_FINETUNE", "0") == "1"
+
+# Some predefined parameters
+# model = "facebook/opt-350m"
+model = "mistralai/Mistral-7B-v0.1"
 dataset_name = "timdettmers/openassistant-guanaco"
 prompt = "### Human: Who are you? ### Assistant: "
 
@@ -27,10 +32,10 @@ def db():
     train_documents = [
         Document({"text": example["text"], "_fold": "train"})
         for example in train_dataset
-    ][:200]
+    ]
     eval_documents = [
         Document({"text": example["text"], "_fold": "valid"}) for example in eval_dataset
-    ][:10]
+    ]
 
     db_.execute(Collection("datas").insert_many(train_documents))
     db_.execute(Collection("datas").insert_many(eval_documents))
@@ -46,16 +51,15 @@ def base_config():
     return LLMTrainingConfiguration(
         identifier="llm-finetune-training-config",
         overwrite_output_dir=True,
-        num_train_epochs=2,
-        max_steps=1,
+        num_train_epochs=1,
         save_total_limit=5,
         logging_steps=10,
         evaluation_strategy="steps",
         fp16=True,
-        eval_steps=1,
-        save_steps=1,
-        per_device_train_batch_size=2,
-        per_device_eval_batch_size=2,
+        eval_steps=200,
+        save_steps=200,
+        per_device_train_batch_size=1,
+        per_device_eval_batch_size=1,
         gradient_accumulation_steps=4,
         log_to_db=True,
         max_length=512,
@@ -63,6 +67,7 @@ def base_config():
     )
 
 
+@pytest.mark.skipif(not RUN_LLM_FINETUNE, reason="RUN_LLM_FINETUNE is not set")
 def test_full_finetune(db, base_config):
     llm = LLM(
         identifier="llm-finetune",
@@ -91,7 +96,7 @@ def test_full_finetune(db, base_config):
     result = db.predict('llm', prompt, max_new_tokens=100, do_sample=False)[0].content
     print(result)
 
-
+@pytest.mark.skipif(not RUN_LLM_FINETUNE, reason="RUN_LLM_FINETUNE is not set")
 def test_lora_finetune(db, base_config):
     llm = LLM(
         identifier="llm-finetune",
@@ -112,10 +117,10 @@ def test_lora_finetune(db, base_config):
     assert os.path.exists(llm.adapter_id.artifact)
 
     result = db.predict('llm-finetune', prompt, max_new_tokens=100, do_sample=False)[0].content
-    print(result)
     assert len(result) > 0
 
 
+@pytest.mark.skipif(not RUN_LLM_FINETUNE, reason="RUN_LLM_FINETUNE is not set")
 def test_qlora_finetune(db, base_config):
     llm = LLM(
         identifier="llm-finetune",
@@ -140,7 +145,7 @@ def test_qlora_finetune(db, base_config):
     print(result)
     assert len(result) > 0
 
-
+@pytest.mark.skipif(not RUN_LLM_FINETUNE, reason="RUN_LLM_FINETUNE is not set")
 def test_local_ray_lora_finetune(db, base_config):
     llm = LLM(
         identifier="llm-finetune",
@@ -184,6 +189,64 @@ def test_local_ray_lora_finetune(db, base_config):
     print(result)
     assert len(result) > 0
 
+
+@pytest.mark.skipif(not RUN_LLM_FINETUNE, reason="RUN_LLM_FINETUNE is not set")
+def test_local_ray_deepspeed_lora_finetune(db, base_config):
+    llm = LLM(
+        identifier="llm-finetune",
+        model_name_or_path=model,
+    )
+
+    deepspeed = {
+        "train_batch_size": "auto",
+        "train_micro_batch_size_per_gpu": "auto",
+        "gradient_accumulation_steps": "auto",
+        "zero_optimization": {
+            "stage": 0,
+        },
+    }
+
+    base_config.kwargs["use_lora"] = True
+    base_config.kwargs["log_to_db"] = False
+    output_dir = os.path.join(save_folder, "test_local_ray_deepspeed_lora_finetune")
+    base_config.kwargs["output_dir"] = output_dir
+    base_config.kwargs["deepspeed"] = deepspeed
+    base_config.kwargs["bits"] = 4
+
+    from ray.train import RunConfig, ScalingConfig
+
+    scaling_config = ScalingConfig(
+        num_workers=4,
+        use_gpu=True,
+    )
+
+    run_config = RunConfig(
+        storage_path=os.path.abspath(output_dir),
+    )
+
+    ray_configs = {
+        "scaling_config": scaling_config,
+        "run_config": run_config,
+    }
+
+    llm.fit(
+        X="text",
+        select=Collection("datas").find(),
+        configuration=base_config,
+        db=db,
+        on_ray=True,
+        ray_configs=ray_configs,
+    )
+
+    assert isinstance(llm.adapter_id, Artifact)
+    assert os.path.exists(llm.adapter_id.artifact)
+
+    result = db.predict('llm-finetune', prompt, max_new_tokens=100, do_sample=False)[0].content
+    print(result)
+    assert len(result) > 0
+
+
+@pytest.mark.skipif(not RUN_LLM_FINETUNE, reason="RUN_LLM_FINETUNE is not set")
 def test_remote_ray_lora_finetune(db, base_config):
     llm = LLM(
         identifier="llm-finetune",
@@ -230,6 +293,7 @@ def test_remote_ray_lora_finetune(db, base_config):
     print(result)
     assert len(result) > 0
 
+@pytest.mark.skipif(not RUN_LLM_FINETUNE, reason="RUN_LLM_FINETUNE is not set")
 def test_remote_ray_qlora_deepspeed_finetune(db, base_config):
     llm = LLM(
         identifier="llm-finetune",

@@ -222,6 +222,25 @@ def train(
             )
 
     on_ray = on_ray or bool(ray_address) or bool(ray_configs)
+
+    # Auto detect multi-GPUs and use ray to run data parallel training
+    # If not todo this, will run on a bad parallel mode
+    if not on_ray and torch.cuda.device_count() > 1:
+        logging.warn(
+            "Detected multi-GPUs, will use ray to run training on multi-GPUs"
+        )
+        on_ray = True
+        from ray.train import ScalingConfig
+        ray_configs = {
+            "scaling_config": ScalingConfig(
+                num_workers=torch.cuda.device_count(),
+                use_gpu=True,
+            )
+        }
+        logging.warn(f"Set ray_configs to {ray_configs}")
+        logging.warn(f"Suggest to set ray_configs manually for better performance")
+
+
     log_to_db = training_args.log_to_db
 
     if not on_ray:
