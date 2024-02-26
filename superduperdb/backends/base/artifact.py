@@ -112,7 +112,7 @@ class ArtifactStore(ABC):
             if uri is not None:
                 file_id = _construct_file_id_from_uri(uri)
             else:
-                file_id = hashlib.sha1(r['bytes']).hexdigest()
+                file_id = r.get('sha1') or hashlib.sha1(r['bytes']).hexdigest()
             if r.get('directory'):
                 file_id = os.path.join(datatype.directory, file_id)
 

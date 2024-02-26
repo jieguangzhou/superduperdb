@@ -1,4 +1,5 @@
 import os
+from os.path import isdir
 import shutil
 import typing as t
 from pathlib import Path
@@ -41,7 +42,11 @@ class FileSystemArtifactStore(ArtifactStore):
         Delete artifact from artifact store
         :param file_id: File id uses to identify artifact in store
         """
-        os.remove(f'{self.conn}/{file_id}')
+        path = os.path.join(self.conn, file_id)
+        if os.path.isdir(path):
+            shutil.rmtree(path)
+        else:
+            os.remove(path)
 
     def drop(self, force: bool = False):
         """

@@ -254,7 +254,7 @@ class Encodable(_BaseEncodable):
                 'bytes': bytes_,
                 'datatype': self.datatype.identifier,
                 'leaf_type': 'encodable',
-                'sha1': sha1,
+                'sha1': random_sha1(),
                 'uri': self.uri,
                 'artifact': self.artifact,
             }
