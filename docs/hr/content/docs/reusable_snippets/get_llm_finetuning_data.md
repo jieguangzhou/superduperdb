@@ -117,7 +117,7 @@ Example input_text and output_text
     <TabItem value="Text" label="Text" default>
         ```python
         data = datas[0]
-        input_data, output_text = data["text"].rsplit("### Assistant: ", maxsplit=1)
+        input_text, output_text = data["text"].rsplit("### Assistant: ", maxsplit=1)
         input_text += "### Assistant: "
         output_text = output_text.rsplit("### Human:")[0]
         print("Input: --------------")

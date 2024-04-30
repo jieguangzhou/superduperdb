@@ -410,7 +410,7 @@ Example input_text and output_text
     <TabItem value="Text" label="Text" default>
         ```python
         data = datas[0]
-        input_data, output_text = data["text"].rsplit("### Assistant: ", maxsplit=1)
+        input_text, output_text = data["text"].rsplit("### Assistant: ", maxsplit=1)
         input_text += "### Assistant: "
         output_text = output_text.rsplit("### Human:")[0]
         print("Input: --------------")
@@ -501,14 +501,25 @@ In order to create data, we need to create a `Schema` for encoding our special `
         ```
     </TabItem>
 </Tabs>
+## Select a Model
+
 ```python
 model_name = "facebook/opt-125m"
+model_kwargs = dict()
+tokenizer_kwargs = dict()
+
+# or 
+# model_name = "mistralai/Mistral-7B-Instruct-v0.2"
+# token = "hf_xxxx"
+# model_kwargs = dict(token=token)
+# tokenizer_kwargs = dict(token=token)
 ```
 
 <!-- TABS -->
 ## Build A Trainable LLM
 
-### Create an LLM Trainer for training
+**Create an LLM Trainer for training**
+
 The parameters of this LLM Trainer are basically the same as `transformers.TrainingArguments`, but some additional parameters have been added for easier training setup.
 
 ```python
@@ -546,13 +557,6 @@ trainer = LLMTrainer(
         ```python
         trainer.use_lora = True
         trainer.bits = 4        
-        ```
-    </TabItem>
-    <TabItem value="Ray" label="Ray" default>
-        ```python
-        trainer.use_lora = True
-        trainer.bits = 4
-        trainer.ray_address = "ray://localhost:10001"        
         ```
     </TabItem>
     <TabItem value="Deepspeed" label="Deepspeed" default>

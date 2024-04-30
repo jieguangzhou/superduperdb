@@ -7,7 +7,8 @@ import TabItem from '@theme/TabItem';
 <!-- TABS -->
 # Build A Trainable LLM
 
-## Create an LLM Trainer for training
+**Create an LLM Trainer for training**
+
 The parameters of this LLM Trainer are basically the same as `transformers.TrainingArguments`, but some additional parameters have been added for easier training setup.
 
 ```python
@@ -45,13 +46,6 @@ trainer = LLMTrainer(
         ```python
         trainer.use_lora = True
         trainer.bits = 4        
-        ```
-    </TabItem>
-    <TabItem value="Ray" label="Ray" default>
-        ```python
-        trainer.use_lora = True
-        trainer.bits = 4
-        trainer.ray_address = "ray://localhost:10001"        
         ```
     </TabItem>
     <TabItem value="Deepspeed" label="Deepspeed" default>

@@ -1,9 +1,9 @@
-import os
-
-os.makedirs('.superduperdb', exist_ok=True)
-os.environ['SUPERDUPERDB_CONFIG'] = '.superduperdb/config.yaml'
-
-
+# import os
+#
+# os.makedirs('.superduperdb', exist_ok=True)
+# os.environ['SUPERDUPERDB_CONFIG'] = '.superduperdb/config.yaml'
+#
+#
 from superduperdb import superduper
 
 db = superduper('mongodb://localhost:27017/documents')
@@ -36,14 +36,13 @@ training_kwargs=dict(dataset_text_field="text")
 
 
 data = datas[0]
-input_data, output_text = data["text"].rsplit("### Assistant: ", maxsplit=1)
+input_text, output_text = data["text"].rsplit("### Assistant: ", maxsplit=1)
 input_text += "### Assistant: "
 output_text = output_text.rsplit("### Human:")[0]
 print("Input: --------------")
 print(input_text)
 print("Response: --------------")
-print(output_text)
-
+print(output_text)        
 
 # If our data is in a format natively supported by MongoDB, we don't need to do anything.
 from superduperdb.backends.mongodb import Collection
@@ -56,8 +55,15 @@ from superduperdb import Document
 
 ids, _ = db.execute(table_or_collection.insert_many(datas))
 
-
 model_name = "facebook/opt-125m"
+model_kwargs = dict()
+tokenizer_kwargs = dict()
+
+# or 
+# model_name = "mistralai/Mistral-7B-Instruct-v0.2"
+# token = "hf_xxxx"
+# model_kwargs = dict(token=token)
+# tokenizer_kwargs = dict(token=token)
 
 
 from superduperdb.ext.transformers import LLM, LLMTrainer
