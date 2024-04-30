@@ -1,9 +1,4 @@
-import os
 
-os.makedirs(".superduperdb", exist_ok=True)
-os.environ["SUPERDUPERDB_CONFIG"] = "config.yaml"
-
-CFG = """
 data_backend: mongodb://127.0.0.1:27017/documents
 artifact_store: filesystem://./artifact_store
 cluster:
@@ -16,7 +11,5 @@ cluster:
     backfill_batch_size: 100
     type: in_memory
     uri: http://127.0.0.1:21000
-"""
-
-with open(os.environ["SUPERDUPERDB_CONFIG"], "w") as f:
-    f.write(CFG)
+  rest:
+    uri: http://127.0.0.1:22000

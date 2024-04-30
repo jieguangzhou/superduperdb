@@ -1,12 +1,13 @@
-# import os
-#
-# os.makedirs('.superduperdb', exist_ok=True)
-# os.environ['SUPERDUPERDB_CONFIG'] = '.superduperdb/config.yaml'
-#
-#
+import os
+
+os.makedirs('.superduperdb', exist_ok=True)
+os.environ['SUPERDUPERDB_CONFIG'] = 'config.yaml'
+
+
 from superduperdb import superduper
 
-db = superduper('mongodb://localhost:27017/documents')
+db = superduper()
+db.drop(True)
 
 
 from datasets import load_dataset
@@ -86,6 +87,7 @@ trainer = LLMTrainer(
     select=select,
     transform=transform,
     training_kwargs=training_kwargs,
+    num_gpus=1,
 )
 
 

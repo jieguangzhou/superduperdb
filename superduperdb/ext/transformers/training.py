@@ -188,6 +188,8 @@ class LLMTrainer(TrainingArguments, SuperDuperTrainer):
 
     def __post_init__(self, artifacts):
         self.output_dir = self.output_dir or os.path.join("output", self.identifier)
+        if self.num_gpus and 'num_gpus' not in self.compute_kwargs:
+            self.compute_kwargs['num_gpus'] = self.num_gpus
         return SuperDuperTrainer.__post_init__(self, artifacts)
 
     def build(self):

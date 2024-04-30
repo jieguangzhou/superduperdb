@@ -1,4 +1,5 @@
 import typing as t
+from pandas.core.construction import com
 
 import ray
 
@@ -55,7 +56,7 @@ class RayComputeBackend(ComputeBackend):
                     ray.wait(dependencies)
             return function(*args, **kwargs)
 
-        remote_function = ray.remote(_dependable_remote_job, **compute_kwargs)
+        remote_function = ray.remote(**compute_kwargs)(_dependable_remote_job)
         future = remote_function.remote(function, *args, **kwargs)
         task_id = str(future.task_id().hex())
         self._futures_collection[task_id] = future

@@ -84,19 +84,19 @@ files = ["_fine_tune_llm_on_database.ipynb"]
 #
 
 # local cluster
-# filter_tabs = [
-#     "MongoDB Community",
-#     "Experimental Cluster",
-#     "MongoDB",
-#     "Prompt-Response",
-#     "Local",
-#     "Load Trained Model Directly",
-# ]
-#
-#
+filter_tabs = [
+    "MongoDB Community",
+    "Experimental Cluster",
+    "MongoDB",
+    "Prompt-Response",
+    "Local",
+    "Load Trained Model Directly",
+]
+
+
 
 # local cluster
-filter_tabs = ['MongoDB', 'Prompt-Response', "Ray", "Use a specified checkpoint",]
+# filter_tabs = ['MongoDB', 'Prompt-Response', "Ray", "Use a specified checkpoint",]
 
 
 filter_tabs = None
