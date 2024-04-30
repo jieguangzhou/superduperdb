@@ -128,6 +128,7 @@ class LLMCallback(TrainerCallback):
             self.db.replace(self.llm)
 
     def check_init(self):
+        # Only check this in the world_rank 0 process
         # Rebuild datalayer for the new process
         if self.db is None:
             self.db = build_datalayer(self.cfg)
@@ -344,7 +345,7 @@ def train(
 
     # Auto detect multi-GPUs and use ray to run data parallel training
     # If not todo this, will run on a bad parallel mode
-    if not on_ray and torch.cuda.device_count() > 1:
+    if not on_ray and torch.cuda.device_count() > 1 or training_args.num_gpus != 1:
         on_ray = True
         logging.warn("Detected multi-GPUs, will use ray to run training on multi-GPUs")
 

@@ -72,7 +72,7 @@ trainer = LLMTrainer(
     identifier="llm-finetune-trainer",
     output_dir="output/finetune",
     overwrite_output_dir=True,
-    max_steps=50,
+    max_steps=100,
     # num_train_epochs=3,
     save_total_limit=3,
     logging_steps=10,
@@ -87,11 +87,12 @@ trainer = LLMTrainer(
     select=select,
     transform=transform,
     training_kwargs=training_kwargs,
-    num_gpus=1,
+    num_gpus=4,
 )
 
 
 trainer.use_lora = True
+trainer.bits = 4
 
 
 llm = LLM(

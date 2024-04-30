@@ -1,6 +1,6 @@
 
 data_backend: mongodb://127.0.0.1:27017/documents
-artifact_store: filesystem://./artifact_store
+# artifact_store: filesystem://./output/artifact_store
 cluster:
   cdc:
     strategy: null
