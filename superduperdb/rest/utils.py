@@ -1,7 +1,7 @@
 import re
 import typing as t
 
-from superduperdb.backends.base.query import model
+from superduperdb.backends.base.query import Model
 from superduperdb.base.document import Document
 
 
@@ -15,7 +15,7 @@ def _parse_query_part(part, documents, query, db: t.Optional[t.Any] = None):
     model_match = re.match('^model\([\'"]([^)]+)+[\'"]\)\.(.*)$', part)
 
     if model_match:
-        current = model(model_match.groups()[0])
+        current = Model(model_match.groups()[0])
         part = model_match.groups()[1].split('.')
     else:
         current = Collection(part.split('.')[0])
@@ -44,6 +44,12 @@ def _parse_query_part(part, documents, query, db: t.Optional[t.Any] = None):
 
 
 def parse_query(query, documents, db: t.Optional[t.Any] = None):
+    """Parse a query string into a query object.
+
+    :param query: query string to parse
+    :param documents: documents to use in the query
+    :param db: datalayer instance
+    """
     if isinstance(query, str):
         query = [x.strip() for x in query.split('\n') if x.strip()]
     for i, q in enumerate(query):
@@ -52,6 +58,10 @@ def parse_query(query, documents, db: t.Optional[t.Any] = None):
 
 
 def strip_artifacts(r: t.Any):
+    """Strip artifacts for the data.
+
+    :param r: the data to strip artifacts from
+    """
     if isinstance(r, dict):
         if '_content' in r:
             return f'_artifact/{r["_content"]["file_id"]}', [r["_content"]["file_id"]]

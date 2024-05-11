@@ -296,7 +296,6 @@ def unpack_batch(args):
     >>> out[1]['a']['b'].shape
     torch.Size([10])
     """
-
     if isinstance(args, torch.Tensor):
         return [args[i] for i in range(args.shape[0])]
 

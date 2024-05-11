@@ -337,7 +337,8 @@ def train(
         Will rebuild the db and llm for the new process that can access to db.
         The ray cluster must can access to db.
 
-    Parameters:
+    Parameters
+    ----------
     :param training_config: training config for LLMTrainingArguments
     :param train_dataset: training dataset
     :param eval_datasets: evaluation dataset, can be a dict of datasets
@@ -350,8 +351,8 @@ def train(
     :param on_ray: whether to use ray, if True, will use ray_train
     :param ray_address: ray address, if not None, will run on ray cluster
     :param ray_configs: ray configs, must provide if using ray
-    """
 
+    """
     on_ray = bool(ray_configs)
 
     # Auto detect multi-GPUs and use ray to run data parallel training

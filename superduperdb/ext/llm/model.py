@@ -83,7 +83,6 @@ class BaseLLM(Model, metaclass=abc.ABCMeta):
         :param func (Callable): function to get kwargs for
         :param kwargs (list of dict): kwargs to filter
         """
-
         total_kwargs = reduce(lambda x, y: {**y, **x}, [self.dict(), *kwargs_list])
         sig = inspect.signature(func)
         new_kwargs = {}

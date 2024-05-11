@@ -45,9 +45,9 @@ def _available_models(skwargs):
 
 @dc.dataclass(kw_only=True)
 class _OpenAI(APIBaseModel):
-    '''
+    """
     :param client_kwargs: The kwargs to be passed to OpenAI
-    '''
+    """
 
     openai_api_key: t.Optional[str] = None
     openai_api_base: t.Optional[str] = None
@@ -347,7 +347,7 @@ class OpenAIAudioTranscription(_OpenAI):
 
     @retry
     def predict_one(self, file: t.BinaryIO, context: t.Optional[t.List[str]] = None):
-        "Converts a file-like Audio recording to text."
+        """Converts a file-like Audio recording to text."""
         if context is not None:
             self.prompt = self.prompt.format(context='\n'.join(context))
         return self.syncClient.audio.transcriptions.create(
@@ -359,7 +359,7 @@ class OpenAIAudioTranscription(_OpenAI):
 
     @retry
     def _predict_a_batch(self, files: t.List[t.BinaryIO], **kwargs):
-        "Converts multiple file-like Audio recordings to text."
+        """Converts multiple file-like Audio recordings to text."""
         resps = [
             self.syncClient.audio.transcriptions.create(
                 file=file, model=self.model, **self.predict_kwargs
@@ -396,7 +396,7 @@ class OpenAIAudioTranslation(_OpenAI):
         file: t.BinaryIO,
         context: t.Optional[t.List[str]] = None,
     ):
-        "Translates a file-like Audio recording to English."
+        """Translates a file-like Audio recording to English."""
         if context is not None:
             self.prompt = self.prompt.format(context='\n'.join(context))
         return (
@@ -410,7 +410,7 @@ class OpenAIAudioTranslation(_OpenAI):
 
     @retry
     def _predict_a_batch(self, files: t.List[t.BinaryIO]):
-        "Translates multiple file-like Audio recordings to English."
+        """Translates multiple file-like Audio recordings to English."""
         # TODO use async or threads
         resps = [
             self.syncClient.audio.translations.create(

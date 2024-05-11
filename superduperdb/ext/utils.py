@@ -5,6 +5,7 @@ import typing as t
 import numpy as np
 
 if t.TYPE_CHECKING:
+    from superduperdb.base.datalayer import LoadDict
     from superduperdb.components.datatype import DataType
 
 
@@ -51,7 +52,7 @@ def superduperencode(object):
     return object
 
 
-def superduperdecode(r: t.Any, encoders: t.List['DataType']):
+def superduperdecode(r: t.Any, encoders: t.Union[t.Dict[str, 'DataType'], 'LoadDict']):
     if isinstance(r, dict):
         encoder = encoders[r['_content']['datatype']]
         b = base64.b64decode(r['_content']['bytes'])
