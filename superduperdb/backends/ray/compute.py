@@ -1,5 +1,4 @@
 import typing as t
-import uuid
 
 import ray
 
@@ -73,11 +72,6 @@ class RayComputeBackend(ComputeBackend):
             f"task: {task_id}; job_id: {str(future.job_id())}"
         )
 
-        job_id = task_id[-8:]
-        port = '8265'
-        job_port = self.address.split(':')[-1]
-        link = f"{self.address.replace('ray://', 'http://').replace(job_port, port)}/#/jobs/{job_id}/tasks/{task_id}"
-        logging.info('Follow the progress of work at the following link:', link)
         return future, task_id
 
     @property
