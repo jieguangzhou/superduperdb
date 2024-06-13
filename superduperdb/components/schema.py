@@ -108,7 +108,7 @@ class Schema(Component):
 
         return out
 
-    def decode_data(self, data: dict[str, t.Any]) -> dict[str, t.Any]:
+    def decode_data(self, data: dict[str, t.Any], getters) -> dict[str, t.Any]:
         """Decode data using the schema's encoders.
 
         :param data: Data to decode.
