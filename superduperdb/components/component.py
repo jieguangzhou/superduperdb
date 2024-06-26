@@ -106,6 +106,7 @@ class Component(Leaf):
     that can be saved into a database.
 
     :param artifacts: A dictionary of artifacts paths and `DataType` objects
+    :param plugins: A list of plugins to be used in the component.
     """
 
     type_id: t.ClassVar[str] = 'component'
@@ -113,6 +114,7 @@ class Component(Leaf):
     _artifacts: t.ClassVar[t.Sequence[t.Tuple[str, 'DataType']]] = ()
     set_post_init: t.ClassVar[t.Sequence] = ('version',)
     changed: t.ClassVar[set] = set([])
+    plugins: t.Optional[t.List["Plugin"]] = None
 
     artifacts: dc.InitVar[t.Optional[t.Dict]] = None
 
