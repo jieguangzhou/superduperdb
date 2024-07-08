@@ -1,0 +1,20 @@
+{
+  "_base": "?plugin-p_package",
+  "_builds": {
+    "file_lazy": {
+      "_path": "superduperdb.components.datatype.get_serializer",
+      "method": "file",
+      "encodable": "lazy_file"
+    },
+    "f8204a4dc7fb33fb185d068592077356": {
+      "_path": "superduperdb.components.datatype.LazyFile",
+      "datatype": "?file_lazy",
+      "x": "&:file:p_package:f8204a4dc7fb33fb185d068592077356"
+    },
+    "plugin-p_package": {
+      "_path": "superduperdb.components.plugin.Plugin",
+      "path": "?f8204a4dc7fb33fb185d068592077356"
+    }
+  },
+  "_blobs": {}
+}

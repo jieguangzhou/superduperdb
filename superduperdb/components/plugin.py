@@ -25,26 +25,43 @@ class Plugin(Component):
     def __post_init__(self, db, artifacts):
         if isinstance(self.path, LazyFile):
             self._prepare_plugin()
-            self._install()
         else:
             path_name = os.path.basename(self.path.rstrip("/"))
             self.identifier = self.identifier or f"plugin-{path_name}"
+        self._install()
         super().__post_init__(db, artifacts)
 
     def _install(self):
         logging.debug(f"Installing plugin {self.identifier}")
         package_path = self.path
         path_name = os.path.basename(self.path.rstrip("/"))
-        if "__init__.py" in os.listdir(package_path):
+        if os.path.isdir(package_path):
+            init_file = os.path.join(package_path, "__init__.py")
+            if "__init__.py" not in os.listdir(package_path):
+                logging.info(f"Creating __init__.py file in {package_path}")
+                open(init_file, "a").close()
+
             logging.debug(f"Plugin {self.identifier} is a package")
             spec = importlib.util.spec_from_file_location(
                 path_name, os.path.join(package_path, "__init__.py")
             )
-            legal_tech = importlib.util.module_from_spec(spec)
-            sys.modules[spec.name] = legal_tech
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            sys.modules[spec.name] = module
         else:
-            logging.debug(f"Plugin {self.identifier} is a module")
-            sys.path.append(package_path)
+            if package_path.endswith(".py"):
+                logging.debug(f"Plugin {self.identifier} is a standalone Python file")
+                spec = importlib.util.spec_from_file_location(path_name, package_path)
+                module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(module)
+                sys.modules[spec.name[:-3]] = module
+            else:
+                logging.error(
+                    (
+                        f"Plugin {self.identifier} path "
+                        "is not a valid Python file or directory"
+                    )
+                )
 
     def _prepare_plugin(self):
         plugin_name_tag = f"{self.identifier}"

@@ -1,0 +1,3 @@
+superduperdb==0.2.0
+pillow>=10.2.0
+torch>=2.0.0
