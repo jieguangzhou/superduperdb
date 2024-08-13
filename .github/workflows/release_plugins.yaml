@@ -31,7 +31,6 @@ jobs:
           echo "Matrix JSON: $matrix_json"
           echo "matrix=$matrix_json" >> $GITHUB_OUTPUT
 
-          
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
 
