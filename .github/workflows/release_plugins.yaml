@@ -63,6 +63,7 @@ jobs:
 
       - name: Test package
         run: |
+          python -m pip install '.'
           python -m pip install plugins/${{ matrix.plugin }}/dist/*.whl
           python -c "import superduper_${{ matrix.plugin }} as p; print(p.__version__)"
 
