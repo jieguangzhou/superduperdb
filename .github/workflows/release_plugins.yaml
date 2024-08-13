@@ -18,6 +18,7 @@ jobs:
           echo "Commit message: $commit_message"
           plugin_names=$(echo "$commit_message" | grep -oP '\[PLUGINS\] Bump Version \[\K[^\]]+')
           
+
           if [[ "$plugin_names" == "all" ]]; then
             echo "Processing all plugins..."
             plugin_list=$(find plugins/* -maxdepth 0 -type d ! -name 'template' -exec basename {} \;)
