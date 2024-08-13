@@ -18,18 +18,15 @@ jobs:
           echo "Commit message: $commit_message"
           plugin_names=$(echo "$commit_message" | grep -oP '\[PLUGINS\] Bump Version \[\K[^\]]+')
           
-
           if [[ "$plugin_names" == "all" ]]; then
             echo "Processing all plugins..."
             plugin_list=$(find plugins/* -maxdepth 0 -type d ! -name 'template' -exec basename {} \;)
           else
+            # Remove spaces around '|', then split by '|'
+            plugin_names=$(echo "$plugin_names" | sed 's/ *| */|/g')
             IFS='|' read -ra plugins <<< "$plugin_names"
-            for i in "${!plugins[@]}"; do
-              plugins[$i]=$(echo "${plugins[$i]}" | sed 's/^ *//; s/ *$//')
-            done
-            plugin_list="${plugins[@]}"
+            plugin_list=("${plugins[@]}")
           fi
-
           matrix_json=$(printf '%s\n' "${plugin_list[@]}" | jq -R -s -c '{plugin: split("\n")[:-1]}')
           echo "matrix_json=$matrix_json"
           echo "Matrix JSON: $matrix_json"
