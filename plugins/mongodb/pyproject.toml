@@ -20,7 +20,8 @@ requires-python = ">=3.10"
 dynamic = ["version"]
 dependencies = [
     "mongomock",
-    "pymongo"
+    "pymongo",
+    "click",
 ]
 
 [project.urls]
