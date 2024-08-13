@@ -11,30 +11,25 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Get changed files for plugins
-        id: changed-files-specific
-        uses: tj-actions/changed-files@v44
-
-      - name: Filter changed plugins and set output
-        id: set-matrix
+      - name: Extract plugin names from commit message
+        id: extract-plugins
         run: |
-          IFS=$'\n'
-          changed_files=(${{ steps.changed-files-specific.outputs.all_changed_files }})
-          declare -A plugin_set
-          for file in "${changed_files[@]}"; do
-            echo $file
-            if [[ "$file" =~ ^plugins/dummy/ && ! "$file" =~ ^plugins/template/ ]]; then
-              echo "$file"
-              plugin_name=$(echo "$file" | cut -d '/' -f 2)
-              plugin_set[$plugin_name]=1
-            fi
-          done
-          plugins=("${!plugin_set[@]}")
-          matrix_json=$(printf '%s\n' "${plugins[@]}" | jq -R -s -c '{plugin: split("\n")[:-1]}')
+          commit_message="${{ github.event.head_commit.message }}"
+          echo "Commit message: $commit_message"
+          plugin_names=$(echo "$commit_message" | grep -oP '\[PLUGINS\] Bump Version \[\K[^\]]+')
+          
+          if [[ "$plugin_names" == "all" ]]; then
+            echo "Processing all plugins..."
+            plugin_list=$(find plugins/* -maxdepth 0 -type d ! -name 'template' -exec basename {} \;)
+          else
+            IFS='|' read -ra plugins <<< "$plugin_names"
+            plugin_list="${plugins[@]// }"
+          fi
+
+          matrix_json=$(printf '%s\n' "${plugin_list[@]}" | jq -R -s -c '{plugin: split("\n")[:-1]}')
           echo "matrix_json=$matrix_json"
-          echo "Changed plugins: ${plugins[*]}"
+          echo "Matrix JSON: $matrix_json"
           echo "matrix=$matrix_json" >> $GITHUB_OUTPUT
-          echo "matrix_json: $matrix_json"
 
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
