@@ -27,6 +27,7 @@ dependencies = [
 [project.optional-dependencies]
 test = [
     "ibis-framework[sqlite]>=5.1.0",
+    "sqlalchemy"
     # Annotation plugin dependencies will be installed in CI
     # :CI: plugins/sqlalchemy
 ]
