@@ -21,6 +21,7 @@ dynamic = ["version"]
 dependencies = [
   "ibis-framework>=9.0.1",
   "click",
+  'pandas',
 ]
 
 [project.optional-dependencies]

@@ -23,6 +23,7 @@ dependencies = [
 
 [project.optional-dependencies]
 test = [
+    "scikit-learn>=1.2.2",
     # Annotation plugin dependencies will be installed in CI
     # :CI: plugins/mongodb
 ]
