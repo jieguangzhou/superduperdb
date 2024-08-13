@@ -24,7 +24,10 @@ jobs:
             plugin_list=$(find plugins/* -maxdepth 0 -type d ! -name 'template' -exec basename {} \;)
           else
             IFS='|' read -ra plugins <<< "$plugin_names"
-            plugin_list="${plugins[@]// }"
+            for i in "${!plugins[@]}"; do
+              plugins[$i]=$(echo "${plugins[$i]}" | sed 's/^ *//; s/ *$//')
+            done
+            plugin_list="${plugins[@]}"
           fi
 
           matrix_json=$(printf '%s\n' "${plugin_list[@]}" | jq -R -s -c '{plugin: split("\n")[:-1]}')
