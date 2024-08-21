@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunknewdocs=self.webpackChunknewdocs||[]).push([[4535],{87932:e=>{e.exports=JSON.parse('{"label":"vector-search","permalink":"/blog/tags/vector-search","allTagsPath":"/blog/tags","count":2}')}}]);

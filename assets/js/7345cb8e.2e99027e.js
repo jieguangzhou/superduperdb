@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunknewdocs=self.webpackChunknewdocs||[]).push([[1420],{16469:e=>{e.exports=JSON.parse('{"permalink":"/blog/tags/vector-search","page":1,"postsPerPage":10,"totalPages":1,"totalCount":2,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
