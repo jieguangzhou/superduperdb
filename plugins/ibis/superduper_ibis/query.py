@@ -116,7 +116,7 @@ class IbisQuery(Query):
         return super().documents
 
     def _get_tables(self):
-        out = {self.table: self.db.tables[self.table]}
+        out = {self._get_real_table(self.table): self.db.tables[self._get_real_table(self.table)]}
 
         for part in self.parts:
             if isinstance(part, str):
@@ -137,7 +137,7 @@ class IbisQuery(Query):
 
         table_renamings = self.renamings({})
         if len(tables) == 1 and not table_renamings:
-            return self.db.tables[self.table].schema
+            return self.db.tables[self._get_real_table(self.table)].schema
         for identifier, c in tables.items():
             renamings = table_renamings.get(identifier, {})
 
@@ -183,7 +183,7 @@ class IbisQuery(Query):
 
     def _create_table_if_not_exists(self):
         tables = self.db.databackend.list_tables_or_collections()
-        if self.table in tables:
+        if self._get_real_table(self.table) in tables:
             return
         self.db.databackend.create_table_and_schema(
             self.table,
@@ -201,7 +201,7 @@ class IbisQuery(Query):
 
         assert isinstance(output, pandas.DataFrame)
         output = output.to_dict(orient="records")
-        component_table = self.db.tables[self.table]
+        component_table = self.db.tables[self._get_real_table(self.table)]
         return SuperDuperCursor(
             raw_cursor=output,
             db=self.db,

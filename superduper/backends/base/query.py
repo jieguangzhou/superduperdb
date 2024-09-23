@@ -185,6 +185,27 @@ class Query(_BaseQuery):
         parts = self.parts[item]
         return type(self)(db=self.db, table=self.table, parts=parts)
 
+    def _get_real_table(self, table_name):
+        if not table_name.startswith(CFG.output_prefix) or not self.db:
+            return table_name
+
+        table_names = self.db.show('table')
+        if table_name in table_names:
+            return table_name
+
+        listener_identifier = table_name[len(CFG.output_prefix) :]
+        listener = self.db.load('listener', listener_identifier)
+        return listener.outputs
+
+    def _get_real_predict_id(self, predict_id):
+        listeners = self.db.show('listener')
+        if predict_id not in listeners:
+            return predict_id
+
+        listener = self.db.load('listener', predict_id)
+        return listener.predict_id
+
+
     # TODO - not necessary: either `Document.decode(r, db=db)`
     # or `db['table'].select...`
     def set_db(self, db: 'Datalayer'):
@@ -287,7 +308,8 @@ class Query(_BaseQuery):
             )
 
     def _get_parent(self):
-        return self.db.databackend.get_table_or_collection(self.table)
+        return self.db.databackend.get_table_or_collection(self._get_real_table(self.table))
+
 
     def _execute_select(self, parent):
         raise NotImplementedError

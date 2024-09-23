@@ -601,6 +601,7 @@ class MongoQuery(Query):
 
         outputs_parts = [p for p in self.parts if p[0] == 'outputs']
         predict_ids = sum([p[1] for p in outputs_parts], ())
+        predict_ids = [self._get_real_predict_id(predict_id) for predict_id in predict_ids]
 
         pipeline = []
         filter_mapping_base, filter_mapping_outputs = self._get_filter_mapping()

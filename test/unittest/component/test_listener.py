@@ -242,3 +242,63 @@ def test_listener_chaining_with_trainer(db):
 
 def test_upstream_serializes():
     ...
+
+
+def test_predict_id_utils(db):
+    db.cfg.auto_schema = True
+    table = db["test"]
+
+    m1 = ObjectModel(
+        "m1",
+        object=lambda x: x + 0,
+    )
+    q = table.insert([
+        {"x": 1},
+        {"x": 2},
+        {"x": 3},
+    ])
+
+    db.execute(q)
+
+    listener1 = Listener(
+        model=m1,
+        select=table.select(),
+        key="x",
+        identifier="listener1",
+    )
+
+    db.add(listener1)
+
+    # # Listener identifier is set as the table name
+    # select = db[listener1.outputs].select()
+    # docs = list(db.execute(select))
+    # assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]
+    #
+    # Listener identifier is set as the table name and filter is applied
+    # table = db[listener1.outputs].select()
+    # select = table.filter(table[listener1.outputs] > 1)
+    # docs = list(db.execute(select))
+    # assert [doc[listener1.outputs] for doc in docs] == [2, 3]
+    #
+    # # Listener identifier is set as the predict_id in outputs()
+    # select = db["test"].select().outputs(listener1.predict_id)
+    # docs = list(db.execute(select))
+    # assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]
+
+
+    # Listener identifier is set as the table name
+    outputs = "_outputs__listener1"
+    select = db[outputs].select()
+    docs = list(db.execute(select))
+    assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]
+    #
+    # # Listener identifier is set as the table name and filter is applied
+    # table = db[outputs]
+    # select = table.filter(table[outputs] > 1).select()
+    # docs = list(db.execute(select))
+    # assert [doc[listener1.outputs] for doc in docs] == [2, 3]
+    #
+    # Listener identifier is set as the predict_id in outputs()
+    select = db["test"].select().outputs('listener1')
+    docs = list(db.execute(select))
+    assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]
