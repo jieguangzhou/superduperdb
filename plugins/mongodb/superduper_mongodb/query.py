@@ -571,8 +571,11 @@ class MongoQuery(Query):
         for part in self.parts:
             if part[0] == 'filter':
                 sub_filters = part[1][0]
-                assert isinstance(sub_filters, dict)
-                filters.update(sub_filters)
+                real_sub_filters = {}
+                for key, value in sub_filters.items():
+                    real_sub_filters[self._get_real_table(key)] = value
+                assert isinstance(real_sub_filters, dict)
+                filters.update(real_sub_filters)
         return filters
 
     def isin(self, other):

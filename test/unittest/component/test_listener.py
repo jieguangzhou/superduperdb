@@ -275,7 +275,7 @@ def test_predict_id_utils(db):
     # assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]
     #
     # Listener identifier is set as the table name and filter is applied
-    # table = db[listener1.outputs].select()
+    # table = db[listener1.outputs]
     # select = table.filter(table[listener1.outputs] > 1)
     # docs = list(db.execute(select))
     # assert [doc[listener1.outputs] for doc in docs] == [2, 3]
@@ -286,19 +286,19 @@ def test_predict_id_utils(db):
     # assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]
 
 
-    # Listener identifier is set as the table name
     outputs = "_outputs__listener1"
-    select = db[outputs].select()
-    docs = list(db.execute(select))
-    assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]
-    #
-    # # Listener identifier is set as the table name and filter is applied
-    # table = db[outputs]
-    # select = table.filter(table[outputs] > 1).select()
+    # # Listener identifier is set as the table name
+    # select = db[outputs].select()
     # docs = list(db.execute(select))
-    # assert [doc[listener1.outputs] for doc in docs] == [2, 3]
-    #
-    # Listener identifier is set as the predict_id in outputs()
-    select = db["test"].select().outputs('listener1')
+    # assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]
+
+    # Listener identifier is set as the table name and filter is applied
+    table = db[outputs]
+    select = table.filter(table[outputs] > 1, table[outputs]<4)
     docs = list(db.execute(select))
-    assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]
+    assert [doc[listener1.outputs] for doc in docs] == [2, 3]
+
+    # # Listener identifier is set as the predict_id in outputs()
+    # select = db["test"].select().outputs('listener1')
+    # docs = list(db.execute(select))
+    # assert [doc[listener1.outputs] for doc in docs] == [1, 2, 3]

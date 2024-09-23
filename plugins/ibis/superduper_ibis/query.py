@@ -185,13 +185,15 @@ class IbisQuery(Query):
         tables = self.db.databackend.list_tables_or_collections()
         if self._get_real_table(self.table) in tables:
             return
+        # TODO: Do we need to create the table?
         self.db.databackend.create_table_and_schema(
             self.table,
             self._get_schema(),
         )
 
     def _execute(self, parent, method="encode"):
-        q = super()._execute(parent, method=method)
+        parts = self._get_select_parts()
+        q = self._get_chain_native_query(parent, parts, method=method)
         try:
             output = q.execute()
         except Exception as e:
@@ -208,6 +210,32 @@ class IbisQuery(Query):
             id_field=component_table.primary_id,
             schema=self._get_schema(),
         )
+
+    def _get_select_parts(self):
+
+        parts = []
+        print("---------------")
+        print(self)
+        print(self.parts)
+        for part in self.parts:
+            if part[0] == 'filter':
+                new_filters = []
+                filters = part[1]
+                for filter_ in filters:
+                    if isinstance(filter_, IbisQuery):
+                        key = filter_.parts[0]
+                        if not isinstance(key, str):
+                            continue
+                        __import__('ipdb').set_trace()
+                        key = self._get_real_table(key)
+                        # filter_.parts[0] = key
+                    new_filters.append(filter_)
+                __import__('ipdb').set_trace()
+                part = (part[0], new_filters, part[2])
+            parts.append(part)
+
+        return parts
+
 
     @property
     def type(self):
